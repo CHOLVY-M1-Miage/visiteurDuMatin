@@ -1,0 +1,13 @@
+login: mg1_6
+mps: mg6
+
+fr.uga.miage.mg1_6:visiteur_du_matin
+
+46b9068eea61d0ae504cfd0297c7269ba8b526c3
+
+login: mg2_6
+mps: mg6
+
+
+fr.uga.miage.m1.my_project
+token: a58a2beb374c178a2e0fadc16604106ff32e35c5
