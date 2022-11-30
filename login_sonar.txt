@@ -1,13 +1,8 @@
-login: mg1_6
-mps: mg6
-
-fr.uga.miage.mg1_6:visiteur_du_matin
-
-46b9068eea61d0ae504cfd0297c7269ba8b526c3
-
 login: mg2_6
 mps: mg6
-
-
 fr.uga.miage.m1.my_project
 token: a58a2beb374c178a2e0fadc16604106ff32e35c5
+
+c4e2693476af1529ef9b6e18abb227424aef9d2c
+
+mvn clean verify sonar:sonar   -Dsonar.projectKey=fr.uga.miage.mg2_6:visiteur_du_matin   -Dsonar.host.url=http://im2ag-sonar.u-ga.fr:9000   -Dsonar.login=c4e2693476af1529ef9b6e18abb227424aef9d2c

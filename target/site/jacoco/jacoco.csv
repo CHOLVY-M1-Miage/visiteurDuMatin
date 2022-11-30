@@ -1,0 +1,18 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Persistence_g2_6,edu.uga.miage.m1.polygons.gui,JDrawingFrame,1004,0,58,0,223,0,54,0,23,0
+Persistence_g2_6,edu.uga.miage.m1.polygons.gui,JDrawingFrame.new ActionListener() {...},10,0,0,0,3,0,2,0,2,0
+Persistence_g2_6,edu.uga.miage.m1.polygons.gui,JDrawingFrame.new ActionListener() {...},10,0,0,0,3,0,2,0,2,0
+Persistence_g2_6,edu.uga.miage.m1.polygons.gui,JDrawingFrame.new ActionListener() {...},10,0,0,0,3,0,2,0,2,0
+Persistence_g2_6,edu.uga.miage.m1.polygons.gui,JDrawingFrame.new ActionListener() {...},10,0,0,0,3,0,2,0,2,0
+Persistence_g2_6,edu.uga.miage.m1.polygons.gui,GUIHelper.new WindowAdapter() {...},6,0,0,0,3,0,2,0,2,0
+Persistence_g2_6,edu.uga.miage.m1.polygons.gui,App,6,0,0,0,3,0,2,0,2,0
+Persistence_g2_6,edu.uga.miage.m1.polygons.gui,JDrawingFrame.Shapes,21,0,0,0,1,0,1,0,1,0
+Persistence_g2_6,edu.uga.miage.m1.polygons.gui,FileUtils,181,0,0,0,55,0,15,0,15,0
+Persistence_g2_6,edu.uga.miage.m1.polygons.gui,JDrawingFrame.ShapeActionListener,46,0,4,0,13,0,4,0,2,0
+Persistence_g2_6,edu.uga.miage.m1.polygons.gui,GUIHelper,21,0,0,0,7,0,2,0,2,0
+Persistence_g2_6,edu.uga.miage.m1.polygons.gui.persistence,JSonVisitor,47,78,4,0,10,10,3,5,1,5
+Persistence_g2_6,edu.uga.miage.m1.polygons.gui.persistence,XMLVisitor,47,78,4,0,10,10,3,5,1,5
+Persistence_g2_6,edu.uga.miage.m1.polygons.gui.shapes,GroupeShape,142,0,20,0,34,0,24,0,14,0
+Persistence_g2_6,edu.uga.miage.m1.polygons.gui.shapes,Triangle,226,27,4,0,40,8,12,4,10,4
+Persistence_g2_6,edu.uga.miage.m1.polygons.gui.shapes,Square,127,27,10,0,25,8,12,4,7,4
+Persistence_g2_6,edu.uga.miage.m1.polygons.gui.shapes,Circle,122,27,4,0,21,8,9,4,7,4

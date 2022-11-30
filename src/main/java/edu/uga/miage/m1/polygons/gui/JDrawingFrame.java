@@ -25,21 +25,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
 import javax.swing.*;
 
-import edu.uga.miage.m1.polygons.gui.persistence.JSonVisitor;
-import edu.uga.miage.m1.polygons.gui.persistence.XMLVisitor;
-import edu.uga.miage.m1.polygons.gui.shapes.Circle;
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
-import edu.uga.miage.m1.polygons.gui.shapes.Square;
-import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
+import edu.uga.miage.m1.polygons.gui.persistence.Json;
+import edu.uga.miage.m1.polygons.gui.persistence.Xml;
+import edu.uga.miage.m1.polygons.gui.shapes.*;
 
 
 /**
@@ -51,9 +44,9 @@ import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
 public class JDrawingFrame extends JFrame
         implements MouseListener, MouseMotionListener {
     private enum Shapes {SQUARE, TRIANGLE, CIRCLE}
-    private SimpleShape shapeSelected;
-
-    ;
+    private SimpleShape shapeDragged;
+    private SimpleShape shapeClicked;
+    private GroupeShape groupeShape;
     private List<SimpleShape> listeShapes;
     private static final long serialVersionUID = 1L;
     private JToolBar m_toolbar;
@@ -91,23 +84,110 @@ public class JDrawingFrame extends JFrame
         add(m_label, BorderLayout.SOUTH);
 
         // Add shapes in the menu
-        addShape(Shapes.SQUARE, new ImageIcon(getClass().getResource("images/square.png")));
-        addShape(Shapes.TRIANGLE, new ImageIcon(getClass().getResource("images/triangle.png")));
-        addShape(Shapes.CIRCLE, new ImageIcon(getClass().getResource("images/circle.png")));
-        exportXLMButton(new ImageIcon(getClass().getResource("images/xml.png")));
-        exportJSONButton(new ImageIcon(getClass().getResource("images/json.png")));
-        importXLMButton(new ImageIcon(getClass().getResource("images/xml.png")));
-        importJSonButton(new ImageIcon(getClass().getResource("images/json.png")));
+        addShape(Shapes.SQUARE, new ImageIcon(getClass().getResource("images/icones/square.png")));
+        addShape(Shapes.TRIANGLE, new ImageIcon(getClass().getResource("images/icones/triangle.png")));
+        addShape(Shapes.CIRCLE, new ImageIcon(getClass().getResource("images/icones/circle.png")));
+        exportXLMButton(new ImageIcon(getClass().getResource("images/icones/xmlExport.png")));
+        exportJSONButton(new ImageIcon(getClass().getResource("images/icones/jsonExport.png")));
+        importXLMButton(new ImageIcon(getClass().getResource("images/icones/xmlImport.png")));
+        importJSonButton(new ImageIcon(getClass().getResource("images/icones/jsonImport.png")));
 
         setPreferredSize(new Dimension(400, 400));
         this.listeShapes = new ArrayList<>();
+        this.groupeShape = null;
     }
 
+    private void exportXLMButton(Icon icon) {
+        JButton button = new JButton(icon);
+        button.setBorderPainted(false);
+        button.setActionCommand("exportXML");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Xml.exportXML(listeShapes);
+            }
+        });
+        m_toolbar.add(button);
+        m_toolbar.validate();
+        repaint();
+    }
+
+    private void importXLMButton(Icon icon) {
+        JButton button = new JButton(icon);
+        button.setBorderPainted(false);
+        button.setActionCommand("importXML");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listeShapes.clear();
+                graphiqueUpdate();
+                Graphics2D g2 = (Graphics2D) m_panel.getGraphics();
+                Xml.importXML(listeShapes,g2);
+                //graphiqieUpdate();
+            }
+        });
+        m_toolbar.add(button);
+        m_toolbar.validate();
+        repaint();
+    }
+
+    private void exportJSONButton(Icon icon) {
+        JButton button = new JButton(icon);
+        button.setBorderPainted(false);
+        button.setActionCommand("exportJSON");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Json.exportJSON(listeShapes);
+            }
+        });
+        m_toolbar.add(button);
+        m_toolbar.validate();
+        repaint();
+    }
+
+    private void importJSonButton(Icon icon) {
+        JButton button = new JButton(icon);
+        button.setBorderPainted(false);
+        button.setActionCommand("importJSon");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listeShapes.clear();
+                graphiqueUpdate();
+                Graphics2D g2 = (Graphics2D) m_panel.getGraphics();
+                Json.importJSon(listeShapes,g2);
+                //graphiqieUpdate();
+            }
+        });
+        m_toolbar.add(button);
+        m_toolbar.validate();
+        repaint();
+    }
+
+    public SimpleShape shapeSelecte(MouseEvent evt,boolean shapeUniquement){
+        //
+        if (this.listeShapes.isEmpty()) return null;
+        int i = 0;
+        while ((i < listeShapes.size()) && (!listeShapes.get(i).isSelect(evt.getX(),evt.getY()))){
+            i++;
+        }
+        return (i == listeShapes.size())? null : (shapeUniquement)? listeShapes.get(i).shapeSelect(evt.getX(),evt.getY()) : listeShapes.get(i);
+    }
+
+    public void graphiqueUpdate(){
+        Graphics2D g2 = (Graphics2D) m_panel.getGraphics();
+        m_panel.update(g2);
+        for (SimpleShape s: this.listeShapes){
+            System.out.println("Dessin de la figure: " + s);
+            s.draw(g2);
+        }
+    }
 
     /**
      * Injects an available <tt>SimpleShape</tt> into the drawing frame.
      *
-     * @param name The name of the injected <tt>SimpleShape</tt>.
+     * @param id The name of the injected <tt>SimpleShape</tt>.
      * @param icon The icon associated with the injected <tt>SimpleShape</tt>.
      **/
     private void addShape(Shapes shape, ImageIcon icon) {
@@ -126,249 +206,37 @@ public class JDrawingFrame extends JFrame
         repaint();
     }
 
-    /*
-     *Exporte le dessin au format XML
-     */
-    private void exportXLMButton(Icon icon) {
-        JButton button = new JButton(icon);
-        button.setBorderPainted(false);
-        button.setActionCommand("exportXML");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                exportXML();
+    private void groupShape(SimpleShape shapeClicked) {
+        if (shapeClicked != null) {
+            System.out.println("Fig: " + shapeClicked);
+
+            // Cr�ation du groupe de figures
+            if (this.groupeShape == null) {
+                this.groupeShape = new GroupeShape();
+                this.listeShapes.add(this.groupeShape);
             }
-        });
-        m_toolbar.add(button);
-        m_toolbar.validate();
-        repaint();
-    }
 
-    /*
-     *Génére le fichier XML du dessin dans le dossier xml
-     */
-    public void exportXML() {
-        XMLVisitor xmlVisitor = new XMLVisitor();
-        FileWriter fileWriter = FileUtils.fileWriter("xml");
-        //Ajout du xml head
-        FileUtils.xmlFileHead(fileWriter);
-
-        // Ajout des figures (boucle for)
-        for (SimpleShape s : listeShapes) {
-            s.accept(xmlVisitor);
-            try {
-                fileWriter.write(xmlVisitor.getRepresentation() + '\n');
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-
-        //Ajout des figures (stream)
-        /*
-        this.listeShapes.stream().map(
-                (SimpleShape s) -> {
-                    s.accept(xmlVisitor);
-                    FileUtils.write(fileWriter, xmlVisitor.getRepresentation());
-                    System.out.println(xmlVisitor.getRepresentation());
-                    return null;
+            // (De)Selecection la figure
+            if (this.groupeShape.getShapes().contains(shapeClicked)) {
+                // Sort la figure du groupe
+                this.listeShapes.add(shapeClicked);
+                this.groupeShape.remove(shapeClicked);
+                //Supprime groupeShape si vide
+                if (this.groupeShape.getShapes().isEmpty()){
+                    this.listeShapes.remove(this.groupeShape);
+                    this.groupeShape = null;
                 }
-        );*/
-        //Ajout du xml foot
-        FileUtils.xmlFileFoot(fileWriter);
-        //Fermeture du fichier
-        FileUtils.closer(fileWriter);
-    }
-
-    private void importXLMButton(Icon icon) {
-        JButton button = new JButton(icon);
-        button.setBorderPainted(false);
-        button.setActionCommand("importXML");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                importXML();
+            } else {
+                // Entre la figure du groupe
+                this.listeShapes.remove(shapeClicked);
+                this.groupeShape.add(shapeClicked);
             }
-        });
-        m_toolbar.add(button);
-        m_toolbar.validate();
-        repaint();
-    }
+            System.out.println("Shapes: " + this.listeShapes.toString());
+            if (this.groupeShape != null) System.out.println("Groupe: " + this.groupeShape.getShapes().toString());
 
-    public void importXML() {
-        String line;
-        try {
-            //Récupère le texte du fichier xml
-            BufferedReader lines = FileUtils.readFile("xml");
-            //Vérifier que l'entête du fichier est correcte.
-           if (FileUtils.estXMLHead(lines)){
-               System.out.println("Fichier xml valide");
-               line = FileUtils.readLine(lines);
-               while(!line.equals("</shapes>")){
-                   //Convertion des figures (format xml en obj SimpleShape)
-                   System.out.println("figure: " + line);
-                   //Récupération des figures (format xml)
-                   String[] shapeData = String.join(">",line.split("<")).split(">");
-                   System.out.println(String.format("SimpleShape: Type: %s X: %s Y: %s",shapeData[4],shapeData[8],shapeData[12]));
-                   createSimpleShape(shapeData[4],Integer.parseInt(shapeData[8]),Integer.parseInt(shapeData[12]));
-                   //Passe à la figure suivante
-                   line = FileUtils.readLine(lines);
-
-               }
-               //Vérifie que le fichier xml se termine correctement
-               if (FileUtils.estXMLFoot(lines)){
-                   System.out.println("Importation réalisée avec succès");
-               }
-               else {
-                   System.out.println("Fichier xml Invalide");
-                   this.listeShapes.clear();
-               }
-           }
-           else {
-               System.out.println("Attention le fichier n'est pas un xml valide.");
-               this.listeShapes.clear();
-           }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            // Met � jour le dessin
+            graphiqueUpdate();
         }
-    }
-
-    private void exportJSONButton(Icon icon) {
-        JButton button = new JButton(icon);
-        button.setBorderPainted(false);
-        button.setActionCommand("exportJSON");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                exportJSON();
-            }
-        });
-        m_toolbar.add(button);
-        m_toolbar.validate();
-        repaint();
-    }
-
-    /*
-     *Génére le fichier JSON du dessin dans le dossier JSON
-     */
-    public String jsonVirgule(SimpleShape s){
-        return (s.equals(this.listeShapes.get(listeShapes.size() - 1))) ? "" : ",";
-    }
-
-    public void exportJSON() {
-        JSonVisitor jsonVisitor = new JSonVisitor();
-        FileWriter fileWriter = FileUtils.fileWriter("json");
-        //Ajout du json head
-        FileUtils.jsonFileHead(fileWriter);
-
-        // Ajout des figures (boucle for)
-        for (SimpleShape s : listeShapes) {
-            s.accept(jsonVisitor);
-            try {
-                fileWriter.write(jsonVisitor.getRepresentation() + jsonVirgule(s) + '\n');
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-
-        //Ajout du json foot
-        FileUtils.jsonFileFoot(fileWriter);
-        //Fermeture du fichier
-        FileUtils.closer(fileWriter);
-    }
-
-    private void importJSonButton(Icon icon) {
-        JButton button = new JButton(icon);
-        button.setBorderPainted(false);
-        button.setActionCommand("importJSon");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                importJSon();
-            }
-        });
-        m_toolbar.add(button);
-        m_toolbar.validate();
-        repaint();
-    }
-
-    public void importJSon() {
-        String line;
-        try {
-            //Récupère le texte du fichier Json
-            BufferedReader lines = FileUtils.readFile("json");
-            //Vérifier que l'entête du fichier est correcte.
-            if (FileUtils.estJSonHead(lines)){
-                System.out.println("Fichier json valide");
-                line = FileUtils.readLine(lines);
-                while(!line.equals("]")){
-                    //Convertion des figures (format xml en obj SimpleShape)
-                    System.out.println("figure: " + line);
-                    //Récupération des figures (format xml)
-                    String[] shapeData = line.split(",");
-                    String type = shapeData[0].split("\"")[3];
-                    int cordX = Integer.parseInt(shapeData[1].split(": ")[1]);
-                    int cordY = Integer.parseInt(shapeData[2].split(": ")[1].split("}")[0]);
-                    System.out.println(String.format("SimpleShape: Type: %s X: %s Y: %s",type,cordX,cordY));
-                    createSimpleShape(type,cordX,cordY);
-                    //Passe à la figure suivante
-                    line = FileUtils.readLine(lines);
-                }
-                //Vérifie que le fichier xml se termine correctement
-                if (FileUtils.estJSonFoot(lines)){
-                    System.out.println("Importation réalisée avec succès");
-                }
-                else {
-                    System.out.println("Fichier json Invalide");
-                    this.listeShapes.clear();
-                }
-            }
-            else {
-                System.out.println("Attention le fichier n'est pas un json valide.");
-                this.listeShapes.clear();
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Crée et dessine la figure
-     */
-    public void createSimpleShape(String type,int x,int y){
-        Graphics2D g2 = (Graphics2D) m_panel.getGraphics();
-        SimpleShape figure;
-        switch (type.toUpperCase()) {
-            case "CIRCLE":
-                figure = new Circle(x, y);
-                figure.draw(g2);
-                break;
-            case "TRIANGLE":
-                figure = new Triangle(x, y);
-                figure.draw(g2);
-                break;
-            case "SQUARE":
-                figure = new Square(x, y);
-                figure.draw(g2);
-                break;
-            default:
-                System.out.println("No shape named " + m_selected);
-                figure = null;
-
-        }
-        this.listeShapes.add(figure);
-    }
-
-    public SimpleShape shapeSelecte(MouseEvent evt){
-        //
-        if (this.listeShapes.isEmpty()) return null;
-        int i = 0;
-        while ((i < listeShapes.size()) && (!listeShapes.get(i).isSelect(evt.getX(),evt.getY()))){
-            i++;
-        }
-
-        return (i == listeShapes.size())? null : listeShapes.get(i);
     }
 
     /**
@@ -379,8 +247,9 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseClicked(MouseEvent evt) {
-        this.shapeSelected = shapeSelecte(evt);
-        if ((this.shapeSelected == null) && (m_panel.contains(evt.getX(), evt.getY()))) {
+        this.shapeClicked = shapeSelecte(evt,true);
+        groupShape(this.shapeClicked);
+        if ((this.shapeClicked == null) && (m_panel.contains(evt.getX(), evt.getY()))) {
             Graphics2D g2 = (Graphics2D) m_panel.getGraphics();
             SimpleShape figure;
             switch (m_selected) {
@@ -431,7 +300,7 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mousePressed(MouseEvent evt) {
-        this.shapeSelected = shapeSelecte(evt);
+        this.shapeDragged = shapeSelecte(evt,false);
     }
 
     /**
@@ -441,8 +310,7 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseReleased(MouseEvent evt) {
-        this.shapeSelected = null;
-
+        this.shapeDragged = null;
     }
 
     /**
@@ -452,14 +320,14 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseDragged(MouseEvent evt) {
-        Graphics2D g2 = (Graphics2D) m_panel.getGraphics();
-        if (this.shapeSelected != null){
-            this.shapeSelected.setX(evt.getX());
-            this.shapeSelected.setY(evt.getY());
-            update(g2);
-            for (SimpleShape s: this.listeShapes){
-                s.draw(g2);
-            }
+        if ((this.shapeDragged != null) && (this.shapeDragged.shapeSelect(evt.getX(),evt.getY()) != null)){
+            int deltaX = evt.getX() - this.shapeDragged.shapeSelect(evt.getX(),evt.getY()).getX();
+            int deltaY = evt.getY() - this.shapeDragged.shapeSelect(evt.getX(),evt.getY()).getY();
+            System.out.println("Souris X: " + evt.getX() + " Y: " + evt.getY());
+            System.out.println("Fig X: " + this.shapeDragged.getX() + " Y: " + this.shapeDragged.getY());
+            System.out.println("Delta X: " + deltaX + " Y: " + deltaY);
+            this.shapeDragged.move(deltaX,deltaY);
+            graphiqueUpdate();
             //System.out.println(this.shapeSelected.toString());
         }
     }
@@ -486,7 +354,7 @@ public class JDrawingFrame extends JFrame
     private class ShapeActionListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             int cmp = 0;
-            // Itère sur tous les boutons
+            // It�re sur tous les boutons
             Iterator<Shapes> keys = m_buttons.keySet().iterator();
             while (keys.hasNext()) {
                 Shapes shape = keys.next();

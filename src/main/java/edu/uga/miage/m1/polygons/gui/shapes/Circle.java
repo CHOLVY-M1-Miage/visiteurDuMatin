@@ -23,6 +23,7 @@ import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitable;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
@@ -43,13 +44,19 @@ public class Circle implements SimpleShape, Visitable {
      * the shape.
      * @param g2 The graphics object used for painting.
      */
-    public void draw(Graphics2D g2) {
+
+    public void draw(Graphics2D g2){
+        this.draw(g2,false);
+    }
+
+    public void draw(Graphics2D g2,boolean estDansGroupe) {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         GradientPaint gradient = new GradientPaint(m_x, m_y, Color.RED, m_x + 50, m_y, Color.WHITE);
         g2.setPaint(gradient);
         g2.fill(new Ellipse2D.Double(m_x, m_y, 50, 50));
-        BasicStroke wideStroke = new BasicStroke(2.0f);
-        g2.setColor(Color.black);
+        BasicStroke wideStroke = new BasicStroke(4.0f);
+        Color bordure = (estDansGroupe) ? Color.red : Color.black;
+        g2.setColor(bordure);
         g2.setStroke(wideStroke);
         g2.draw(new Ellipse2D.Double(m_x, m_y, 50, 50));
     }
@@ -80,9 +87,20 @@ public class Circle implements SimpleShape, Visitable {
     }
 
     @Override
+    public void move(int deltaX,int deltaY){
+        this.setX(this.m_x + deltaX);
+        this.setY(this.m_y + deltaY);
+    }
+
+    @Override
     public boolean isSelect(int coordX,int coordY){
         //System.out.println("Cercle :"+ " " + this.getX()+ " " +this.getY());
         //System.out.println("distance Centre: " + Math.sqrt(Math.pow((coordX - this.getX()),2) + Math.pow((coordY - this.getY()),2)));
         return 25 > Math.sqrt(Math.pow((coordX - this.getX()),2) + Math.pow((coordY - this.getY()),2));
+    }
+
+    @Override
+    public SimpleShape shapeSelect(int x, int y){
+        return this;
     }
 }

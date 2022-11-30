@@ -23,7 +23,11 @@ import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
 import java.awt.geom.GeneralPath;
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.uga.miage.m1.polygons.gui.persistence.Visitable;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
@@ -49,7 +53,10 @@ public class Triangle implements SimpleShape, Visitable {
      * the shape.
      * @param g2 The graphics object used for painting.
      */
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2){
+        this.draw(g2,false);
+    }
+    public void draw(Graphics2D g2,boolean estDansGroupe) {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         GradientPaint gradient = new GradientPaint(m_x, m_y, Color.GREEN, m_x + 50, m_y, Color.WHITE);
         g2.setPaint(gradient);
@@ -62,8 +69,9 @@ public class Triangle implements SimpleShape, Visitable {
         }
         polygon.closePath();
         g2.fill(polygon);
-        BasicStroke wideStroke = new BasicStroke(2.0f);
-        g2.setColor(Color.black);
+        BasicStroke wideStroke = new BasicStroke(4.0f);
+        Color bordure = (estDansGroupe) ? Color.red : Color.black;
+        g2.setColor(bordure);
         g2.setStroke(wideStroke);
         g2.draw(polygon);
     }
@@ -71,11 +79,11 @@ public class Triangle implements SimpleShape, Visitable {
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
-    // TODO
     }
 
     @Override
     public int getX() {
+        //System.out.println("->X "+ (m_x+25));
         return m_x + 25;
     }
 
@@ -86,6 +94,7 @@ public class Triangle implements SimpleShape, Visitable {
 
     @Override
     public int getY() {
+        //System.out.println("->Y "+ (m_y+25));
         return m_y + 25;
     }
 
@@ -94,8 +103,77 @@ public class Triangle implements SimpleShape, Visitable {
         this.m_y = Y;
     }
 
+    //Retourne le sommet haut
+    public List<Integer> getA (){
+        List<Integer> coord = new ArrayList<Integer>();
+        coord.add(this.getX());
+        coord.add(this.getY() - 25);
+        return coord;
+    }
+
+    public int getAx(){
+        return this.getA().get(0);
+    }
+
+    public int getAy(){
+        return this.getA().get(1);
+    }
+
+    //Retourne le sommet gauche
+    public List<Integer> getB (){
+        List<Integer> coord = new ArrayList<Integer>();
+        coord.add(this.getX() - 25);
+        coord.add(this.getY() + 25);
+        return coord;
+    }
+
+    public int getBx(){
+        return this.getB().get(0);
+    }
+
+    public int getBy(){
+        return this.getB().get(1);
+    }
+
+    //Retourne le sommet droite
+    public List<Integer> getC (){
+        List<Integer> coord = new ArrayList<Integer>();
+        coord.add(this.getX() + 25);
+        coord.add(this.getY() + 25);
+        return coord;
+    }
+
+    public int getCx(){
+        return this.getC().get(0);
+    }
+
+    public int getCy(){
+        return this.getC().get(1);
+    }
+    @Override
+    public void move(int deltaX,int deltaY){
+        this.setX(this.m_x + deltaX);
+        this.setY(this.m_y + deltaY);
+    }
+
     @Override
     public boolean isSelect(int coordX, int coordY){
-        return false;
+        /*
+        System.out.println("---");
+        System.out.println("->(1)"+ ( ( (getAx()) - (coordX) ) * ( (getBy()) - (coordY)) - ( (getAy()) - (coordY)) * ( (getBx()) - (coordX))));
+        System.out.println("->(2)"+ ( ( (getBx()) - (coordX) ) * ( (getCy()) - (coordY)) - ( (getBy()) - (coordY)) * ( (getCx()) - (coordX))));
+        System.out.println("->(3)"+ ( ( (getCx()) - (coordX) ) * ( (getAy()) - (coordY)) - ( (getCy()) - (coordY)) * ( (getAx()) - (coordX))));
+        System.out.println("---");
+         */
+        return (
+                        ( ( (getAx()) - (coordX) ) * ( (getBy()) - (coordY)) - ( (getAy()) - (coordY)) * ( (getBx()) - (coordX))) < 0 &&
+                        ( ( (getBx()) - (coordX) ) * ( (getCy()) - (coordY)) - ( (getBy()) - (coordY)) * ( (getCx()) - (coordX))) < 0 &&
+                        ( ( (getCx()) - (coordX) ) * ( (getAy()) - (coordY)) - ( (getCy()) - (coordY)) * ( (getAx()) - (coordX))) < 0
+                );
+    }
+
+    @Override
+    public SimpleShape shapeSelect(int x, int y){
+        return this;
     }
 }

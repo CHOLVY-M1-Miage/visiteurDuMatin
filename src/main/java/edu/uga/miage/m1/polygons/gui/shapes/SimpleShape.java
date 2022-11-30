@@ -3,6 +3,7 @@ package edu.uga.miage.m1.polygons.gui.shapes;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 
 /**
  * This interface defines the <tt>SimpleShape</tt> extension. This extension
@@ -19,7 +20,8 @@ public interface SimpleShape
      * @param g2 The graphics object used for painting.
      **/
     void draw(Graphics2D g2);
-    
+    void draw(Graphics2D g2,boolean estDansGroupe);
+
     int getX();
 
     void setX(int x);
@@ -30,5 +32,9 @@ public interface SimpleShape
 
     void accept(Visitor visitor);
 
+    void move(int deltaX,int deltaY);
+
     boolean isSelect(int coordX,int coordY);
+
+    SimpleShape shapeSelect(int x, int y);
 }
