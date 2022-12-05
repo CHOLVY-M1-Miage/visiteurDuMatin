@@ -1,5 +1,6 @@
 package edu.uga.miage.m1.polygons.gui.persistence;
 
+import static edu.uga.miage.m1.polygons.gui.file.JsonFile.jsonFromString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -88,14 +89,5 @@ class JSonVisitorTest {
 		}
 		JsonObject jObject = jsonFromString(representation);
 		assertEquals(expectedRepresentation, jObject.toString());
-	}
-
-	private static JsonObject jsonFromString(String jsonObjectStr) {
-
-	    JsonReader jsonReader = Json.createReader(new StringReader(jsonObjectStr));
-	    JsonObject object = jsonReader.readObject();
-	    jsonReader.close();
-
-	    return object;
 	}
 }

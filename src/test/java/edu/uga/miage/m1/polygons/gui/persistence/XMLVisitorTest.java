@@ -1,5 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.persistence;
 
+import static edu.uga.miage.m1.polygons.gui.file.XmlFile.convertStringToXml;
+import static edu.uga.miage.m1.polygons.gui.file.XmlFile.convertXmlToString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -96,41 +98,4 @@ class XMLVisitorTest {
 		Document document = convertStringToXml(representation);
 		assertEquals(expectedRepresentation, convertXmlToString(document));
 	}
-
-	private static String convertXmlToString(Document doc) {
-        DOMSource domSource = new DOMSource(doc);
-        StringWriter writer = new StringWriter();
-        StreamResult result = new StreamResult(writer);
-        TransformerFactory tf = TransformerFactory.newInstance();
-        Transformer transformer = null;
-        try {
-            transformer = tf.newTransformer();
-            transformer.transform(domSource, result);
-        } catch (TransformerException e) {
-            throw new RuntimeException(e);
-        }
-        return writer.toString();
-    }
-
-    private static Document convertStringToXml(String xmlString) {
-
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-
-        try {
-
-            // optional, but recommended
-            // process XML securely, avoid attacks like XML External Entities (XXE)
-            dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-
-            DocumentBuilder builder = dbf.newDocumentBuilder();
-
-            Document doc = builder.parse(new InputSource(new StringReader(xmlString)));
-
-            return doc;
-
-        } catch (ParserConfigurationException | IOException | SAXException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
  }
