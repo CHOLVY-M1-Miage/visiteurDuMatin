@@ -30,6 +30,7 @@ import java.util.List;
 
 import javax.swing.*;
 
+import edu.uga.miage.m1.polygons.gui.commands.draw;
 import edu.uga.miage.m1.polygons.gui.persistence.Json;
 import edu.uga.miage.m1.polygons.gui.persistence.Xml;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
@@ -48,6 +49,9 @@ public class JDrawingFrame extends JFrame
     private SimpleShape shapeClicked;
     private GroupeShape groupeShape;
     private List<SimpleShape> listeShapes;
+
+    private static RemoteControl remote;
+
     private static final long serialVersionUID = 1L;
     private JToolBar m_toolbar;
     private Shapes m_selected;
@@ -84,17 +88,19 @@ public class JDrawingFrame extends JFrame
         add(m_label, BorderLayout.SOUTH);
 
         // Add shapes in the menu
-        addShape(Shapes.SQUARE, new ImageIcon(getClass().getResource("images/icones/square.png")));
-        addShape(Shapes.TRIANGLE, new ImageIcon(getClass().getResource("images/icones/triangle.png")));
-        addShape(Shapes.CIRCLE, new ImageIcon(getClass().getResource("images/icones/circle.png")));
-        exportXLMButton(new ImageIcon(getClass().getResource("images/icones/xmlExport.png")));
-        exportJSONButton(new ImageIcon(getClass().getResource("images/icones/jsonExport.png")));
-        importXLMButton(new ImageIcon(getClass().getResource("images/icones/xmlImport.png")));
-        importJSonButton(new ImageIcon(getClass().getResource("images/icones/jsonImport.png")));
+        addShape(Shapes.SQUARE, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/square.png"))));
+        addShape(Shapes.TRIANGLE, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/triangle.png"))));
+        addShape(Shapes.CIRCLE, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/circle.png"))));
+        exportXLMButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/xmlExport.png"))));
+        exportJSONButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/jsonExport.png"))));
+        importXLMButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/xmlImport.png"))));
+        importJSonButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/jsonImport.png"))));
 
         setPreferredSize(new Dimension(400, 400));
         this.listeShapes = new ArrayList<>();
         this.groupeShape = null;
+        remote = new RemoteControl(this.listeShapes);
+
     }
 
     private void exportXLMButton(Icon icon) {
@@ -255,22 +261,25 @@ public class JDrawingFrame extends JFrame
             switch (m_selected) {
                 case CIRCLE:
                     figure = new Circle(evt.getX(), evt.getY());
-                    figure.draw(g2);
+                    //figure.draw(g2);
                     break;
                 case TRIANGLE:
                     figure = new Triangle(evt.getX(), evt.getY());
-                    figure.draw(g2);
+                    //figure.draw(g2);
                     break;
                 case SQUARE:
                     figure = new Square(evt.getX(), evt.getY());
-                    figure.draw(g2);
+                    //figure.draw(g2);
                     break;
                 default:
                     System.out.println("No shape named " + m_selected);
                     figure = null;
 
             }
-            this.listeShapes.add(figure);
+            System.out.println("ICI");
+            remote.addCommand(new draw (g2,figure,this.listeShapes));
+            remote.play();
+            //this.listeShapes.add(figure);
         }
     }
 
