@@ -44,7 +44,7 @@ import edu.uga.miage.m1.polygons.gui.shapes.*;
  */
 public class JDrawingFrame extends JFrame
         implements MouseListener, MouseMotionListener {
-    private enum Shapes {SQUARE, TRIANGLE, CIRCLE}
+    private enum Shapes {SQUARE, TRIANGLE, CIRCLE, BINOME}
     private SimpleShape shapeDragged;
     private SimpleShape shapeClicked;
     private GroupeShape groupeShape;
@@ -91,6 +91,7 @@ public class JDrawingFrame extends JFrame
         addShape(Shapes.SQUARE, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/square.png"))));
         addShape(Shapes.TRIANGLE, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/triangle.png"))));
         addShape(Shapes.CIRCLE, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/circle.png"))));
+        addShape(Shapes.BINOME, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/luffyHat.png"))));
         exportXLMButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/xmlExport.png"))));
         exportJSONButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/jsonExport.png"))));
         importXLMButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/xmlImport.png"))));
@@ -269,6 +270,10 @@ public class JDrawingFrame extends JFrame
                     break;
                 case SQUARE:
                     figure = new Square(evt.getX(), evt.getY());
+                    //figure.draw(g2);
+                    break;
+                case BINOME:
+                    figure = new Binome(evt.getX(), evt.getY());
                     //figure.draw(g2);
                     break;
                 default:

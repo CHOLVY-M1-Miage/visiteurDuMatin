@@ -36,6 +36,11 @@ public class JSonVisitor implements Visitor {
     }
 
     @Override
+    public void visit(Binome binome) {
+        this.representation = String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "binome", binome.getX(), binome.getY());
+    }
+
+    @Override
     public void visit(GroupeShape shapes) {
         JSonVisitor visitor = new JSonVisitor();
         List<SimpleShape> listeShapes = shapes.getShapes();

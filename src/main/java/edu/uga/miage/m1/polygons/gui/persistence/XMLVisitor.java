@@ -35,6 +35,11 @@ public class XMLVisitor implements Visitor {
     }
 
     @Override
+    public void visit(Binome binome){
+        this.representation = String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "binome", binome.getX(), binome.getY());
+    }
+
+    @Override
     public void visit(GroupeShape shapes) {
         XMLVisitor visitor =new XMLVisitor();
         List<SimpleShape> listeShapes = shapes.getShapes();

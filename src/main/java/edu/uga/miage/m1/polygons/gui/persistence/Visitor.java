@@ -1,9 +1,6 @@
 package edu.uga.miage.m1.polygons.gui.persistence;
 
-import edu.uga.miage.m1.polygons.gui.shapes.Circle;
-import edu.uga.miage.m1.polygons.gui.shapes.Square;
-import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
-import edu.uga.miage.m1.polygons.gui.shapes.GroupeShape;
+import edu.uga.miage.m1.polygons.gui.shapes.*;
 
 import java.io.BufferedReader;
 import java.io.FileWriter;
@@ -18,6 +15,7 @@ public interface Visitor {
 	public void visit(Square square);
 	public void visit(Triangle triangle);
     public void visit(GroupeShape shapes);
+	public void visit(Binome binome);
 
 	public void head(FileWriter fileWriter);
 
@@ -26,5 +24,4 @@ public interface Visitor {
 	public boolean estHead(BufferedReader lines);
 
 	public boolean estFoot(BufferedReader lines);
-
 }
