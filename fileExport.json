@@ -4,7 +4,7 @@
 {"type": "square", "x": 103,"y": 98},
 {"type": "square", "x": 164,"y": 153},
 {"type": "triangle", "x": 238,"y": 212},
-{"type": "triangle", "x": 310,"y": 249},
-{"type": "circle", "x": 319,"y": 73}
+{"type": "triangle", "x": 310,"y": 240},
+{"type": "circle", "x": 338,"y": 73}
 ]
 }

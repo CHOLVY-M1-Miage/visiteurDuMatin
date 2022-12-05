@@ -145,7 +145,7 @@ public class JDrawingFrame extends JFrame
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Json.exportJSON(listeShapes);
+                Json.exportJSON(listeShapes,"Json/fileAuto.json");
             }
         });
         m_toolbar.add(button);

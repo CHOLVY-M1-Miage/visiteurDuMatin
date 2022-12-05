@@ -44,7 +44,7 @@ public class Json {
         return (s.equals(listeShapes.get(listeShapes.size() - 1))) ? "" : ",";
     }
 
-    public static void exportJSON(List<SimpleShape> listeShapes) {
+    public static void exportJSON(List<SimpleShape> listeShapes,String path) {
         JSonVisitor jsonVisitor = new JSonVisitor();
         FileWriter fileWriter = FileUtils.fileWriter("json");
         //Ajout du json head
