@@ -17,6 +17,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import edu.uga.miage.m1.polygons.gui.shapes.Binome;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -75,6 +76,22 @@ class XMLVisitorTest {
 		representation = visitor.getRepresentation();
 		if (representation == null) {
 			fail("The visitor sequence must be implemented for the square");
+		}
+		Document document = convertStringToXml(representation);
+		assertEquals(expectedRepresentation, convertXmlToString(document));
+	}
+
+	@Test
+	void test_binome_visitor() {
+		var b = new Binome(0, 0);
+		String representation =
+				String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "binome", b.getX(), b.getY());
+		String expectedRepresentation = convertXmlToString(convertStringToXml(representation));
+		XMLVisitor visitor = new XMLVisitor();
+		b.accept(visitor);
+		representation = visitor.getRepresentation();
+		if (representation == null) {
+			fail("The visitor sequence must be implemented for the binome");
 		}
 		Document document = convertStringToXml(representation);
 		assertEquals(expectedRepresentation, convertXmlToString(document));

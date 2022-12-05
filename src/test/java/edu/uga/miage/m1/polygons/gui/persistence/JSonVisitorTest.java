@@ -9,6 +9,7 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
+import edu.uga.miage.m1.polygons.gui.shapes.Binome;
 import org.junit.jupiter.api.Test;
 
 import edu.uga.miage.m1.polygons.gui.shapes.Circle;
@@ -67,6 +68,23 @@ class JSonVisitorTest {
 		representation = visitor.getRepresentation();
 		if (representation == null) {
 			fail("The visitor sequence must be implemented for the square");
+		}
+		JsonObject jObject = jsonFromString(representation);
+		assertEquals(expectedRepresentation, jObject.toString());
+	}
+
+	@Test
+	void test_binome_visitor() {
+		var b = new Binome(0, 0);
+		String representation =
+				String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "binome", b.getX(), b.getY());
+		String expectedRepresentation = jsonFromString(representation).toString();
+
+		JSonVisitor visitor = new JSonVisitor();
+		b.accept(visitor);
+		representation = visitor.getRepresentation();
+		if (representation == null) {
+			fail("The visitor sequence must be implemented for the binome");
 		}
 		JsonObject jObject = jsonFromString(representation);
 		assertEquals(expectedRepresentation, jObject.toString());

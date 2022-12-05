@@ -34,6 +34,7 @@ public class Binome implements SimpleShape{
         g2.setColor(bordure);
         g2.setStroke(wideStroke);
         g2.draw(new Rectangle2D.Double(m_x, m_y, 50, 50));
+        //TODO
     }
 
     @Override
