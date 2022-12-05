@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>XmlFile.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Persistence_g2_6</a> &gt; <a href="index.source.html" class="el_package">edu.uga.miage.m1.polygons.gui.file</a> &gt; <span class="el_source">XmlFile.java</span></div><h1>XmlFile.java</h1><pre class="source lang-java linenums">package edu.uga.miage.m1.polygons.gui.file;
+
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+
+<span class="nc" id="L20">public class XmlFile {</span>
+    public static String convertXmlToString(Document doc) {
+<span class="fc" id="L22">        DOMSource domSource = new DOMSource(doc);</span>
+<span class="fc" id="L23">        StringWriter writer = new StringWriter();</span>
+<span class="fc" id="L24">        StreamResult result = new StreamResult(writer);</span>
+<span class="fc" id="L25">        TransformerFactory tf = TransformerFactory.newInstance();</span>
+<span class="fc" id="L26">        Transformer transformer = null;</span>
+        try {
+<span class="fc" id="L28">            transformer = tf.newTransformer();</span>
+<span class="fc" id="L29">            transformer.transform(domSource, result);</span>
+<span class="nc" id="L30">        } catch (TransformerException e) {</span>
+<span class="nc" id="L31">            throw new RuntimeException(e);</span>
+<span class="fc" id="L32">        }</span>
+<span class="fc" id="L33">        return writer.toString();</span>
+    }
+
+    public static Document convertStringToXml(String xmlString) {
+
+<span class="fc" id="L38">        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();</span>
+
+        try {
+
+            // optional, but recommended
+            // process XML securely, avoid attacks like XML External Entities (XXE)
+<span class="fc" id="L44">            dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);</span>
+
+<span class="fc" id="L46">            DocumentBuilder builder = dbf.newDocumentBuilder();</span>
+
+<span class="fc" id="L48">            Document doc = builder.parse(new InputSource(new StringReader(xmlString)));</span>
+
+<span class="fc" id="L50">            return doc;</span>
+
+<span class="nc" id="L52">        } catch (ParserConfigurationException | IOException | SAXException e) {</span>
+<span class="nc" id="L53">            throw new RuntimeException(e);</span>
+        }
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

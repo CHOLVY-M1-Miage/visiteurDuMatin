@@ -2,46 +2,56 @@
 
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
+
+import static edu.uga.miage.m1.polygons.gui.file.FileUtils.*;
 
 /**
  * @author &lt;a href=&quot;mailto:christophe.saint-marcel@univ-grenoble-alpes.fr&quot;&gt;Christophe&lt;/a&gt;
  */
 public class XMLVisitor implements Visitor {
 
-<span class="fc" id="L12">    private String representation = &quot;&quot;;</span>
+<span class="fc" id="L17">    private String representation = &quot;&quot;;</span>
 
-<span class="fc" id="L14">    public XMLVisitor() {</span>
-<span class="fc" id="L15">    }</span>
-
-    @Override
-    public void visit(Circle circle) {
-<span class="fc" id="L19">        this.representation = String.format(&quot;&lt;shape&gt;&lt;type&gt;%s&lt;/type&gt;&lt;x&gt;%d&lt;/x&gt;&lt;y&gt;%d&lt;/y&gt;&lt;/shape&gt;&quot;, &quot;circle&quot;, circle.getX(), circle.getY());</span>
+<span class="fc" id="L19">    public XMLVisitor() {</span>
 <span class="fc" id="L20">    }</span>
 
     @Override
-    public void visit(Square square) {
-<span class="fc" id="L24">        this.representation = String.format(&quot;&lt;shape&gt;&lt;type&gt;%s&lt;/type&gt;&lt;x&gt;%d&lt;/x&gt;&lt;y&gt;%d&lt;/y&gt;&lt;/shape&gt;&quot;, &quot;square&quot;, square.getX(), square.getY());</span>
+    public void visit(Circle circle) {
+<span class="fc" id="L24">        this.representation = String.format(&quot;&lt;shape&gt;&lt;type&gt;%s&lt;/type&gt;&lt;x&gt;%d&lt;/x&gt;&lt;y&gt;%d&lt;/y&gt;&lt;/shape&gt;&quot;, &quot;circle&quot;, circle.getX(), circle.getY());</span>
 <span class="fc" id="L25">    }</span>
 
     @Override
-    public void visit(Triangle triangle) {
-<span class="fc" id="L29">        this.representation = String.format(&quot;&lt;shape&gt;&lt;type&gt;%s&lt;/type&gt;&lt;x&gt;%d&lt;/x&gt;&lt;y&gt;%d&lt;/y&gt;&lt;/shape&gt;&quot;, &quot;triangle&quot;, triangle.getX(), triangle.getY());</span>
+    public void visit(Square square) {
+<span class="fc" id="L29">        this.representation = String.format(&quot;&lt;shape&gt;&lt;type&gt;%s&lt;/type&gt;&lt;x&gt;%d&lt;/x&gt;&lt;y&gt;%d&lt;/y&gt;&lt;/shape&gt;&quot;, &quot;square&quot;, square.getX(), square.getY());</span>
 <span class="fc" id="L30">    }</span>
 
     @Override
+    public void visit(Triangle triangle) {
+<span class="fc" id="L34">        this.representation = String.format(&quot;&lt;shape&gt;&lt;type&gt;%s&lt;/type&gt;&lt;x&gt;%d&lt;/x&gt;&lt;y&gt;%d&lt;/y&gt;&lt;/shape&gt;&quot;, &quot;triangle&quot;, triangle.getX(), triangle.getY());</span>
+<span class="fc" id="L35">    }</span>
+
+    @Override
+    public void visit(Binome binome){
+<span class="fc" id="L39">        this.representation = String.format(&quot;&lt;shape&gt;&lt;type&gt;%s&lt;/type&gt;&lt;x&gt;%d&lt;/x&gt;&lt;y&gt;%d&lt;/y&gt;&lt;/shape&gt;&quot;, &quot;binome&quot;, binome.getX(), binome.getY());</span>
+<span class="fc" id="L40">    }</span>
+
+    @Override
     public void visit(GroupeShape shapes) {
-<span class="nc" id="L34">        XMLVisitor visitor =new XMLVisitor();</span>
-<span class="nc" id="L35">        List&lt;SimpleShape&gt; listeShapes = shapes.getShapes();</span>
-<span class="nc" id="L36">        SimpleShape lastShape = listeShapes.get(listeShapes.size() - 1);</span>
-<span class="nc bnc" id="L37" title="All 2 branches missed.">        for (SimpleShape s: shapes.getShapes()){</span>
-<span class="nc" id="L38">            s.accept(visitor);</span>
-<span class="nc" id="L39">            this.representation += visitor.getRepresentation();</span>
-<span class="nc bnc" id="L40" title="All 2 branches missed.">            if (!s.equals(lastShape)){</span>
-<span class="nc" id="L41">                this.representation += &quot;\n&quot;;</span>
+<span class="nc" id="L44">        XMLVisitor visitor =new XMLVisitor();</span>
+<span class="nc" id="L45">        List&lt;SimpleShape&gt; listeShapes = shapes.getShapes();</span>
+<span class="nc" id="L46">        SimpleShape lastShape = listeShapes.get(listeShapes.size() - 1);</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        for (SimpleShape s: shapes.getShapes()){</span>
+<span class="nc" id="L48">            s.accept(visitor);</span>
+<span class="nc" id="L49">            this.representation += visitor.getRepresentation();</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">            if (!s.equals(lastShape)){</span>
+<span class="nc" id="L51">                this.representation += &quot;\n&quot;;</span>
             }
-<span class="nc" id="L43">        }</span>
-<span class="nc" id="L44">    }</span>
+<span class="nc" id="L53">        }</span>
+<span class="nc" id="L54">    }</span>
 
     /**
      * @return the representation in JSon example for a Triangle:
@@ -57,7 +67,48 @@ public class XMLVisitor implements Visitor {
      * &lt;/pre&gt;
      */
     public String getRepresentation() {
-<span class="fc" id="L60">        return representation;</span>
+<span class="fc" id="L70">        return representation;</span>
+    }
+
+    @Override
+    public void head(FileWriter fileWriter) {
+<span class="nc" id="L75">        write(fileWriter,</span>
+                &quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot; ?&gt;\n&quot; +
+                        &quot;&lt;root&gt;\n&quot; +
+                        &quot;&lt;shapes&gt;\n&quot;
+        );
+<span class="nc" id="L80">    }</span>
+
+    @Override
+    public void foot(FileWriter fileWriter) {
+<span class="nc" id="L84">        write(fileWriter,</span>
+                &quot;&lt;/shapes&gt;\n&quot; +
+                        &quot;&lt;/root&gt;&quot;);
+<span class="nc" id="L87">    }</span>
+
+    @Override
+    public boolean estHead(BufferedReader lines){
+        try {
+<span class="nc" id="L92">            String head = lines.readLine() + lines.readLine() + lines.readLine();</span>
+<span class="nc" id="L93">            System.out.println(head);</span>
+<span class="nc" id="L94">            return head.equals(&quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot; ?&gt;&quot; +</span>
+                    &quot;&lt;root&gt;&quot; +
+                    &quot;&lt;shapes&gt;&quot;);
+<span class="nc" id="L97">        } catch (IOException e) {</span>
+<span class="nc" id="L98">            throw new RuntimeException(e);</span>
+        }
+    }
+
+    @Override
+    public boolean estFoot(BufferedReader lines) {
+        try {
+<span class="nc" id="L105">            String foot = lines.readLine() + lines.readLine();</span>
+<span class="nc" id="L106">            System.out.println(foot);</span>
+<span class="nc" id="L107">            return foot.equals(&quot;&lt;/root&gt;null&quot;);</span>
+
+<span class="nc" id="L109">        } catch (IOException e) {</span>
+<span class="nc" id="L110">            throw new RuntimeException(e);</span>
+        }
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

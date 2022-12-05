@@ -79,11 +79,11 @@ public class Triangle implements SimpleShape, Visitable {
     @Override
     public void accept(Visitor visitor) {
 <span class="fc" id="L81">        visitor.visit(this);</span>
-    // TODO
-<span class="fc" id="L83">    }</span>
+<span class="fc" id="L82">    }</span>
 
     @Override
     public int getX() {
+        //System.out.println(&quot;-&gt;X &quot;+ (m_x+25));
 <span class="fc" id="L87">        return m_x + 25;</span>
     }
 
@@ -94,52 +94,87 @@ public class Triangle implements SimpleShape, Visitable {
 
     @Override
     public int getY() {
-<span class="fc" id="L97">        return m_y + 25;</span>
+        //System.out.println(&quot;-&gt;Y &quot;+ (m_y+25));
+<span class="fc" id="L98">        return m_y + 25;</span>
     }
 
     @Override
     public void setY(int Y){
-<span class="nc" id="L102">        this.m_y = Y;</span>
-<span class="nc" id="L103">    }</span>
+<span class="nc" id="L103">        this.m_y = Y;</span>
+<span class="nc" id="L104">    }</span>
 
     //Retourne le sommet haut
     public List&lt;Integer&gt; getA (){
-<span class="nc" id="L107">        List&lt;Integer&gt; coord = new ArrayList&lt;Integer&gt;();</span>
-<span class="nc" id="L108">        coord.add(this.getX());</span>
-<span class="nc" id="L109">        coord.add(this.getY() + 25);</span>
-<span class="nc" id="L110">        return coord;</span>
+<span class="nc" id="L108">        List&lt;Integer&gt; coord = new ArrayList&lt;Integer&gt;();</span>
+<span class="nc" id="L109">        coord.add(this.getX());</span>
+<span class="nc" id="L110">        coord.add(this.getY() - 25);</span>
+<span class="nc" id="L111">        return coord;</span>
+    }
+
+    public int getAx(){
+<span class="nc" id="L115">        return this.getA().get(0);</span>
+    }
+
+    public int getAy(){
+<span class="nc" id="L119">        return this.getA().get(1);</span>
     }
 
     //Retourne le sommet gauche
     public List&lt;Integer&gt; getB (){
-<span class="nc" id="L115">        List&lt;Integer&gt; coord = new ArrayList&lt;Integer&gt;();</span>
-<span class="nc" id="L116">        coord.add(this.getX() - 25);</span>
-<span class="nc" id="L117">        coord.add(this.getY() - 25);</span>
-<span class="nc" id="L118">        return coord;</span>
+<span class="nc" id="L124">        List&lt;Integer&gt; coord = new ArrayList&lt;Integer&gt;();</span>
+<span class="nc" id="L125">        coord.add(this.getX() - 25);</span>
+<span class="nc" id="L126">        coord.add(this.getY() + 25);</span>
+<span class="nc" id="L127">        return coord;</span>
+    }
+
+    public int getBx(){
+<span class="nc" id="L131">        return this.getB().get(0);</span>
+    }
+
+    public int getBy(){
+<span class="nc" id="L135">        return this.getB().get(1);</span>
     }
 
     //Retourne le sommet droite
     public List&lt;Integer&gt; getC (){
-<span class="nc" id="L123">        List&lt;Integer&gt; coord = new ArrayList&lt;Integer&gt;();</span>
-<span class="nc" id="L124">        coord.add(this.getX() + 25);</span>
-<span class="nc" id="L125">        coord.add(this.getY() - 25);</span>
-<span class="nc" id="L126">        return coord;</span>
+<span class="nc" id="L140">        List&lt;Integer&gt; coord = new ArrayList&lt;Integer&gt;();</span>
+<span class="nc" id="L141">        coord.add(this.getX() + 25);</span>
+<span class="nc" id="L142">        coord.add(this.getY() + 25);</span>
+<span class="nc" id="L143">        return coord;</span>
     }
 
+    public int getCx(){
+<span class="nc" id="L147">        return this.getC().get(0);</span>
+    }
+
+    public int getCy(){
+<span class="nc" id="L151">        return this.getC().get(1);</span>
+    }
     @Override
     public void move(int deltaX,int deltaY){
-<span class="nc" id="L131">        this.setX(this.m_x + deltaX);</span>
-<span class="nc" id="L132">        this.setY(this.m_y + deltaY);</span>
-<span class="nc" id="L133">    }</span>
+<span class="nc" id="L155">        this.setX(this.m_x + deltaX);</span>
+<span class="nc" id="L156">        this.setY(this.m_y + deltaY);</span>
+<span class="nc" id="L157">    }</span>
 
     @Override
     public boolean isSelect(int coordX, int coordY){
-<span class="nc" id="L137">        return false;</span>
+        /*
+        System.out.println(&quot;---&quot;);
+        System.out.println(&quot;-&gt;(1)&quot;+ ( ( (getAx()) - (coordX) ) * ( (getBy()) - (coordY)) - ( (getAy()) - (coordY)) * ( (getBx()) - (coordX))));
+        System.out.println(&quot;-&gt;(2)&quot;+ ( ( (getBx()) - (coordX) ) * ( (getCy()) - (coordY)) - ( (getBy()) - (coordY)) * ( (getCx()) - (coordX))));
+        System.out.println(&quot;-&gt;(3)&quot;+ ( ( (getCx()) - (coordX) ) * ( (getAy()) - (coordY)) - ( (getCy()) - (coordY)) * ( (getAx()) - (coordX))));
+        System.out.println(&quot;---&quot;);
+         */
+<span class="nc" id="L168">        return (</span>
+<span class="nc bnc" id="L169" title="All 2 branches missed.">                        ( ( (getAx()) - (coordX) ) * ( (getBy()) - (coordY)) - ( (getAy()) - (coordY)) * ( (getBx()) - (coordX))) &lt; 0 &amp;&amp;</span>
+<span class="nc bnc" id="L170" title="All 2 branches missed.">                        ( ( (getBx()) - (coordX) ) * ( (getCy()) - (coordY)) - ( (getBy()) - (coordY)) * ( (getCx()) - (coordX))) &lt; 0 &amp;&amp;</span>
+<span class="nc bnc" id="L171" title="All 2 branches missed.">                        ( ( (getCx()) - (coordX) ) * ( (getAy()) - (coordY)) - ( (getCy()) - (coordY)) * ( (getAx()) - (coordX))) &lt; 0</span>
+                );
     }
 
     @Override
     public SimpleShape shapeSelect(int x, int y){
-<span class="nc" id="L142">        return this;</span>
+<span class="nc" id="L177">        return this;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
