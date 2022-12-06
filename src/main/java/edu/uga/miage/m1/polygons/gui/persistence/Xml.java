@@ -41,9 +41,9 @@ public class Xml {
         listeShapes.add(figure);
     }
 
-    public static void exportXML(List<SimpleShape> listeShapes) {
+    public static void exportXML(String path,List<SimpleShape> listeShapes) {
         XMLVisitor xmlVisitor = new XMLVisitor();
-        FileWriter fileWriter = FileUtils.fileWriter("xml");
+        FileWriter fileWriter = FileUtils.fileWriter(path,"xml");
         //Ajout du xml head
         xmlVisitor.head(fileWriter);
 
@@ -68,7 +68,7 @@ public class Xml {
         XMLVisitor xmlVisitor = new XMLVisitor();
         try {
             //Récupère le texte du fichier xml
-            BufferedReader lines = FileUtils.readFile("xml");
+            BufferedReader lines = FileUtils.readFile("fileimport","xml");
 
             //Vérifier que l'entête du fichier est correcte.
             if (xmlVisitor.estHead(lines)){

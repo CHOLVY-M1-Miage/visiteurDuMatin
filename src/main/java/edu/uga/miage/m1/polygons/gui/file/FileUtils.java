@@ -1,21 +1,23 @@
 package edu.uga.miage.m1.polygons.gui.file;
 
 import java.io.*;
+import java.util.Arrays;
 
 public class FileUtils {
 
     /*
      *Ouvre/Crée un fichier
      */
-    private static File createFile(String type) {
-        return new File("fileExport." + type);
+    private static File createFile(String path,String type) {
+        String[] pathTab = path.split("\\.");
+        return new File(pathTab[0] + "." + type);
     }
 
     /*
     * Récupère le contenu d'un fichier dans un buffer
      */
-    public static BufferedReader readFile(String type) throws IOException {
-        File file = new File("fileExport." + type);
+    public static BufferedReader readFile(String path,String type) throws IOException {
+        File file = new File(path + type);
         FileReader fileReader = new FileReader(file);
         return new BufferedReader(fileReader);
     }
@@ -35,8 +37,8 @@ public class FileUtils {
     /*
     * Retourne le fileWriter d'un fichier pour pouvoir écrire dedans.
      */
-    public static FileWriter fileWriter(String type) {
-        File file = createFile(type);
+    public static FileWriter fileWriter(String path,String type) {
+        File file = createFile(path,type);
         try {
             return new FileWriter(file.getPath());
         } catch (IOException e) {

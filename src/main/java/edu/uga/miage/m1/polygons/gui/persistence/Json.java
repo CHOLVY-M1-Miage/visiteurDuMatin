@@ -1,15 +1,16 @@
 package edu.uga.miage.m1.polygons.gui.persistence;
 
 import edu.uga.miage.m1.polygons.gui.file.FileUtils;
-import edu.uga.miage.m1.polygons.gui.shapes.Circle;
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
-import edu.uga.miage.m1.polygons.gui.shapes.Square;
-import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
+import edu.uga.miage.m1.polygons.gui.shapes.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Json {
@@ -44,9 +45,9 @@ public class Json {
         return (s.equals(listeShapes.get(listeShapes.size() - 1))) ? "" : ",";
     }
 
-    public static void exportJSON(List<SimpleShape> listeShapes,String path) {
+    public static void exportJSON(String path,List<SimpleShape> listeShapes) {
         JSonVisitor jsonVisitor = new JSonVisitor();
-        FileWriter fileWriter = FileUtils.fileWriter("json");
+        FileWriter fileWriter = FileUtils.fileWriter(path,"json");
         //Ajout du json head
         jsonVisitor.head(fileWriter);
 
@@ -66,12 +67,52 @@ public class Json {
         FileUtils.closer(fileWriter);
     }
 
+    public static List<SimpleShape> importJson(String path) throws IOException, ParseException {
+        JSONParser jsonP = new JSONParser();
+        JSONObject jsonO = (JSONObject) jsonP.parse(new FileReader(path));
+        JSONArray shapes = (JSONArray) jsonO.get("shapes");
+        List<SimpleShape> listeShapes = new ArrayList<>();
+
+        for (int i = 0;i < shapes.size();i++){
+
+            JSONObject shape = (JSONObject) shapes.get(i);
+            String type = shape.get("type").toString();
+            int x = Integer.parseInt(shape.get("x").toString());
+            int y = Integer.parseInt(shape.get("y").toString());
+
+            //System.out.println("New obj: " + type + "," + x + "," + y);
+            SimpleShape figure;
+            switch (type.toUpperCase()){
+                case "CIRCLE":
+                    figure = new Circle(x, y);
+                    break;
+                case "TRIANGLE":
+                    figure = new Triangle(x, y);
+                    break;
+                case "SQUARE":
+                    figure = new Square(x, y);
+                    break;
+                case "BINOME":
+                    figure = new Binome(x, y);
+                    break;
+                default:
+                    //System.out.println("No shape named " + m_selected);
+                    figure = null;
+            }
+
+            //System.out.println("New obj: " + figure);
+            listeShapes.add(figure);
+        }
+
+        return listeShapes;
+    }
+
     public static void importJSon(List<SimpleShape> listeShapes, Graphics2D g2) {
         JSonVisitor jsonVisitor = new JSonVisitor();
         String line;
         try {
             //Récupère le texte du fichier Json
-            BufferedReader lines = FileUtils.readFile("json");
+            BufferedReader lines = FileUtils.readFile("FileImport","json");
             //Vérifier que l'entête du fichier est correcte.
             if (jsonVisitor.estHead(lines)){
                 System.out.println("Fichier json valide");
