@@ -14,6 +14,10 @@ public class GroupeShape implements SimpleShape{
         return this.shapes;
     }
 
+    public SimpleShape getLastShapes(){
+        return this.shapes.get(this.shapes.size() - 1);
+    }
+
     public GroupeShape(){
         this.shapes = new ArrayList<SimpleShape>();
     }

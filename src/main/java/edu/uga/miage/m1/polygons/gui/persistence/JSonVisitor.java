@@ -43,15 +43,15 @@ public class JSonVisitor implements Visitor {
     @Override
     public void visit(GroupeShape shapes) {
         JSonVisitor visitor = new JSonVisitor();
-        List<SimpleShape> listeShapes = shapes.getShapes();
-        SimpleShape lastShape = listeShapes.get(listeShapes.size() - 1);
+        this.representation = "{\"groupe\": [\n";
         for (SimpleShape s: shapes.getShapes()){
             s.accept(visitor);
             this.representation += visitor.getRepresentation();
-            if (!s.equals(lastShape)){
+            if (!s.equals(shapes.getLastShapes())){
                 this.representation += ",\n";
             }
         }
+        this.representation += "\n]}";
     }
 
     /**
@@ -70,7 +70,7 @@ public class JSonVisitor implements Visitor {
      *         </pre>
      */
     public String getRepresentation() {
-        return representation;
+        return this.representation;
     }
 
     @Override

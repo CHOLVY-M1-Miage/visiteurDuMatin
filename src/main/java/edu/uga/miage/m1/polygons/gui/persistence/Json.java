@@ -67,6 +67,35 @@ public class Json {
         FileUtils.closer(fileWriter);
     }
 
+    private static SimpleShape createShape(JSONObject shape){
+        String type = shape.get("type").toString();
+        int x = Integer.parseInt(shape.get("x").toString());
+        int y = Integer.parseInt(shape.get("y").toString());
+
+        //System.out.println("New obj: " + type + "," + x + "," + y);
+        SimpleShape figure;
+        switch (type.toUpperCase()) {
+            case "CIRCLE":
+                figure = new Circle(x, y);
+                break;
+            case "TRIANGLE":
+                figure = new Triangle(x, y);
+                break;
+            case "SQUARE":
+                figure = new Square(x, y);
+                break;
+            case "BINOME":
+                figure = new Binome(x, y);
+                break;
+            default:
+                //System.out.println("No shape named " + m_selected);
+                figure = null;
+        }
+
+        System.out.println("New obj: " + figure);
+        return figure;
+    }
+
     public static List<SimpleShape> importJson(String path) throws IOException, ParseException {
         JSONParser jsonP = new JSONParser();
         JSONObject jsonO = (JSONObject) jsonP.parse(new FileReader(path));
@@ -74,34 +103,25 @@ public class Json {
         List<SimpleShape> listeShapes = new ArrayList<>();
 
         for (int i = 0;i < shapes.size();i++){
-
             JSONObject shape = (JSONObject) shapes.get(i);
-            String type = shape.get("type").toString();
-            int x = Integer.parseInt(shape.get("x").toString());
-            int y = Integer.parseInt(shape.get("y").toString());
+            Object groupeShapes = shape.get("groupe");
 
-            //System.out.println("New obj: " + type + "," + x + "," + y);
-            SimpleShape figure;
-            switch (type.toUpperCase()){
-                case "CIRCLE":
-                    figure = new Circle(x, y);
-                    break;
-                case "TRIANGLE":
-                    figure = new Triangle(x, y);
-                    break;
-                case "SQUARE":
-                    figure = new Square(x, y);
-                    break;
-                case "BINOME":
-                    figure = new Binome(x, y);
-                    break;
-                default:
-                    //System.out.println("No shape named " + m_selected);
-                    figure = null;
+            //Groupe
+            if (groupeShapes != null){
+                GroupeShape groupe = new GroupeShape();
+                listeShapes.add(groupe);
+
+                //System.out.println(groupeShapes);
+                JSONArray groupeShapesArray = (JSONArray) groupeShapes;
+                for (int j = 0;j < groupeShapesArray.size();j++) {
+                    JSONObject gShape = (JSONObject) groupeShapesArray.get(j);
+                    //System.out.println("->" + gShape);
+                    groupe.add(createShape(gShape));
+                }
             }
-
-            //System.out.println("New obj: " + figure);
-            listeShapes.add(figure);
+            else {
+                listeShapes.add(createShape(shape));
+            }
         }
 
         return listeShapes;
