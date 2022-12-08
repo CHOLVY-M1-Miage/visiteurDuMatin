@@ -6,13 +6,14 @@ import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 import java.awt.*;
 import java.util.List;
 
-public class add implements Command {
+public class Remove implements Command {
+
     private Graphics2D g2;
     private SimpleShape figure ;
     private GroupeShape groupeShape;
     private List<SimpleShape> listeShapes;
 
-    public add(Graphics2D g2,SimpleShape figure ,GroupeShape groupeShape, List<SimpleShape> listeShapes) {
+    public Remove(Graphics2D g2, SimpleShape figure , GroupeShape groupeShape, List<SimpleShape> listeShapes) {
         this.g2 = g2;
         this.figure = figure;
         this.groupeShape = groupeShape;
@@ -21,11 +22,12 @@ public class add implements Command {
 
     @Override
     public void execute(){
-        listeShapes.remove(this.figure);
-        if (!this.listeShapes.contains(this.groupeShape)){
-           this.listeShapes.add(this.groupeShape);
+        this.groupeShape.remove(this.figure);
+        System.out.println("->" +this.groupeShape.getShapes().isEmpty());
+        if (this.groupeShape.getShapes().isEmpty()){
+            this.listeShapes.remove(this.groupeShape);
         }
-        this.groupeShape.add(this.figure);
+        listeShapes.add(this.figure);
     }
 
 }

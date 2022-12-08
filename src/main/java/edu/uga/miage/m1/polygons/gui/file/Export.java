@@ -1,6 +1,5 @@
 package edu.uga.miage.m1.polygons.gui.file;
 
-import edu.uga.miage.m1.polygons.gui.persistence.JSonVisitor;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 
@@ -8,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-public class export {
+public class Export {
     public static String virgule(String type,List<SimpleShape> listeShapes, SimpleShape s){
         return ((type.equals("xml")) || (s.equals(listeShapes.get(listeShapes.size() - 1)))) ? "" : ",";
     }

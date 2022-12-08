@@ -1,11 +1,8 @@
 package edu.uga.miage.m1.polygons.gui.commande;
 
 import edu.uga.miage.m1.polygons.gui.RemoteControl;
-import edu.uga.miage.m1.polygons.gui.commands.add;
-import edu.uga.miage.m1.polygons.gui.commands.remove;
-import edu.uga.miage.m1.polygons.gui.shapes.Circle;
-import edu.uga.miage.m1.polygons.gui.shapes.GroupeShape;
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
+import edu.uga.miage.m1.polygons.gui.commands.Add;
+import edu.uga.miage.m1.polygons.gui.shapes.*;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
@@ -15,23 +12,22 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class removeTest {
+public class AddTest {
     @Test
-    void test_remove_emptyGroupe() {
+    void test_add_newGroupe() {
         JPanel m_panel = new JPanel();
         Graphics2D graphics2 = (Graphics2D) m_panel.getGraphics();
         java.util.List<SimpleShape> shapes = new ArrayList<>();
-        java.util.List<SimpleShape> shapes_control = new ArrayList<>();
+        List<SimpleShape> shapes_control = new ArrayList<>();
         RemoteControl control = new RemoteControl(shapes);
         GroupeShape g1 = new GroupeShape();
         GroupeShape g1_control = new GroupeShape();
 
         Circle c = new Circle(0, 0);
-        g1.add(c);
-        shapes.add(g1);
-        shapes_control.add(c);
+        g1_control.add(c);
+        shapes_control.add(g1);
 
-        control.addCommand(new remove(graphics2,c,g1,shapes));
+        control.addCommand(new Add(graphics2,c,g1,shapes));
         control.play();
 
         System.out.println("LS:" + shapes);
@@ -47,7 +43,7 @@ public class removeTest {
     }
 
     @Test
-    void test_remove_notEmptyGroupe() {
+    void test_add_existedGroupe() {
         JPanel m_panel = new JPanel();
         Graphics2D graphics2 = (Graphics2D) m_panel.getGraphics();
         java.util.List<SimpleShape> shapes = new ArrayList<>();
@@ -59,13 +55,12 @@ public class removeTest {
         Circle c = new Circle(0, 0);
         Circle c2 = new Circle(10, 10);
         g1.add(c);
-        g1.add(c2);
         g1_control.add(c);
+        g1_control.add(c2);
         shapes.add(g1);
         shapes_control.add(g1);
-        shapes_control.add(c2);
 
-        control.addCommand(new remove(graphics2,c2,g1,shapes));
+        control.addCommand(new Add(graphics2,c2,g1,shapes));
         control.play();
 
         System.out.println("LS:" + shapes);

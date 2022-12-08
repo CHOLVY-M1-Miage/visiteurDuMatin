@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static edu.uga.miage.m1.polygons.gui.file.JsonFile.importJson;
-import static edu.uga.miage.m1.polygons.gui.file.export.export;
+import static edu.uga.miage.m1.polygons.gui.file.Export.export;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

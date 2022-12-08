@@ -30,7 +30,7 @@ import java.util.List;
 
 import javax.swing.*;
 
-import edu.uga.miage.m1.polygons.gui.commands.draw;
+import edu.uga.miage.m1.polygons.gui.commands.Draw;
 import edu.uga.miage.m1.polygons.gui.persistence.Json;
 import edu.uga.miage.m1.polygons.gui.persistence.XMLVisitor;
 import edu.uga.miage.m1.polygons.gui.persistence.Xml;
@@ -283,7 +283,7 @@ public class JDrawingFrame extends JFrame
 
             }
             System.out.println("ICI");
-            remote.addCommand(new draw (g2,figure,this.listeShapes));
+            remote.addCommand(new Draw(g2,figure,this.listeShapes));
             remote.play();
             //this.listeShapes.add(figure);
         }

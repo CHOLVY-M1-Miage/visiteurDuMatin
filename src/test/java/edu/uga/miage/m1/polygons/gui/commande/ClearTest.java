@@ -11,7 +11,7 @@ import java.util.List;
 
 import static junit.framework.Assert.*;
 
-public class clearTest {
+public class ClearTest {
     @Test
     void test_clear_command(){
         List<SimpleShape> shapes= new ArrayList<>();

@@ -1,7 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.commande;
 
 import edu.uga.miage.m1.polygons.gui.RemoteControl;
-import edu.uga.miage.m1.polygons.gui.commands.draw;
+import edu.uga.miage.m1.polygons.gui.commands.Draw;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class drawTest {
+public class DrawTest {
     @Test
     void test_draw_circle(){
         List<SimpleShape> shapes = new ArrayList<>();
@@ -21,7 +21,7 @@ public class drawTest {
         Circle c = new Circle(0, 0);
         shapes_control.add(c);
 
-        control.addCommand(new draw(null,c,shapes));
+        control.addCommand(new Draw(null,c,shapes));
         control.play();
 
         assertTrue(shapes_control.containsAll(shapes));
@@ -37,7 +37,7 @@ public class drawTest {
         Square s = new Square(0, 0);
         shapes_control.add(s);
 
-        control.addCommand(new draw(g2,s,shapes));
+        control.addCommand(new Draw(g2,s,shapes));
         control.play();
 
         assertTrue(shapes_control.containsAll(shapes));
@@ -53,7 +53,7 @@ public class drawTest {
         Triangle t = new Triangle(0, 0);
         shapes_control.add(t);
 
-        control.addCommand(new draw(g2,t,shapes));
+        control.addCommand(new Draw(g2,t,shapes));
         control.play();
 
         assertTrue(shapes_control.containsAll(shapes));
@@ -74,9 +74,9 @@ public class drawTest {
         shapes_control.add(s);
         shapes_control.add(t);
 
-        control.addCommand(new draw(g2,c,shapes));
-        control.addCommand(new draw(g2,s,shapes));
-        control.addCommand(new draw(g2,t,shapes));
+        control.addCommand(new Draw(g2,c,shapes));
+        control.addCommand(new Draw(g2,s,shapes));
+        control.addCommand(new Draw(g2,t,shapes));
         control.play();
 
         assertTrue(shapes_control.containsAll(shapes));
@@ -99,7 +99,7 @@ public class drawTest {
         g1.add(t);
         shapes_control.add(g1);
 
-        control.addCommand(new draw(graphics2,g1,shapes));
+        control.addCommand(new Draw(graphics2,g1,shapes));
         control.play();
 
         assertTrue(shapes_control.containsAll(shapes));
@@ -125,8 +125,8 @@ public class drawTest {
         shapes_control.add(g1);
         shapes_control.add(g2);
 
-        control.addCommand(new draw(graphics2,g1,shapes));
-        control.addCommand(new draw(graphics2,g2,shapes));
+        control.addCommand(new Draw(graphics2,g1,shapes));
+        control.addCommand(new Draw(graphics2,g2,shapes));
         control.play();
 
         assertTrue(shapes_control.containsAll(shapes) && shapes_control.size() == shapes.size());
@@ -152,9 +152,9 @@ public class drawTest {
         shapes_control.add(t);
         shapes_control.add(g2);
 
-        control.addCommand(new draw(graphics2,g1,shapes));
-        control.addCommand(new draw(graphics2,t,shapes));
-        control.addCommand(new draw(graphics2,g2,shapes));
+        control.addCommand(new Draw(graphics2,g1,shapes));
+        control.addCommand(new Draw(graphics2,t,shapes));
+        control.addCommand(new Draw(graphics2,g2,shapes));
         control.play();
 
         assertTrue(shapes_control.containsAll(shapes) && shapes_control.size() == shapes.size());
