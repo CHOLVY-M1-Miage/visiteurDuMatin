@@ -13,9 +13,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static edu.uga.miage.m1.polygons.gui.file.TextToShape.createSimpleShape;
+
 public class Json {
 
-    public static void createSimpleShape(String type, int x, int y, List<SimpleShape> listeShapes, Graphics2D g2){
+    public static void ocreateSimpleShape(String type, int x, int y, List<SimpleShape> listeShapes, Graphics2D g2){
         SimpleShape figure;
         switch (type.toUpperCase()) {
             case "CIRCLE":
@@ -72,59 +74,7 @@ public class Json {
         int x = Integer.parseInt(shape.get("x").toString());
         int y = Integer.parseInt(shape.get("y").toString());
 
-        //System.out.println("New obj: " + type + "," + x + "," + y);
-        SimpleShape figure;
-        switch (type.toUpperCase()) {
-            case "CIRCLE":
-                figure = new Circle(x, y);
-                break;
-            case "TRIANGLE":
-                figure = new Triangle(x, y);
-                break;
-            case "SQUARE":
-                figure = new Square(x, y);
-                break;
-            case "BINOME":
-                figure = new Binome(x, y);
-                break;
-            default:
-                //System.out.println("No shape named " + m_selected);
-                figure = null;
-        }
-
-        System.out.println("New obj: " + figure);
-        return figure;
-    }
-
-    public static List<SimpleShape> importJson(String path) throws IOException, ParseException {
-        JSONParser jsonP = new JSONParser();
-        JSONObject jsonO = (JSONObject) jsonP.parse(new FileReader(path));
-        JSONArray shapes = (JSONArray) jsonO.get("shapes");
-        List<SimpleShape> listeShapes = new ArrayList<>();
-
-        for (int i = 0;i < shapes.size();i++){
-            JSONObject shape = (JSONObject) shapes.get(i);
-            Object groupeShapes = shape.get("groupe");
-
-            //Groupe
-            if (groupeShapes != null){
-                GroupeShape groupe = new GroupeShape();
-                listeShapes.add(groupe);
-
-                //System.out.println(groupeShapes);
-                JSONArray groupeShapesArray = (JSONArray) groupeShapes;
-                for (int j = 0;j < groupeShapesArray.size();j++) {
-                    JSONObject gShape = (JSONObject) groupeShapesArray.get(j);
-                    //System.out.println("->" + gShape);
-                    groupe.add(createShape(gShape));
-                }
-            }
-            else {
-                listeShapes.add(createShape(shape));
-            }
-        }
-
-        return listeShapes;
+        return createSimpleShape(type,x,y);
     }
 
     public static void importJSon(List<SimpleShape> listeShapes, Graphics2D g2) {
@@ -146,7 +96,7 @@ public class Json {
                     int cordX = Integer.parseInt(shapeData[1].split(": ")[1]);
                     int cordY = Integer.parseInt(shapeData[2].split(": ")[1].split("}")[0]);
                     System.out.println(String.format("SimpleShape: Type: %s X: %s Y: %s",type,cordX,cordY));
-                    createSimpleShape(type,cordX,cordY,listeShapes,g2);
+                    //createSimpleShape(type,cordX,cordY,listeShapes,g2);
                     //Passe à la figure suivante
                     line = FileUtils.readLine(lines);
                 }

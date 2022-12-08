@@ -5,12 +5,14 @@ import edu.uga.miage.m1.polygons.gui.shapes.Circle;
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 import edu.uga.miage.m1.polygons.gui.shapes.Square;
 import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
+import org.w3c.dom.Document;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Xml {
@@ -60,6 +62,11 @@ public class Xml {
         visitor.foot(fileWriter);
         //Fermeture du fichier
         FileUtils.closer(fileWriter);
+    }
+
+    public static List<SimpleShape> importXML(Document xml){
+        System.out.println("--> "+ xml);
+        return new ArrayList<>();
     }
 
     public static void importXML(List<SimpleShape> listeShapes,Graphics2D g2) {
