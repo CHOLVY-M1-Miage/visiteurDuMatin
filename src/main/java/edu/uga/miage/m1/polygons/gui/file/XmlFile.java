@@ -13,6 +13,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -53,5 +54,14 @@ public class XmlFile {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public static Document openXmlFile (String path) throws ParserConfigurationException, IOException, SAXException {
+        File file = new File(path);
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        Document document = db.parse(file);
+
+        return document;
     }
 }

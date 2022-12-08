@@ -32,6 +32,7 @@ import javax.swing.*;
 
 import edu.uga.miage.m1.polygons.gui.commands.draw;
 import edu.uga.miage.m1.polygons.gui.persistence.Json;
+import edu.uga.miage.m1.polygons.gui.persistence.XMLVisitor;
 import edu.uga.miage.m1.polygons.gui.persistence.Xml;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 
@@ -111,7 +112,7 @@ public class JDrawingFrame extends JFrame
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Xml.exportXML("fileExport",listeShapes);
+                Xml.exportXML(new XMLVisitor(),"fileExport",listeShapes);
             }
         });
         m_toolbar.add(button);
@@ -194,7 +195,7 @@ public class JDrawingFrame extends JFrame
     /**
      * Injects an available <tt>SimpleShape</tt> into the drawing frame.
      *
-     * @param id The name of the injected <tt>SimpleShape</tt>.
+     * @param The name of the injected <tt>SimpleShape</tt>.
      * @param icon The icon associated with the injected <tt>SimpleShape</tt>.
      **/
     private void addShape(Shapes shape, ImageIcon icon) {

@@ -1,23 +1,25 @@
-package edu.uga.miage.m1.polygons.gui.json;
+package edu.uga.miage.m1.polygons.gui.jsonFile;
 
+import edu.uga.miage.m1.polygons.gui.persistence.JSonVisitor;
+import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static edu.uga.miage.m1.polygons.gui.file.export.export;
 import static edu.uga.miage.m1.polygons.gui.persistence.Json.exportJSON;
 import static edu.uga.miage.m1.polygons.gui.persistence.Json.importJson;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class JsonTest {
+public class JsonFileTest {
     @Test
     void test_export_shapes_groupLess() throws IOException, ParseException {
         List<SimpleShape> shapes = new ArrayList<>();
@@ -30,8 +32,10 @@ public class JsonTest {
         shapes.add(new Circle(319,73));
         String rep = "{\"shapes\":[{\"x\":52,\"y\":33,\"type\":\"square\"},{\"x\":103,\"y\":98,\"type\":\"square\"},{\"x\":164,\"y\":153,\"type\":\"square\"},{\"x\":238,\"y\":212,\"type\":\"triangle\"},{\"x\":310,\"y\":249,\"type\":\"triangle\"},{\"x\":319,\"y\":73,\"type\":\"circle\"}]}";
 
-        String path = "src/test/java/edu/uga/miage/m1/polygons/gui/json/file/exportTest.json";
-        exportJSON(path,shapes);
+        String path = "src/test/java/edu/uga/miage/m1/polygons/gui/jsonFile/file/exportTest.json";
+        //exportJSON(path,shapes);
+        Visitor visitorJson = new JSonVisitor();
+        export(visitorJson,"json",path,shapes);
         Object ob = new JSONParser().parse(new FileReader(path));
 
         System.out.println(ob.toString());
@@ -53,8 +57,10 @@ public class JsonTest {
         shapes.add(new Circle(319,73));
         String rep = "{\"shapes\":[{\"x\":52,\"y\":33,\"type\":\"square\"},{\"groupe\":[{\"x\":103,\"y\":98,\"type\":\"square\"},{\"x\":164,\"y\":153,\"type\":\"square\"},{\"x\":238,\"y\":212,\"type\":\"triangle\"},{\"x\":310,\"y\":249,\"type\":\"triangle\"}]},{\"x\":319,\"y\":73,\"type\":\"circle\"}]}";
 
-        String path = "src/test/java/edu/uga/miage/m1/polygons/gui/json/file/exportGroupeTest.json";
-        exportJSON(path,shapes);
+        String path = "src/test/java/edu/uga/miage/m1/polygons/gui/jsonFile/file/exportGroupeTest.json";
+        //exportJSON(path,shapes);
+        Visitor visitorJson = new JSonVisitor();
+        export(visitorJson,"json",path,shapes);
         Object ob = new JSONParser().parse(new FileReader(path));
 
         System.out.println(ob.toString());
@@ -64,7 +70,7 @@ public class JsonTest {
 
     @Test
     void test_import_file_groupLess() throws IOException, ParseException {
-        String path = "src/test/java/edu/uga/miage/m1/polygons/gui/json/file/importTest.json";
+        String path = "src/test/java/edu/uga/miage/m1/polygons/gui/jsonFile/file/importTest.json";
         List<SimpleShape> shapes;
         List<SimpleShape> shapes_Controle = new ArrayList<>();
         shapes_Controle.add(new Square(52,33));
@@ -86,7 +92,7 @@ public class JsonTest {
 
     @Test
     void test_import_file_group() throws IOException, ParseException {
-        String path = "src/test/java/edu/uga/miage/m1/polygons/gui/json/file/importGroupeTest.json";
+        String path = "src/test/java/edu/uga/miage/m1/polygons/gui/jsonFile/file/importGroupeTest.json";
         List<SimpleShape> shapes;
         List<SimpleShape> shapes_Controle = new ArrayList<>();
         GroupeShape groupe_Controle = new GroupeShape();

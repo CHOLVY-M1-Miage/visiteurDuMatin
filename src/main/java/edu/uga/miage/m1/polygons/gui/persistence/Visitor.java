@@ -24,4 +24,6 @@ public interface Visitor {
 	public boolean estHead(BufferedReader lines);
 
 	public boolean estFoot(BufferedReader lines);
+
+	public String getRepresentation();
 }

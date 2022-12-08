@@ -41,24 +41,23 @@ public class Xml {
         listeShapes.add(figure);
     }
 
-    public static void exportXML(String path,List<SimpleShape> listeShapes) {
-        XMLVisitor xmlVisitor = new XMLVisitor();
+    public static void exportXML(Visitor visitor,String path,List<SimpleShape> listeShapes) {
         FileWriter fileWriter = FileUtils.fileWriter(path,"xml");
         //Ajout du xml head
-        xmlVisitor.head(fileWriter);
+        visitor.head(fileWriter);
 
         // Ajout des figures (boucle for)
         for (SimpleShape s : listeShapes) {
-            s.accept(xmlVisitor);
+            s.accept(visitor);
             try {
-                fileWriter.write(xmlVisitor.getRepresentation() + '\n');
+                fileWriter.write(visitor.getRepresentation() + '\n');
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         }
 
         //Ajout du xml foot
-        xmlVisitor.foot(fileWriter);
+        visitor.foot(fileWriter);
         //Fermeture du fichier
         FileUtils.closer(fileWriter);
     }

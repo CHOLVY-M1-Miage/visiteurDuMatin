@@ -41,18 +41,17 @@ public class XMLVisitor implements Visitor {
 
     @Override
     public void visit(GroupeShape shapes) {
-        XMLVisitor visitor =new XMLVisitor();
-        List<SimpleShape> listeShapes = shapes.getShapes();
-        SimpleShape lastShape = listeShapes.get(listeShapes.size() - 1);
-        for (SimpleShape s: shapes.getShapes()){
+        XMLVisitor visitor = new XMLVisitor();
+        this.representation = "<groupe>\n";
+        for (SimpleShape s : shapes.getShapes()) {
             s.accept(visitor);
             this.representation += visitor.getRepresentation();
-            if (!s.equals(lastShape)){
+            if (!s.equals(shapes.getLastShapes())) {
                 this.representation += "\n";
             }
         }
+        this.representation += "\n</groupe>";
     }
-
     /**
      * @return the representation in JSon example for a Triangle:
      *
