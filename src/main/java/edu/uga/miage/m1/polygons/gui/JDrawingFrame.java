@@ -65,6 +65,17 @@ public class JDrawingFrame extends JFrame
      */
     private Map<Shapes, JButton> m_buttons = new HashMap<>();
 
+
+    /*Rafréchi l'affichage du pano*/
+    public void graphiqueUpdate(){
+        Graphics2D g2 = (Graphics2D) m_panel.getGraphics();
+        m_panel.update(g2);
+        for (SimpleShape s: this.listeShapes){
+            System.out.println("Dessin de la figure: " + s);
+            s.draw(g2);
+        }
+    }
+
     /**
      * Default constructor that populates the main window.
      *
@@ -88,7 +99,7 @@ public class JDrawingFrame extends JFrame
         add(m_panel, BorderLayout.CENTER);
         add(m_label, BorderLayout.SOUTH);
 
-        // Add shapes in the menu
+        // Icône du menu
         addShape(Shapes.SQUARE, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/square.png"))));
         addShape(Shapes.TRIANGLE, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/triangle.png"))));
         addShape(Shapes.CIRCLE, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/circle.png"))));
@@ -100,7 +111,6 @@ public class JDrawingFrame extends JFrame
 
         setPreferredSize(new Dimension(400, 400));
         this.listeShapes = new ArrayList<>();
-        this.groupeShape = null;
         remote = new RemoteControl(this.listeShapes);
 
     }
@@ -112,7 +122,7 @@ public class JDrawingFrame extends JFrame
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Xml.exportXML(new XMLVisitor(),"fileExport",listeShapes);
+                //Xml.exportXML(new XMLVisitor(),"fileExport",listeShapes);
             }
         });
         m_toolbar.add(button);
@@ -127,11 +137,12 @@ public class JDrawingFrame extends JFrame
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                /*
                 listeShapes.clear();
                 graphiqueUpdate();
                 Graphics2D g2 = (Graphics2D) m_panel.getGraphics();
                 Xml.importXML(listeShapes,g2);
-                //graphiqieUpdate();
+                //graphiqieUpdate();*/
             }
         });
         m_toolbar.add(button);
@@ -146,7 +157,7 @@ public class JDrawingFrame extends JFrame
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Json.exportJSON("Json/fileAuto.json",listeShapes);
+                //Json.exportJSON("Json/fileAuto.json",listeShapes);
             }
         });
         m_toolbar.add(button);
@@ -161,11 +172,12 @@ public class JDrawingFrame extends JFrame
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                /*
                 listeShapes.clear();
                 graphiqueUpdate();
                 Graphics2D g2 = (Graphics2D) m_panel.getGraphics();
                 Json.importJSon(listeShapes,g2);
-                //graphiqieUpdate();
+                //graphiqieUpdate();*/
             }
         });
         m_toolbar.add(button);
@@ -173,6 +185,9 @@ public class JDrawingFrame extends JFrame
         repaint();
     }
 
+    /*###########################"*/
+
+    /*Retourne la figure cliqué*/
     public SimpleShape shapeSelecte(MouseEvent evt,boolean shapeUniquement){
         //
         if (this.listeShapes.isEmpty()) return null;
@@ -183,15 +198,7 @@ public class JDrawingFrame extends JFrame
         return (i == listeShapes.size())? null : (shapeUniquement)? listeShapes.get(i).shapeSelect(evt.getX(),evt.getY()) : listeShapes.get(i);
     }
 
-    public void graphiqueUpdate(){
-        Graphics2D g2 = (Graphics2D) m_panel.getGraphics();
-        m_panel.update(g2);
-        for (SimpleShape s: this.listeShapes){
-            System.out.println("Dessin de la figure: " + s);
-            s.draw(g2);
-        }
-    }
-
+    /*Ajoute une figure*/
     /**
      * Injects an available <tt>SimpleShape</tt> into the drawing frame.
      *
@@ -214,6 +221,7 @@ public class JDrawingFrame extends JFrame
         repaint();
     }
 
+    /*Gestion du groupage*/
     private void groupShape(SimpleShape shapeClicked) {
         if (shapeClicked != null) {
             System.out.println("Fig: " + shapeClicked);
@@ -247,6 +255,7 @@ public class JDrawingFrame extends JFrame
         }
     }
 
+    /*##################MOUSE LISTENER#######################*/
     /**
      * TODO Use the factory to abstract shape creation
      * Implements method for the <tt>MouseListener</tt> interface to
@@ -255,6 +264,7 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseClicked(MouseEvent evt) {
+        /*
         this.shapeClicked = shapeSelecte(evt,true);
         groupShape(this.shapeClicked);
         if ((this.shapeClicked == null) && (m_panel.contains(evt.getX(), evt.getY()))) {
@@ -286,7 +296,7 @@ public class JDrawingFrame extends JFrame
             remote.addCommand(new Draw(g2,figure,this.listeShapes));
             remote.play();
             //this.listeShapes.add(figure);
-        }
+        }*/
     }
 
     /**
@@ -315,7 +325,7 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mousePressed(MouseEvent evt) {
-        this.shapeDragged = shapeSelecte(evt,false);
+        //this.shapeDragged = shapeSelecte(evt,false);
     }
 
     /**
@@ -325,7 +335,7 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseReleased(MouseEvent evt) {
-        this.shapeDragged = null;
+        //this.shapeDragged = null;
     }
 
     /**
@@ -335,6 +345,7 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseDragged(MouseEvent evt) {
+        /*
         if ((this.shapeDragged != null) && (this.shapeDragged.shapeSelect(evt.getX(),evt.getY()) != null)){
             int deltaX = evt.getX() - this.shapeDragged.shapeSelect(evt.getX(),evt.getY()).getX();
             int deltaY = evt.getY() - this.shapeDragged.shapeSelect(evt.getX(),evt.getY()).getY();
@@ -344,7 +355,7 @@ public class JDrawingFrame extends JFrame
             this.shapeDragged.move(deltaX,deltaY);
             graphiqueUpdate();
             //System.out.println(this.shapeSelected.toString());
-        }
+        }*/
     }
 
     /**
