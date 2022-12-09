@@ -23,11 +23,14 @@ public class RemoteControl {
             this.commands.remove(this.commands.size() - 1);
         }
         index++;
+        System.out.println("Commands: "+this.commands);
         return commands.add(command);
     }
 
     public void play(){
+        this.listeShapes.clear();
         for (int i = 0;i < index;i++){
+            System.out.println("Commands: "+this.commands.get(i));
             this.commands.get(i).execute();
         }
     }

@@ -3,25 +3,26 @@ package edu.uga.miage.m1.polygons.gui.commands;
 import edu.uga.miage.m1.polygons.gui.shapes.GroupeShape;
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
 public class Draw implements Command {
 
-    private Graphics2D g2;
+    private JPanel m_panel;
     private SimpleShape newFigure ;
     private GroupeShape groupeShape;
     private List<SimpleShape> listeShapes;
 
-    public Draw(Graphics2D g2, SimpleShape newFigure, List<SimpleShape> listeShapes) {
-        this.g2 = g2;
+    public Draw(JPanel m_panel, SimpleShape newFigure, List<SimpleShape> listeShapes) {
+        this.m_panel = m_panel;
         this.newFigure = newFigure;
         this.listeShapes = listeShapes;
     }
 
     @Override
     public void execute(){
-        if (g2 != null) this.newFigure.draw(g2);
+        if (this.m_panel != null) this.newFigure.draw(this.m_panel);
         this.listeShapes.add(this.newFigure);
     }
 

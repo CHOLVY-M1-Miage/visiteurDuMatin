@@ -25,6 +25,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 import java.util.List;
 
@@ -35,6 +39,7 @@ import edu.uga.miage.m1.polygons.gui.persistence.Json;
 import edu.uga.miage.m1.polygons.gui.persistence.XMLVisitor;
 import edu.uga.miage.m1.polygons.gui.persistence.Xml;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
+import static edu.uga.miage.m1.polygons.gui.shapeInteraction.whoWasClicked;
 
 
 /**
@@ -58,8 +63,10 @@ public class JDrawingFrame extends JFrame
     private Shapes m_selected;
     private JPanel m_panel;
     private JLabel m_label;
+    private Graphics2D g2;
     private ActionListener m_reusableActionListener = new ShapeActionListener();
 
+    private JLabel moveShape;
     /**
      * Tracks buttons to manage the background.
      */
@@ -68,12 +75,13 @@ public class JDrawingFrame extends JFrame
 
     /*Rafréchi l'affichage du pano*/
     public void graphiqueUpdate(){
+        /*
         Graphics2D g2 = (Graphics2D) m_panel.getGraphics();
         m_panel.update(g2);
         for (SimpleShape s: this.listeShapes){
             System.out.println("Dessin de la figure: " + s);
             s.draw(g2);
-        }
+        }*/
     }
 
     /**
@@ -92,12 +100,14 @@ public class JDrawingFrame extends JFrame
         m_panel.addMouseListener(this);
         m_panel.addMouseMotionListener(this);
         m_label = new JLabel(" ", JLabel.LEFT);
+        ImageIcon ico = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/square.png")));
 
         // Fills the panel
         setLayout(new BorderLayout());
         add(m_toolbar, BorderLayout.NORTH);
         add(m_panel, BorderLayout.CENTER);
         add(m_label, BorderLayout.SOUTH);
+        //add(m_shapeLabel,BorderLayout.CENTER);
 
         // Icône du menu
         addShape(Shapes.SQUARE, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/square.png"))));
@@ -106,10 +116,10 @@ public class JDrawingFrame extends JFrame
         addShape(Shapes.BINOME, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/luffyHat.png"))));
         exportXLMButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/xmlExport.png"))));
         exportJSONButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/jsonExport.png"))));
-        importXLMButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/xmlImport.png"))));
-        importJSonButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/jsonImport.png"))));
+        importXLMButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/import.png"))));
 
-        setPreferredSize(new Dimension(400, 400));
+        setPreferredSize(new Dimension(8000, 600));
+
         this.listeShapes = new ArrayList<>();
         remote = new RemoteControl(this.listeShapes);
 
@@ -202,7 +212,7 @@ public class JDrawingFrame extends JFrame
     /**
      * Injects an available <tt>SimpleShape</tt> into the drawing frame.
      *
-     * @param The name of the injected <tt>SimpleShape</tt>.
+     * @param "The" name of the injected <tt>SimpleShape</tt>.
      * @param icon The icon associated with the injected <tt>SimpleShape</tt>.
      **/
     private void addShape(Shapes shape, ImageIcon icon) {
@@ -255,6 +265,30 @@ public class JDrawingFrame extends JFrame
         }
     }
 
+    public static SimpleShape drawShape(Shapes type,int x,int y){
+        SimpleShape figure;
+        switch (type) {
+            case CIRCLE:
+                figure = new Circle(x, y);
+                break;
+            case TRIANGLE:
+                figure = new Triangle(x, y);
+                break;
+            case SQUARE:
+                figure = new Square(x, y);
+                break;
+            case BINOME:
+                figure = new Binome(x, y);
+                break;
+            default:
+                System.out.println("No shape named " + type);
+                figure = null;
+
+        }
+        System.out.println("New figure: "+ type+"("+x+","+y+")");
+        return figure;
+    }
+
     /*##################MOUSE LISTENER#######################*/
     /**
      * TODO Use the factory to abstract shape creation
@@ -264,6 +298,22 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseClicked(MouseEvent evt) {
+        System.out.println("Click "+evt.getX()+" "+evt.getY());
+        this.shapeClicked = whoWasClicked(this.listeShapes,evt.getX(),evt.getY());
+        System.out.println("ShapeClicked "+this.shapeClicked);
+        if (shapeClicked == null){
+            //Zone vide --> Nouvelle figure
+            System.out.println("New figure");
+            SimpleShape newShape = drawShape(m_selected,evt.getX(),evt.getY());
+            this.remote.addCommand(new Draw(this.m_panel,newShape,listeShapes));
+        }
+        else {
+            //Figure/Groupe présent --> Selectionne la figure / le groupe
+
+        }
+        m_panel.removeAll();
+        this.remote.play();
+        System.out.println("Shapes " + this.listeShapes.size());
         /*
         this.shapeClicked = shapeSelecte(evt,true);
         groupShape(this.shapeClicked);
@@ -314,8 +364,7 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseExited(MouseEvent evt) {
-        m_label.setText(" ");
-        m_label.repaint();
+        //m_label.setText("");
     }
 
     /**
@@ -325,7 +374,7 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mousePressed(MouseEvent evt) {
-        //this.shapeDragged = shapeSelecte(evt,false);
+        this.shapeDragged = whoWasClicked(this.listeShapes,evt.getX(),evt.getY());
     }
 
     /**
@@ -335,7 +384,11 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseReleased(MouseEvent evt) {
-        //this.shapeDragged = null;
+        this.shapeDragged.setX(evt.getX()-25);
+        this.shapeDragged.setY(evt.getY()-25);
+        this.shapeDragged = null;
+        this.m_panel.removeAll();
+        this.remote.play();
     }
 
     /**
@@ -345,6 +398,9 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseDragged(MouseEvent evt) {
+        this.shapeDragged.move(evt.getX()-25,evt.getY()-25);
+
+        //moveShape.setLocation(evt.getX(),evt.getY());
         /*
         if ((this.shapeDragged != null) && (this.shapeDragged.shapeSelect(evt.getX(),evt.getY()) != null)){
             int deltaX = evt.getX() - this.shapeDragged.shapeSelect(evt.getX(),evt.getY()).getX();

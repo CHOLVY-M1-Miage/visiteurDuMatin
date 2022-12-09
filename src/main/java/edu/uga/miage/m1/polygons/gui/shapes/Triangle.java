@@ -18,18 +18,17 @@
  */
 package edu.uga.miage.m1.polygons.gui.shapes;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import edu.uga.miage.m1.polygons.gui.persistence.Visitable;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
+
+import javax.swing.*;
 
 /**
  * This inner class implements the triangle <tt>SimpleShape</tt> service.
@@ -43,6 +42,10 @@ public class Triangle implements SimpleShape, Visitable {
 
     int m_y;
 
+    JLabel label;
+
+    ImageIcon icon = new ImageIcon("src/main/resources/edu/uga/miage/m1/polygons/gui/images/icones/triangle.png");
+
     public Triangle(int x, int y) {
         m_x = x - 25;
         m_y = y - 25;
@@ -53,27 +56,14 @@ public class Triangle implements SimpleShape, Visitable {
      * the shape.
      * @param g2 The graphics object used for painting.
      */
-    public void draw(Graphics2D g2){
-        this.draw(g2,false);
+    public void draw(JPanel m_panel){
+        this.draw(m_panel,false);
     }
-    public void draw(Graphics2D g2,boolean estDansGroupe) {
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        GradientPaint gradient = new GradientPaint(m_x, m_y, Color.GREEN, m_x + 50, m_y, Color.WHITE);
-        g2.setPaint(gradient);
-        int[] xcoords = { m_x + 25, m_x, m_x + 50 };
-        int[] ycoords = { m_y, m_y + 50, m_y + 50 };
-        GeneralPath polygon = new GeneralPath(GeneralPath.WIND_EVEN_ODD, xcoords.length);
-        polygon.moveTo(m_x + 25, m_y);
-        for (int i = 0; i < xcoords.length; i++) {
-            polygon.lineTo(xcoords[i], ycoords[i]);
-        }
-        polygon.closePath();
-        g2.fill(polygon);
-        BasicStroke wideStroke = new BasicStroke(4.0f);
-        Color bordure = (estDansGroupe) ? Color.red : Color.black;
-        g2.setColor(bordure);
-        g2.setStroke(wideStroke);
-        g2.draw(polygon);
+    public void draw(JPanel m_panel,boolean estDansGroupe) {
+        this.label = new JLabel(icon);
+        m_panel.add(this.label);
+        Dimension size = label.getPreferredSize();
+        label.setBounds(getX()-25, getY()-25, size.width, size.height);
     }
 
     @Override
@@ -151,20 +141,21 @@ public class Triangle implements SimpleShape, Visitable {
         return this.getC().get(1);
     }
     @Override
-    public void move(int deltaX,int deltaY){
-        this.setX(this.m_x + deltaX);
-        this.setY(this.m_y + deltaY);
+    public void move(int x,int y){
+        this.label.setLocation(x,y);
     }
 
     @Override
     public boolean isSelect(int coordX, int coordY){
+
         /*
         System.out.println("---");
         System.out.println("->(1)"+ ( ( (getAx()) - (coordX) ) * ( (getBy()) - (coordY)) - ( (getAy()) - (coordY)) * ( (getBx()) - (coordX))));
         System.out.println("->(2)"+ ( ( (getBx()) - (coordX) ) * ( (getCy()) - (coordY)) - ( (getBy()) - (coordY)) * ( (getCx()) - (coordX))));
         System.out.println("->(3)"+ ( ( (getCx()) - (coordX) ) * ( (getAy()) - (coordY)) - ( (getCy()) - (coordY)) * ( (getAx()) - (coordX))));
         System.out.println("---");
-         */
+        */
+
         return (
                         ( ( (getAx()) - (coordX) ) * ( (getBy()) - (coordY)) - ( (getAy()) - (coordY)) * ( (getBx()) - (coordX))) < 0 &&
                         ( ( (getBx()) - (coordX) ) * ( (getCy()) - (coordY)) - ( (getBy()) - (coordY)) * ( (getCx()) - (coordX))) < 0 &&

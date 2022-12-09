@@ -2,6 +2,7 @@ package edu.uga.miage.m1.polygons.gui.shapes;
 
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -22,19 +23,20 @@ public class GroupeShape implements SimpleShape{
         this.shapes = new ArrayList<SimpleShape>();
     }
 
+    @Override
     public void move(int deltaX,int deltaY){
         for (SimpleShape s: this.getShapes()){
             s.move(deltaX,deltaY);
         }
     }
 
-    public void draw(Graphics2D g2) {
-        this.draw(g2,true);
+    public void draw(JPanel m_panel) {
+        this.draw(m_panel,true);
     }
 
-    public void draw(Graphics2D g2, boolean estDansGroupe) {
+    public void draw(JPanel m_panel, boolean estDansGroupe) {
         for (SimpleShape shape:this.shapes){
-            shape.draw(g2,true);
+            shape.draw(m_panel,true);
         }
     }
 

@@ -2,13 +2,18 @@ package edu.uga.miage.m1.polygons.gui.shapes;
 
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.util.Objects;
 
 public class Binome implements SimpleShape{
     int m_x;
 
     int m_y;
+    JLabel label;
+
+    ImageIcon icon = new ImageIcon("src/main/resources/edu/uga/miage/m1/polygons/gui/images/icones/luffyHat.png");
 
     public Binome(int x, int y) {
         m_x = x - 25;
@@ -20,21 +25,14 @@ public class Binome implements SimpleShape{
      * the shape.
      * @param g2 The graphics object used for painting.
      */
-    public void draw(Graphics2D g2){
-        this.draw(g2,false);
+    public void draw(JPanel m_panel){
+        this.draw(m_panel,false);
     }
-
-    public void draw(Graphics2D g2,boolean estDansGroupe) {
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        GradientPaint gradient = new GradientPaint(m_x, m_y, Color.pink, m_x + 50, m_y, Color.WHITE);
-        g2.setPaint(gradient);
-        g2.fill(new Rectangle2D.Double(m_x, m_y, 50, 50));
-        BasicStroke wideStroke = new BasicStroke(4.0f);
-        Color bordure = (estDansGroupe) ? Color.red : Color.black;
-        g2.setColor(bordure);
-        g2.setStroke(wideStroke);
-        g2.draw(new Rectangle2D.Double(m_x, m_y, 50, 50));
-        //TODO
+    public void draw(JPanel m_panel,boolean estDansGroupe) {
+        this.label = new JLabel(icon);
+        m_panel.add(this.label);
+        Dimension size = label.getPreferredSize();
+        label.setBounds(getX(), getY(), size.width, size.height);
     }
 
     @Override
@@ -44,7 +42,7 @@ public class Binome implements SimpleShape{
 
     @Override
     public int getX() {
-        return m_x + 25;
+        return m_x;
     }
 
     @Override
@@ -54,7 +52,7 @@ public class Binome implements SimpleShape{
 
     @Override
     public int getY() {
-        return m_y + 25;
+        return m_y;
     }
 
     @Override
@@ -63,18 +61,17 @@ public class Binome implements SimpleShape{
     }
 
     @Override
-    public void move(int deltaX,int deltaY){
-        this.setX(this.m_x + deltaX);
-        this.setY(this.m_y + deltaY);
+    public void move(int x,int y){
+        this.label.setLocation(x,y);
     }
 
     @Override
     public boolean isSelect(int coordX, int coordY) {
         return (
-                (coordX >= this.getX() - 25) &&
-                        (coordX <= this.getX() + 25) &&
-                        (coordY >= this.getY() - 25) &&
-                        (coordY <= this.getY() + 25)
+                (coordX >= this.getX()) &&
+                        (coordX <= this.getX() + 50) &&
+                        (coordY >= this.getY()) &&
+                        (coordY <= this.getY() + 50)
         );
     }
 

@@ -25,15 +25,15 @@ public class Xml {
         switch (type.toUpperCase()) {
             case "CIRCLE":
                 figure = new Circle(x, y);
-                figure.draw(g2);
+                //figure.draw(g2);
                 break;
             case "TRIANGLE":
                 figure = new Triangle(x, y);
-                figure.draw(g2);
+                //figure.draw(g2);
                 break;
             case "SQUARE":
                 figure = new Square(x, y);
-                figure.draw(g2);
+                //figure.draw(g2);
                 break;
             default:
                 //System.out.println("No shape named " + m_selected);

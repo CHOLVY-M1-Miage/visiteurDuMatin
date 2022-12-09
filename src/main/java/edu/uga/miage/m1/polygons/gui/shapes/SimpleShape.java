@@ -2,6 +2,7 @@ package edu.uga.miage.m1.polygons.gui.shapes;
 
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
+import javax.swing.*;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
@@ -19,8 +20,8 @@ public interface SimpleShape
      * Method to draw the shape of the extension.
      * @param g2 The graphics object used for painting.
      **/
-    void draw(Graphics2D g2);
-    void draw(Graphics2D g2,boolean estDansGroupe);
+    void draw(JPanel m_panel);
+    void draw(JPanel m_panel,boolean estDansGroupe);
 
     int getX();
 
