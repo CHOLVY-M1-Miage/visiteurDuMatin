@@ -62,6 +62,7 @@ public class Square implements SimpleShape, Visitable {
         m_panel.add(this.label);
         Dimension size = label.getPreferredSize();
         label.setBounds(getX(), getY(), size.width, size.height);
+        this.label.setLocation(getX(),getY());
     }
 
     @Override
@@ -93,6 +94,8 @@ public class Square implements SimpleShape, Visitable {
     @Override
     public void move(int x,int y){
         this.label.setLocation(x,y);
+        setX(x);
+        setY(y);
     }
 
     @Override

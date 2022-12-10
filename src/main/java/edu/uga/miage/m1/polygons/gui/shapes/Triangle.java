@@ -143,6 +143,8 @@ public class Triangle implements SimpleShape, Visitable {
     @Override
     public void move(int x,int y){
         this.label.setLocation(x,y);
+        setX(x);
+        setY(y);
     }
 
     @Override

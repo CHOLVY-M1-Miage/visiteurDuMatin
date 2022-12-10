@@ -8,20 +8,19 @@ import java.util.List;
 
 public class Move implements Command {
 
-    private Graphics2D g2;
     private SimpleShape newFigure ;
-    private GroupeShape groupeShape;
-    private List<SimpleShape> listeShapes;
+    private int newX;
+    private int newY;
 
-    public Move(Graphics2D g2, SimpleShape newFigure , GroupeShape groupeShape, List<SimpleShape> listeShapes) {
-        this.g2 = g2;
-        this.newFigure = newFigure;
-        this.groupeShape = groupeShape;
-        this.listeShapes = listeShapes;
+    public Move(SimpleShape figure , int newX, int newY) {
+        this.newFigure = figure;
+        this.newX = newX;
+        this.newY = newY;
     }
 
     @Override
     public void execute(){
+        this.newFigure.move(newX,newY);
     }
 
 }

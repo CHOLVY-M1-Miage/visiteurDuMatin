@@ -37,6 +37,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.ParserConfigurationException;
 
 import edu.uga.miage.m1.polygons.gui.commands.Draw;
+import edu.uga.miage.m1.polygons.gui.commands.Move;
 import edu.uga.miage.m1.polygons.gui.persistence.*;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 import org.json.simple.parser.ParseException;
@@ -62,6 +63,8 @@ public class JDrawingFrame extends JFrame
         implements MouseListener, MouseMotionListener {
     private enum Shapes {SQUARE, TRIANGLE, CIRCLE, BINOME}
     private SimpleShape shapeDragged;
+    private int shapeDraggedXOrigine;
+    private int shapeDraggedYOrigine;
     private  boolean shapeWasMove = false;
     private SimpleShape shapeClicked;
     private GroupeShape groupeShape;
@@ -466,6 +469,11 @@ public class JDrawingFrame extends JFrame
     public void mousePressed(MouseEvent evt) {
         System.out.println("Press "+evt.getX()+" "+evt.getY());
         this.shapeDragged = whoWasClicked(this.listeShapes,evt.getX(),evt.getY());
+        if (this.shapeDragged != null){
+            this.shapeDraggedXOrigine = this.shapeDragged.getX();
+            this.shapeDraggedYOrigine = this.shapeDragged.getY();
+            System.out.println("Original "+this.shapeDraggedXOrigine+" "+this.shapeDraggedYOrigine);
+        }
     }
 
     /**
@@ -477,8 +485,9 @@ public class JDrawingFrame extends JFrame
     public void mouseReleased(MouseEvent evt) {
         System.out.println("Release "+evt.getX()+" "+evt.getY());
         if (this.shapeDragged != null && this.shapeWasMove) {
-            this.shapeDragged.setX(evt.getX() - 25);
-            this.shapeDragged.setY(evt.getY() - 25);
+            this.shapeDragged.setX(this.shapeDraggedXOrigine);
+            this.shapeDragged.setY(this.shapeDraggedYOrigine);
+            this.remote.addCommand(new Move(this.shapeDragged,evt.getX()-25,evt.getY()-25));
             this.shapeDragged = null;
             this.m_panel.removeAll();
             this.remote.play();

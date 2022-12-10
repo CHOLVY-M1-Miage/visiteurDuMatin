@@ -9,7 +9,6 @@ import java.util.Objects;
 
 public class Binome implements SimpleShape{
     int m_x;
-
     int m_y;
     JLabel label;
 
@@ -32,7 +31,8 @@ public class Binome implements SimpleShape{
         this.label = new JLabel(icon);
         m_panel.add(this.label);
         Dimension size = label.getPreferredSize();
-        label.setBounds(getX(), getY(), size.width, size.height);
+        this.label.setBounds(getX(), getY(), size.width, size.height);
+        this.label.setLocation(getX(),getY());
     }
 
     @Override
@@ -63,6 +63,8 @@ public class Binome implements SimpleShape{
     @Override
     public void move(int x,int y){
         this.label.setLocation(x,y);
+        setX(x);
+        setY(y);
     }
 
     @Override
