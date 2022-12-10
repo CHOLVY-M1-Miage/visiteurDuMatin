@@ -117,11 +117,13 @@ public class JDrawingFrame extends JFrame
         exportXLMButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/xmlExport.png"))));
         exportJSONButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/jsonExport.png"))));
         importXLMButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/import.png"))));
+        undoButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/undo.png"))));
+        forwardButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/forward.png"))));
 
         setPreferredSize(new Dimension(8000, 600));
 
         this.listeShapes = new ArrayList<>();
-        remote = new RemoteControl(this.listeShapes);
+        this.remote = new RemoteControl(this.listeShapes,this.m_panel);
 
     }
 
@@ -182,12 +184,49 @@ public class JDrawingFrame extends JFrame
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*
-                listeShapes.clear();
-                graphiqueUpdate();
-                Graphics2D g2 = (Graphics2D) m_panel.getGraphics();
-                Json.importJSon(listeShapes,g2);
-                //graphiqieUpdate();*/
+                undo();
+            }
+        });
+        m_toolbar.add(button);
+        m_toolbar.validate();
+        repaint();
+    }
+
+    private void undo(){
+        m_panel.removeAll();
+        remote.undo();
+        repaint();
+    }
+
+    private void undoButton(Icon icon) {
+        JButton button = new JButton(icon);
+        button.setBorderPainted(false);
+        button.setActionCommand("importJSon");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               undo();
+            }
+        });
+        m_toolbar.add(button);
+        m_toolbar.validate();
+        repaint();
+    }
+
+    private void forward(){
+        m_panel.removeAll();
+        remote.forward();
+        repaint();
+    }
+
+    private void forwardButton(Icon icon) {
+        JButton button = new JButton(icon);
+        button.setBorderPainted(false);
+        button.setActionCommand("importJSon");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                forward();
             }
         });
         m_toolbar.add(button);

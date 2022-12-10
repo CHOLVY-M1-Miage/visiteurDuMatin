@@ -6,21 +6,33 @@ import edu.uga.miage.m1.polygons.gui.commands.*;
 import edu.uga.miage.m1.polygons.gui.shapes.GroupeShape;
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 
+import javax.swing.*;
+
 public class RemoteControl {
 
     private List<SimpleShape> listeShapes;
     protected List<Command> commands;
+    private JPanel m_panel;
     private int index = 0;
 
-    public RemoteControl(List<SimpleShape> listeShapes) {
+    public RemoteControl(List<SimpleShape> listeShapes){
         this.listeShapes = listeShapes;
+        this.m_panel = null;
+        commands = new ArrayList<Command>();
+    }
+    public RemoteControl(List<SimpleShape> listeShapes,JPanel m_panel) {
+        this.listeShapes = listeShapes;
+        this.m_panel = m_panel;
         commands = new ArrayList<Command>();
     }
 
     public boolean addCommand(Command command) {
+        System.out.println("index: "+index+"/"+this.commands.size());
         //Supprime les commandes du forward
-        for (int i = index;i < this.commands.size();i++){
-            this.commands.remove(this.commands.size() - 1);
+        int taille = this.commands.size();
+        for (int i = index;i < taille;i++){
+            System.out.println("remove: "+i);
+            this.commands.remove(this.commands.size()-1);
         }
         index++;
         System.out.println("Commands: "+this.commands);
@@ -36,17 +48,23 @@ public class RemoteControl {
     }
 
     public void undo(){
-        if (this.index > 1) {
+        System.out.println("COMMAND: undo");
+        if (this.index > 0) {
             this.index--;
+            System.out.println("index: "+index+"/"+this.commands.size());
         }
         this.play();
+
     }
 
     public void forward(){
+        System.out.println("COMMAND: forward");
         if (this.index < this.commands.size()) {
             this.index++;
+            System.out.println("index: "+index+"/"+this.commands.size());
         }
         this.play();
+
     }
 
 }
