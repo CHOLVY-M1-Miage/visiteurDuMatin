@@ -33,12 +33,22 @@ import java.util.*;
 import java.util.List;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.xml.parsers.ParserConfigurationException;
 
 import edu.uga.miage.m1.polygons.gui.commands.Draw;
-import edu.uga.miage.m1.polygons.gui.persistence.Json;
-import edu.uga.miage.m1.polygons.gui.persistence.XMLVisitor;
-import edu.uga.miage.m1.polygons.gui.persistence.Xml;
+import edu.uga.miage.m1.polygons.gui.persistence.*;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
+import org.json.simple.parser.ParseException;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
+import static edu.uga.miage.m1.polygons.gui.file.Export.export;
+import static edu.uga.miage.m1.polygons.gui.file.FileUtils.chooseFile;
+import static edu.uga.miage.m1.polygons.gui.file.FileUtils.getFileExtention;
+import static edu.uga.miage.m1.polygons.gui.file.JsonFile.importJson;
+import static edu.uga.miage.m1.polygons.gui.file.XmlFile.importXml;
+import static edu.uga.miage.m1.polygons.gui.file.XmlFile.openXmlFile;
 import static edu.uga.miage.m1.polygons.gui.shapeInteraction.whoWasClicked;
 
 
@@ -52,6 +62,7 @@ public class JDrawingFrame extends JFrame
         implements MouseListener, MouseMotionListener {
     private enum Shapes {SQUARE, TRIANGLE, CIRCLE, BINOME}
     private SimpleShape shapeDragged;
+    private  boolean shapeWasMove = false;
     private SimpleShape shapeClicked;
     private GroupeShape groupeShape;
     private List<SimpleShape> listeShapes;
@@ -116,7 +127,7 @@ public class JDrawingFrame extends JFrame
         addShape(Shapes.BINOME, new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/luffyHat.png"))));
         exportXLMButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/xmlExport.png"))));
         exportJSONButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/jsonExport.png"))));
-        importXLMButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/import.png"))));
+        importButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/import.png"))));
         undoButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/undo.png"))));
         forwardButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icones/forward.png"))));
 
@@ -134,6 +145,7 @@ public class JDrawingFrame extends JFrame
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                exportXml();
                 //Xml.exportXML(new XMLVisitor(),"fileExport",listeShapes);
             }
         });
@@ -142,24 +154,52 @@ public class JDrawingFrame extends JFrame
         repaint();
     }
 
-    private void importXLMButton(Icon icon) {
+    private void exportXml(){
+        String path = chooseFile(true,true,false);
+        Visitor visitorXml = new XMLVisitor();
+        export(visitorXml,"xml",path,this.listeShapes);
+        System.out.println("Xml export make in file: " + path);
+    }
+
+    private void importButton(Icon icon) {
         JButton button = new JButton(icon);
         button.setBorderPainted(false);
         button.setActionCommand("importXML");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*
-                listeShapes.clear();
-                graphiqueUpdate();
-                Graphics2D g2 = (Graphics2D) m_panel.getGraphics();
-                Xml.importXML(listeShapes,g2);
-                //graphiqieUpdate();*/
+                importFile();
             }
         });
         m_toolbar.add(button);
         m_toolbar.validate();
         repaint();
+    }
+
+    private void importFile(){
+        String path = chooseFile(false,true,true);
+        this.listeShapes.clear();
+        this.remote = new RemoteControl(this.listeShapes,this.m_panel);
+        if (getFileExtention(path).equals("xml")){
+            try {
+                this.listeShapes = importJson(path);
+            } catch (IOException | ParseException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else {
+            try {
+                Document document = openXmlFile(path);
+                this.listeShapes = importXml(document);
+            } catch (IOException | ParserConfigurationException | SAXException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        m_panel.removeAll();
+        remote.play();
+        repaint();
+
     }
 
     private void exportJSONButton(Icon icon) {
@@ -169,12 +209,21 @@ public class JDrawingFrame extends JFrame
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                exportJson();
                 //Json.exportJSON("Json/fileAuto.json",listeShapes);
             }
         });
         m_toolbar.add(button);
         m_toolbar.validate();
         repaint();
+    }
+
+    private void exportJson(){
+        String path = chooseFile(true,false,true);
+        Visitor visitorJson = new JSonVisitor();
+        export(visitorJson,"json",path,this.listeShapes);
+        System.out.println("json export make in file: " + path);
+
     }
 
     private void importJSonButton(Icon icon) {
@@ -413,6 +462,7 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mousePressed(MouseEvent evt) {
+        System.out.println("Press "+evt.getX()+" "+evt.getY());
         this.shapeDragged = whoWasClicked(this.listeShapes,evt.getX(),evt.getY());
     }
 
@@ -423,11 +473,16 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseReleased(MouseEvent evt) {
-        this.shapeDragged.setX(evt.getX()-25);
-        this.shapeDragged.setY(evt.getY()-25);
-        this.shapeDragged = null;
-        this.m_panel.removeAll();
-        this.remote.play();
+        System.out.println("Release "+evt.getX()+" "+evt.getY());
+        if (this.shapeDragged != null && this.shapeWasMove) {
+            this.shapeDragged.setX(evt.getX() - 25);
+            this.shapeDragged.setY(evt.getY() - 25);
+            this.shapeDragged = null;
+            this.m_panel.removeAll();
+            this.remote.play();
+            repaint();
+            this.shapeWasMove = false;
+        }
     }
 
     /**
@@ -437,7 +492,10 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseDragged(MouseEvent evt) {
-        this.shapeDragged.move(evt.getX()-25,evt.getY()-25);
+        if (this.shapeDragged != null){
+            this.shapeWasMove = true;
+            this.shapeDragged.move(evt.getX()-25,evt.getY()-25);
+        }
 
         //moveShape.setLocation(evt.getX(),evt.getY());
         /*
