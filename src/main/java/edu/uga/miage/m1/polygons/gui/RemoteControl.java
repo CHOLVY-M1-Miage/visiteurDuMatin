@@ -67,4 +67,10 @@ public class RemoteControl {
 
     }
 
+    public void load(List<SimpleShape> shapes){
+        for (SimpleShape shape: shapes){
+            this.addCommand(new Draw(this.m_panel,shape,this.listeShapes));
+        }
+    }
+
 }

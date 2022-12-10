@@ -180,17 +180,19 @@ public class JDrawingFrame extends JFrame
         String path = chooseFile(false,true,true);
         this.listeShapes.clear();
         this.remote = new RemoteControl(this.listeShapes,this.m_panel);
-        if (getFileExtention(path).equals("xml")){
+
+        if (getFileExtention(path).equals("json")){
             try {
-                this.listeShapes = importJson(path);
+                this.remote.load(importJson(path));
             } catch (IOException | ParseException e) {
                 throw new RuntimeException(e);
             }
         }
+
         else {
             try {
                 Document document = openXmlFile(path);
-                this.listeShapes = importXml(document);
+                this.remote.load(importXml(document));
             } catch (IOException | ParserConfigurationException | SAXException e) {
                 throw new RuntimeException(e);
             }

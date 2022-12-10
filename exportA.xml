@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <root>
 <shapes>
-<shape><type>circle</type><x>348</x><y>245</y></shape>
-<shape><type>circle</type><x>1089</x><y>170</y></shape>
-<shape><type>circle</type><x>457</x><y>88</y></shape>
+<shape><type>binome</type><x>760</x><y>328</y></shape>
+<shape><type>binome</type><x>811</x><y>190</y></shape>
 </shapes>
 </root>

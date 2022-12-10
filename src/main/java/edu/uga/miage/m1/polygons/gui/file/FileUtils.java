@@ -106,7 +106,7 @@ public class FileUtils {
 
     public static String getFileExtention(String path){
         String[] pathTab = path.split("\\.");
-        return (pathTab.length > 2)? pathTab[1] : "";
+        return (pathTab.length >= 2)? pathTab[1] : "";
     }
 
     private static String chooseSaveFile(FileNameExtensionFilter filter){

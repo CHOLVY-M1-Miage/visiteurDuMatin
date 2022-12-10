@@ -6,10 +6,6 @@ import java.awt.*;
 import java.util.List;
 
 public class Clear implements Command {
-
-    private Graphics2D g2;
-    private SimpleShape newFigure ;
-
     private List<SimpleShape> listeShapes;
 
     public Clear(List<SimpleShape> listeShapes) {
