@@ -1,6 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.commande;
 
 import edu.uga.miage.m1.polygons.gui.RemoteControl;
+import edu.uga.miage.m1.polygons.gui.commands.Command;
 import edu.uga.miage.m1.polygons.gui.commands.Remove;
 import edu.uga.miage.m1.polygons.gui.shapes.Circle;
 import edu.uga.miage.m1.polygons.gui.shapes.GroupeShape;
@@ -17,11 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class RemoveTest {
     @Test
     void test_remove_emptyGroupe() {
-        JPanel m_panel = new JPanel();
-        Graphics2D graphics2 = (Graphics2D) m_panel.getGraphics();
         java.util.List<SimpleShape> shapes = new ArrayList<>();
         java.util.List<SimpleShape> shapes_control = new ArrayList<>();
-        RemoteControl control = new RemoteControl(shapes);
         GroupeShape g1 = new GroupeShape();
         GroupeShape g1_control = new GroupeShape();
 
@@ -30,8 +28,8 @@ public class RemoveTest {
         shapes.add(g1);
         shapes_control.add(c);
 
-        control.addCommand(new Remove(graphics2,c,g1,shapes));
-        control.play();
+        Command commande = new Remove(c,g1,shapes);
+        commande.execute();
 
         System.out.println("LS:" + shapes);
         System.out.println("LSC:" + shapes_control);
@@ -47,11 +45,8 @@ public class RemoveTest {
 
     @Test
     void test_remove_notEmptyGroupe() {
-        JPanel m_panel = new JPanel();
-        Graphics2D graphics2 = (Graphics2D) m_panel.getGraphics();
         java.util.List<SimpleShape> shapes = new ArrayList<>();
         List<SimpleShape> shapes_control = new ArrayList<>();
-        RemoteControl control = new RemoteControl(shapes);
         GroupeShape g1 = new GroupeShape();
         GroupeShape g1_control = new GroupeShape();
 
@@ -64,8 +59,8 @@ public class RemoveTest {
         shapes_control.add(g1);
         shapes_control.add(c2);
 
-        control.addCommand(new Remove(graphics2,c2,g1,shapes));
-        control.play();
+        Command commande = new Remove(c2,g1,shapes);
+        commande.execute();
 
         System.out.println("LS:" + shapes);
         System.out.println("LSC:" + shapes_control);

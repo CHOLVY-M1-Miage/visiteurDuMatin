@@ -1,5 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.file;
 
+import edu.uga.miage.m1.polygons.gui.RemoteControl;
+import edu.uga.miage.m1.polygons.gui.commands.Command;
 import edu.uga.miage.m1.polygons.gui.shapes.GroupeShape;
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 import org.w3c.dom.Document;
@@ -79,6 +81,7 @@ public class XmlFile {
     }
 
     public static List<SimpleShape> importXml (Document document){
+        List<Command> commandes = new ArrayList<>();
         List<SimpleShape> shapes = new ArrayList<>();
         //System.out.println("Root Element :" + document.getDocumentElement().getNodeName());
         Node shapesNode = document.getElementsByTagName("shapes").item(0);

@@ -15,8 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AddTest {
     @Test
     void test_add_newGroupe() {
-        JPanel m_panel = new JPanel();
-        Graphics2D graphics2 = (Graphics2D) m_panel.getGraphics();
         java.util.List<SimpleShape> shapes = new ArrayList<>();
         List<SimpleShape> shapes_control = new ArrayList<>();
         RemoteControl control = new RemoteControl(shapes);
@@ -27,7 +25,7 @@ public class AddTest {
         g1_control.add(c);
         shapes_control.add(g1);
 
-        control.addCommand(new Add(graphics2,c,g1,shapes));
+        control.addCommand(new Add(c,g1,shapes));
         control.play();
 
         System.out.println("LS:" + shapes);
@@ -44,8 +42,6 @@ public class AddTest {
 
     @Test
     void test_add_existedGroupe() {
-        JPanel m_panel = new JPanel();
-        Graphics2D graphics2 = (Graphics2D) m_panel.getGraphics();
         java.util.List<SimpleShape> shapes = new ArrayList<>();
         List<SimpleShape> shapes_control = new ArrayList<>();
         RemoteControl control = new RemoteControl(shapes);
@@ -60,7 +56,7 @@ public class AddTest {
         shapes.add(g1);
         shapes_control.add(g1);
 
-        control.addCommand(new Add(graphics2,c2,g1,shapes));
+        control.addCommand(new Add(c2,g1,shapes));
         control.play();
 
         System.out.println("LS:" + shapes);
