@@ -33,7 +33,7 @@ public class ClickTest {
         init();
         //System.out.println("->" + this.shapes);
         SimpleShape clickedShape = whoWasClicked(this.shapes,10,10);
-        assertTrue(clickedShape.getX() == 0 && clickedShape.getY() == 0);
+        assertTrue(clickedShape.getX() == -25 && clickedShape.getY() == -25);
     }
 
     @Test
@@ -41,7 +41,7 @@ public class ClickTest {
         init();
         //System.out.println("->" + this.shapes);
         SimpleShape clickedShape = whoWasClicked(this.shapes,103,53);
-        assertTrue(clickedShape.getX() == 100 && clickedShape.getY() == 50);
+        assertTrue(clickedShape.getX() == 75 && clickedShape.getY() == 25);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class ClickTest {
         init();
         //System.out.println("->" + this.shapes);
         SimpleShape clickedShape = whoWasClicked(this.shapes,204,45);
-        assertTrue(clickedShape.getX() == 200 && clickedShape.getY() == 50);
+        assertTrue(clickedShape.getX() == 175 && clickedShape.getY() == 25);
     }
 
     @Test

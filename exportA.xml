@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <root>
 <shapes>
-<shape><type>square</type><x>311</x><y>326</y></shape>
-<shape><type>square</type><x>337</x><y>207</y></shape>
+<shape><type>circle</type><x>348</x><y>245</y></shape>
+<shape><type>circle</type><x>1089</x><y>170</y></shape>
+<shape><type>circle</type><x>457</x><y>88</y></shape>
 </shapes>
 </root>

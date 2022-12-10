@@ -13,7 +13,7 @@ public class BinomeTest {
     @Test
     void test_getters() {
         Binome b = new Binome(0, 0);
-        assertEquals(0, b.getX());
-        assertEquals(0, b.getY());
+        assertEquals(-25, b.getX());
+        assertEquals(-25, b.getY());
     }
 }

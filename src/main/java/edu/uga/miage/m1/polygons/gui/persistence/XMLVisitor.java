@@ -21,12 +21,12 @@ public class XMLVisitor implements Visitor {
 
     @Override
     public void visit(Circle circle) {
-        this.representation = String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "circle", circle.getX(), circle.getY());
+        this.representation = String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "circle", circle.getX()+25, circle.getY()+25);
     }
 
     @Override
     public void visit(Square square) {
-        this.representation = String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "square", square.getX(), square.getY());
+        this.representation = String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "square", square.getX()+25, square.getY()+25);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class XMLVisitor implements Visitor {
 
     @Override
     public void visit(Binome binome){
-        this.representation = String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "binome", binome.getX(), binome.getY());
+        this.representation = String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "binome", binome.getX()+25, binome.getY()+25);
     }
 
     @Override

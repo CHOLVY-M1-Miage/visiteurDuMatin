@@ -9,8 +9,8 @@ class SquareTest {
 	@Test
 	void test_getters() {
 		Square s = new Square(0, 0);
-		assertEquals(0, s.getX());
-		assertEquals(0, s.getY());
+		assertEquals(-25, s.getX());
+		assertEquals(-25, s.getY());
 	}
 
 }

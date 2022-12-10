@@ -18,8 +18,8 @@ class CircleTest {
 	@Test
 	void test_getters() {
 		Circle c = new Circle(0, 0);
-		assertEquals(0, c.getX());
-		assertEquals(0, c.getY());
+		assertEquals(-25, c.getX());
+		assertEquals(-25, c.getY());
 	}
 
 }
