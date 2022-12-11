@@ -18,5 +18,4 @@ public interface Visitor {
 	public String getRepresentation();
 	public void head(FileWriter fileWriter);
 	public void foot(FileWriter fileWriter);
-
 }
