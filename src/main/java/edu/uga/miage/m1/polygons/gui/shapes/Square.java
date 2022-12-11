@@ -19,7 +19,9 @@
 package edu.uga.miage.m1.polygons.gui.shapes;
 
 import java.awt.*;
+import java.util.Objects;
 
+import edu.uga.miage.m1.polygons.gui.graphique.JDrawingFrame;
 import edu.uga.miage.m1.polygons.gui.visitor.Visitable;
 import edu.uga.miage.m1.polygons.gui.visitor.Visitor;
 
@@ -35,7 +37,7 @@ public class Square implements SimpleShape, Visitable {
     int m_x;
     int m_y;
     JLabel label;
-    ImageIcon icon = new ImageIcon("src/main/resources/edu/uga/miage/m1/polygons/gui/images/icones/square.png");
+    ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/square.png")));
 
     public Square(int x, int y) {
         m_x = x - 25;

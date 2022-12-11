@@ -4,12 +4,13 @@ import edu.uga.miage.m1.polygons.gui.visitor.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class Binome implements SimpleShape {
     int m_x;
     int m_y;
     JLabel label;
-    ImageIcon icon = new ImageIcon("src/main/resources/edu/uga/miage/m1/polygons/gui/images/icones/luffyHat.png");
+    ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/luffyHat.png")));
 
     public Binome(int x, int y) {
         m_x = x - 25;
