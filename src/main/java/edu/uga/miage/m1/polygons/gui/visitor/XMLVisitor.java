@@ -2,9 +2,7 @@ package edu.uga.miage.m1.polygons.gui.visitor;
 
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 
-import java.io.BufferedReader;
 import java.io.FileWriter;
-import java.io.IOException;
 
 import static edu.uga.miage.m1.polygons.gui.file.FileUtils.*;
 

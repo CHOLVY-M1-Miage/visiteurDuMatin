@@ -2,7 +2,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.uga.miage.m1</groupId>
 	<artifactId>Persistence_g2_6</artifactId>
+	<packaging>pom</packaging>
 	<version>0.0.1-SNAPSHOT</version>
+	<modules>
+		<module>shapeShare</module>
+	</modules>
 	<properties>
 		<MOCKITO_VERSION>4.8.0</MOCKITO_VERSION>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
@@ -102,6 +106,12 @@
 			<groupId>com.github.jsurfer</groupId>
 			<artifactId>jsurfer-all</artifactId>
 			<version>1.6.3</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.uga.miage.m1</groupId>
+			<artifactId>shapeShare</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 	<build>
