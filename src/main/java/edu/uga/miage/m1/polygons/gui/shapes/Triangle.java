@@ -19,14 +19,11 @@
 package edu.uga.miage.m1.polygons.gui.shapes;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import edu.uga.miage.m1.polygons.gui.persistence.Visitable;
-import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
+import edu.uga.miage.m1.polygons.gui.visitor.Visitable;
+import edu.uga.miage.m1.polygons.gui.visitor.Visitor;
 
 import javax.swing.*;
 

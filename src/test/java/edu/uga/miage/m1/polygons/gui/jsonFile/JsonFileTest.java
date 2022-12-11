@@ -1,7 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.jsonFile;
 
-import edu.uga.miage.m1.polygons.gui.persistence.JSonVisitor;
-import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
+import edu.uga.miage.m1.polygons.gui.visitor.JSonVisitor;
+import edu.uga.miage.m1.polygons.gui.visitor.Visitor;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

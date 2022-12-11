@@ -1,6 +1,6 @@
 package edu.uga.miage.m1.polygons.gui.shapes;
 
-import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
+import edu.uga.miage.m1.polygons.gui.visitor.Visitor;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 

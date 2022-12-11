@@ -1,12 +1,10 @@
 package edu.uga.miage.m1.polygons.gui.commande;
 
-import edu.uga.miage.m1.polygons.gui.RemoteControl;
+import edu.uga.miage.m1.polygons.gui.commands.RemoteControl;
 import edu.uga.miage.m1.polygons.gui.commands.Add;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

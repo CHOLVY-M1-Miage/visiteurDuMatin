@@ -1,6 +1,6 @@
 package edu.uga.miage.m1.polygons.gui.commande;
 
-import edu.uga.miage.m1.polygons.gui.RemoteControl;
+import edu.uga.miage.m1.polygons.gui.commands.RemoteControl;
 import edu.uga.miage.m1.polygons.gui.commands.Clear;
 import edu.uga.miage.m1.polygons.gui.shapes.Circle;
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;

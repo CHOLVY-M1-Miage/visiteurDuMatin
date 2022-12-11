@@ -1,6 +1,5 @@
 package edu.uga.miage.m1.polygons.gui.file;
 
-import edu.uga.miage.m1.polygons.gui.RemoteControl;
 import edu.uga.miage.m1.polygons.gui.commands.Command;
 import edu.uga.miage.m1.polygons.gui.shapes.GroupeShape;
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
@@ -27,7 +26,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static edu.uga.miage.m1.polygons.gui.file.TextToShape.createSimpleShape;
+import static edu.uga.miage.m1.polygons.gui.factory.Factory.createShape;
 
 public class XmlFile {
     public static String convertXmlToString(Document doc) {
@@ -77,7 +76,7 @@ public class XmlFile {
         int x = Integer.parseInt(eElement.getElementsByTagName("x").item(0).getTextContent());
         int y = Integer.parseInt(eElement.getElementsByTagName("y").item(0).getTextContent());
 
-        return createSimpleShape(type, x, y);
+        return createShape(type, x, y);
     }
 
     public static List<SimpleShape> importXml (Document document){

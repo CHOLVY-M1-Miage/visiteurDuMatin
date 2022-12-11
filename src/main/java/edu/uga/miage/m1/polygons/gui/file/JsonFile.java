@@ -16,7 +16,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static edu.uga.miage.m1.polygons.gui.file.TextToShape.createSimpleShape;
+import static edu.uga.miage.m1.polygons.gui.factory.Factory.createShape;
 
 public class JsonFile {
 
@@ -34,7 +34,7 @@ public class JsonFile {
         int x = Integer.parseInt(shape.get("x").toString());
         int y = Integer.parseInt(shape.get("y").toString());
 
-        return createSimpleShape(type,x,y);
+        return createShape(type,x,y);
     }
 
     public static List<SimpleShape> importJson(String path) throws IOException, ParseException {

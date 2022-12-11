@@ -1,10 +1,8 @@
 package edu.uga.miage.m1.polygons.gui.shapes;
 
-import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
+import edu.uga.miage.m1.polygons.gui.visitor.Visitor;
 
 import javax.swing.*;
-import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
 
 /**
  * This interface defines the <tt>SimpleShape</tt> extension. This extension

@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class FileUtils {
     private static final String REPERTOIRE = System.getProperty("user.dir");
     /*
-     *Ouvre/Crée un fichier
+     *Ouvre/Crï¿½e un fichier
      */
     private static File createFile(String path,String type) {
         String[] pathTab = path.split("\\.");
@@ -16,28 +16,7 @@ public class FileUtils {
     }
 
     /*
-    * Récupère le contenu d'un fichier dans un buffer
-     */
-    public static BufferedReader readFile(String path,String type) throws IOException {
-        File file = new File(path + type);
-        FileReader fileReader = new FileReader(file);
-        return new BufferedReader(fileReader);
-    }
-
-    /*
-     * Retourne la ligne suivante du fichier
-     */
-    public static String readLine(BufferedReader lines){
-        try {
-            return lines.readLine();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
-    /*
-    * Retourne le fileWriter d'un fichier pour pouvoir écrire dedans.
+    * Retourne le fileWriter d'un fichier pour pouvoir ï¿½crire dedans.
      */
     public static FileWriter fileWriter(String path,String type) {
         File file = createFile(path,type);
@@ -72,10 +51,6 @@ public class FileUtils {
 
     private static FileNameExtensionFilter setFiltre(boolean bXml,boolean bJson){
         FileNameExtensionFilter filter = null;
-        //Aucun
-        if (!bXml && !bJson){
-            filter = null;
-        }
         //xml
         if (bXml && !bJson){
             filter = new FileNameExtensionFilter("xml files (*.xml)", "xml");
@@ -118,8 +93,8 @@ public class FileUtils {
             outputFile=j.getSelectedFile();
             if (outputFile.exists()) {
                 int retour = JOptionPane.showConfirmDialog(j,
-                        "Un fichier \""+outputFile+"\" existe déjà.\n" +
-                                "Voulez-vous vraiment l'écraser?\n",
+                        "Un fichier \""+outputFile+"\" existe dï¿½jï¿½.\n" +
+                                "Voulez-vous vraiment l'ï¿½craser?\n",
                         "Confirmation d'enregistrement",
                         JOptionPane.YES_NO_CANCEL_OPTION);
                 if (retour == JOptionPane.OK_OPTION) {

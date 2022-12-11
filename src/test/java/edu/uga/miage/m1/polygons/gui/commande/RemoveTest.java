@@ -1,6 +1,5 @@
 package edu.uga.miage.m1.polygons.gui.commande;
 
-import edu.uga.miage.m1.polygons.gui.RemoteControl;
 import edu.uga.miage.m1.polygons.gui.commands.Command;
 import edu.uga.miage.m1.polygons.gui.commands.Remove;
 import edu.uga.miage.m1.polygons.gui.shapes.Circle;
@@ -8,8 +7,6 @@ import edu.uga.miage.m1.polygons.gui.shapes.GroupeShape;
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

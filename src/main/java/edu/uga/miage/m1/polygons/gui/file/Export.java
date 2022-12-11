@@ -1,14 +1,18 @@
 package edu.uga.miage.m1.polygons.gui.file;
 
-import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
+import edu.uga.miage.m1.polygons.gui.visitor.JSonVisitor;
+import edu.uga.miage.m1.polygons.gui.visitor.Visitor;
+import edu.uga.miage.m1.polygons.gui.visitor.XMLVisitor;
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import static edu.uga.miage.m1.polygons.gui.file.FileUtils.chooseFile;
+
 public class Export {
-    public static String virgule(String type,List<SimpleShape> listeShapes, SimpleShape s){
+    private static String virgule(String type,List<SimpleShape> listeShapes, SimpleShape s){
         return ((type.equals("xml")) || (s.equals(listeShapes.get(listeShapes.size() - 1)))) ? "" : ",";
     }
 
@@ -31,5 +35,19 @@ public class Export {
         visitor.foot(fileWriter);
         //Fermeture du fichier
         FileUtils.closer(fileWriter);
+    }
+
+    public static void exportXml(List<SimpleShape> shapes) {
+        String path = chooseFile(true, true, false);
+        Visitor visitorXml = new XMLVisitor();
+        export(visitorXml, "xml", path, shapes);
+        System.out.println("Xml export make in file: " + path);
+    }
+
+    public static void exportJson(List<SimpleShape> shapes) {
+        String path = chooseFile(true, false, true);
+        Visitor visitorJson = new JSonVisitor();
+        export(visitorJson, "json", path, shapes);
+        System.out.println("json export make in file: " + path);
     }
 }
