@@ -1,4 +1,4 @@
-package edu.uga.miage.m1.polygons.gui;
+package edu.uga.miage.m1.polygons.gui.graphique;
 
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 

@@ -1,12 +1,11 @@
 package edu.uga.miage.m1.polygons.gui.shapes;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static edu.uga.miage.m1.polygons.gui.shapeInteraction.whoWasClicked;
+import static edu.uga.miage.m1.polygons.gui.graphique.shapeInteraction.whoWasClicked;
 import static org.junit.Assert.assertTrue;
 
 public class ClickTest {

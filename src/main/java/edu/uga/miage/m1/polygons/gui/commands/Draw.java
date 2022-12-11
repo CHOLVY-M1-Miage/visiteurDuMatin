@@ -8,7 +8,6 @@ import java.awt.*;
 import java.util.List;
 
 public class Draw implements Command {
-
     private JPanel m_panel;
     private SimpleShape newFigure ;
     private GroupeShape groupeShape;

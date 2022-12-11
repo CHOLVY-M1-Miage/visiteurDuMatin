@@ -32,13 +32,9 @@ import javax.swing.*;
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
 public class Square implements SimpleShape, Visitable {
-
     int m_x;
-
     int m_y;
-
     JLabel label;
-
     ImageIcon icon = new ImageIcon("src/main/resources/edu/uga/miage/m1/polygons/gui/images/icones/square.png");
 
     public Square(int x, int y) {
@@ -65,24 +61,20 @@ public class Square implements SimpleShape, Visitable {
     @Override
     public void accept(Visitor visitor) {
     	visitor.visit(this);
-    // TODO
     }
 
     @Override
     public int getX() {
         return m_x;
     }
-
     @Override
     public void setX(int x){
         this.m_x = x;
     }
-
     @Override
     public int getY() {
         return m_y;
     }
-
     @Override
     public void setY(int Y){
         this.m_y = Y;
@@ -98,10 +90,10 @@ public class Square implements SimpleShape, Visitable {
     @Override
     public boolean isSelect(int coordX, int coordY) {
         return (
-                        (coordX >= this.getX()) &&
-                        (coordX <= this.getX() + 50) &&
-                        (coordY >= this.getY()) &&
-                        (coordY <= this.getY() + 50)
+                (coordX >= this.getX()) &&
+                (coordX <= this.getX() + 50) &&
+                (coordY >= this.getY()) &&
+                (coordY <= this.getY() + 50)
                 );
     }
 

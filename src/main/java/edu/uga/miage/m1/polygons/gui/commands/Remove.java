@@ -20,9 +20,9 @@ public class Remove implements Command {
 
     @Override
     public void execute(){
-        System.out.println(this.listeShapes);
+        //System.out.println(this.listeShapes);
         this.groupeShape.remove(this.figure);
-        System.out.println("->" +this.groupeShape.getShapes().isEmpty());
+        //System.out.println("->" +this.groupeShape.getShapes().isEmpty());
         if (this.groupeShape.getShapes().isEmpty()){
             this.listeShapes.remove(this.groupeShape);
         }

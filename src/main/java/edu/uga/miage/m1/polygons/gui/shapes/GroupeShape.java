@@ -12,11 +12,9 @@ public class GroupeShape implements SimpleShape{
     public List<SimpleShape> getShapes(){
         return this.shapes;
     }
-
     public SimpleShape getLastShapes(){
         return this.shapes.get(this.shapes.size() - 1);
     }
-
     public GroupeShape(){
         this.shapes = new ArrayList<SimpleShape>();
     }
@@ -31,7 +29,6 @@ public class GroupeShape implements SimpleShape{
     public void draw(JPanel m_panel) {
         this.draw(m_panel,true);
     }
-
     public void draw(JPanel m_panel, boolean estDansGroupe) {
         for (SimpleShape shape:this.shapes){
             shape.draw(m_panel,true);
@@ -41,14 +38,11 @@ public class GroupeShape implements SimpleShape{
     public int getX() {
         return 0;
     }
-
     public void setX(int x) {
     }
-
     public int getY() {
         return 0;
     }
-
     public void setY(int y) {
 
     }
@@ -58,26 +52,22 @@ public class GroupeShape implements SimpleShape{
     }
 
     public boolean isSelect(int coordX, int coordY) {
-        //
         if (this.getShapes().isEmpty()) return false;
         int i = 0;
         while ((i < getShapes().size()) && (!getShapes().get(i).isSelect(coordX,coordY))){
             i++;
         }
-
         return i != getShapes().size();
     }
 
     public void add(SimpleShape shape){
         this.shapes.add(shape);
     }
-
     public void remove(SimpleShape shape){
         this.shapes.remove(shape);
     }
 
     public SimpleShape shapeSelect(int x, int y){
-        //
         if (this.getShapes().isEmpty()) return null;
         int i = 0;
         while ((i < getShapes().size()) && (!getShapes().get(i).isSelect(x,y))){

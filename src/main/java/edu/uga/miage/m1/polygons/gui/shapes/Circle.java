@@ -26,15 +26,10 @@ import edu.uga.miage.m1.polygons.gui.visitor.Visitor;
 import javax.swing.*;
 
 public class Circle implements SimpleShape, Visitable {
-
     int m_x;
-
     int m_y;
-
     JLabel label;
-
     ImageIcon icon = new ImageIcon("src/main/resources/edu/uga/miage/m1/polygons/gui/images/icones/circle.png");
-
 
     public Circle(int x, int y) {
         m_x = x - 25;
@@ -46,7 +41,6 @@ public class Circle implements SimpleShape, Visitable {
      * the shape.
      * @param g2 The graphics object used for painting.
      */
-
     public void draw(JPanel m_panel){
         this.draw(m_panel,false);
     }
@@ -60,24 +54,21 @@ public class Circle implements SimpleShape, Visitable {
 
     @Override
     public void accept(Visitor visitor) {
-    	visitor.visit(this);
+        visitor.visit(this);
     }
 
     @Override
     public int getX() {
         return m_x;
     }
-
     @Override
     public void setX(int x){
         this.m_x = x;
     }
-
     @Override
     public int getY() {
         return m_y;
     }
-
     @Override
     public void setY(int Y){
         this.m_y = Y;
@@ -95,8 +86,8 @@ public class Circle implements SimpleShape, Visitable {
         int x = this.getX() + 25;
         int y = this.getY() + 25;
         double dist = Math.sqrt(Math.pow((coordX - x),2) + Math.pow((coordY - y),2));
-        System.out.println("Cercle :"+ " " + x+ " " +y);
-        System.out.println("distance Centre: " + dist);
+        //System.out.println("Cercle :"+ " " + x+ " " +y);
+        //System.out.println("distance Centre: " + dist);
         return 25.00 > dist;
     }
 

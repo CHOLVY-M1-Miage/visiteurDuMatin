@@ -38,7 +38,7 @@ import edu.uga.miage.m1.polygons.gui.shapes.*;
 import static edu.uga.miage.m1.polygons.gui.factory.Factory.createShape;
 import static edu.uga.miage.m1.polygons.gui.file.Export.*;
 import static edu.uga.miage.m1.polygons.gui.file.Import.importFile;
-import static edu.uga.miage.m1.polygons.gui.shapeInteraction.whoWasClicked;
+import static edu.uga.miage.m1.polygons.gui.graphique.shapeInteraction.whoWasClicked;
 
 
 /**
@@ -97,7 +97,6 @@ public class JDrawingFrame extends JFrame
         add(m_toolbar, BorderLayout.NORTH);
         add(m_panel, BorderLayout.CENTER);
         add(m_label, BorderLayout.SOUTH);
-        //add(m_shapeLabel,BorderLayout.CENTER);
 
         // Icône du menu
         shapeButton(Shapes.SQUARE, new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/square.png"))));
@@ -113,7 +112,7 @@ public class JDrawingFrame extends JFrame
         setPreferredSize(new Dimension(8000, 600));
 
         this.listeShapes = new ArrayList<>();
-        this.remote = new RemoteControl(this.listeShapes, this.m_panel);
+        remote = new RemoteControl(this.listeShapes, this.m_panel);
 
     }
 

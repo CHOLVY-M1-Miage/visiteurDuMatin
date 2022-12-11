@@ -13,7 +13,6 @@ import javax.swing.*;
  */
 public interface SimpleShape
 {
-
     /**
      * Method to draw the shape of the extension.
      * @param g2 The graphics object used for painting.
@@ -22,11 +21,8 @@ public interface SimpleShape
     void draw(JPanel m_panel,boolean estDansGroupe);
 
     int getX();
-
     void setX(int x);
-    
     int getY();
-
     void setY(int y);
 
     void accept(Visitor visitor);

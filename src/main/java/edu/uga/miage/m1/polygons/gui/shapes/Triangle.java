@@ -36,11 +36,8 @@ import javax.swing.*;
 public class Triangle implements SimpleShape, Visitable {
 
     int m_x;
-
     int m_y;
-
     JLabel label;
-
     ImageIcon icon = new ImageIcon("src/main/resources/edu/uga/miage/m1/polygons/gui/images/icones/triangle.png");
 
     public Triangle(int x, int y) {
@@ -73,18 +70,15 @@ public class Triangle implements SimpleShape, Visitable {
         //System.out.println("->X "+ (m_x+25));
         return m_x + 25;
     }
-
     @Override
     public void setX(int x){
         this.m_x = x;
     }
-
     @Override
     public int getY() {
         //System.out.println("->Y "+ (m_y+25));
         return m_y + 25;
     }
-
     @Override
     public void setY(int Y){
         this.m_y = Y;
@@ -97,11 +91,9 @@ public class Triangle implements SimpleShape, Visitable {
         coord.add(this.getY() - 25);
         return coord;
     }
-
     public int getAx(){
         return this.getA().get(0);
     }
-
     public int getAy(){
         return this.getA().get(1);
     }
@@ -113,11 +105,9 @@ public class Triangle implements SimpleShape, Visitable {
         coord.add(this.getY() + 25);
         return coord;
     }
-
     public int getBx(){
         return this.getB().get(0);
     }
-
     public int getBy(){
         return this.getB().get(1);
     }
@@ -129,14 +119,13 @@ public class Triangle implements SimpleShape, Visitable {
         coord.add(this.getY() + 25);
         return coord;
     }
-
     public int getCx(){
         return this.getC().get(0);
     }
-
     public int getCy(){
         return this.getC().get(1);
     }
+
     @Override
     public void move(int x,int y){
         this.label.setLocation(x,y);
@@ -146,7 +135,6 @@ public class Triangle implements SimpleShape, Visitable {
 
     @Override
     public boolean isSelect(int coordX, int coordY){
-
         /*
         System.out.println("---");
         System.out.println("->(1)"+ ( ( (getAx()) - (coordX) ) * ( (getBy()) - (coordY)) - ( (getAy()) - (coordY)) * ( (getBx()) - (coordX))));
@@ -156,10 +144,10 @@ public class Triangle implements SimpleShape, Visitable {
         */
 
         return (
-                        ( ( (getAx()) - (coordX) ) * ( (getBy()) - (coordY)) - ( (getAy()) - (coordY)) * ( (getBx()) - (coordX))) < 0 &&
-                        ( ( (getBx()) - (coordX) ) * ( (getCy()) - (coordY)) - ( (getBy()) - (coordY)) * ( (getCx()) - (coordX))) < 0 &&
-                        ( ( (getCx()) - (coordX) ) * ( (getAy()) - (coordY)) - ( (getCy()) - (coordY)) * ( (getAx()) - (coordX))) < 0
-                );
+               ( ( (getAx()) - (coordX) ) * ( (getBy()) - (coordY)) - ( (getAy()) - (coordY)) * ( (getBx()) - (coordX))) < 0 &&
+               ( ( (getBx()) - (coordX) ) * ( (getCy()) - (coordY)) - ( (getBy()) - (coordY)) * ( (getCx()) - (coordX))) < 0 &&
+               ( ( (getCx()) - (coordX) ) * ( (getAy()) - (coordY)) - ( (getCy()) - (coordY)) * ( (getAx()) - (coordX))) < 0
+        );
     }
 
     @Override
