@@ -22,22 +22,18 @@ public class XMLVisitor implements Visitor {
     public void visit(Circle circle) {
         this.representation = String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "circle", circle.getX()+25, circle.getY()+25);
     }
-
     @Override
     public void visit(Square square) {
         this.representation = String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "square", square.getX()+25, square.getY()+25);
     }
-
     @Override
     public void visit(Triangle triangle) {
         this.representation = String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "triangle", triangle.getX(), triangle.getY());
     }
-
     @Override
     public void visit(Binome binome){
         this.representation = String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "binome", binome.getX()+25, binome.getY()+25);
     }
-
     @Override
     public void visit(GroupeShape shapes) {
         XMLVisitor visitor = new XMLVisitor();
@@ -51,6 +47,7 @@ public class XMLVisitor implements Visitor {
         }
         this.representation += "\n</groupe>";
     }
+
     /**
      * @return the representation in JSon example for a Triangle:
      *
@@ -64,10 +61,12 @@ public class XMLVisitor implements Visitor {
      * }
      * </pre>
      */
+
     public String getRepresentation() {
         return representation;
     }
 
+    /*############################""*/
     @Override
     public void head(FileWriter fileWriter) {
         write(fileWriter,
@@ -82,30 +81,5 @@ public class XMLVisitor implements Visitor {
         write(fileWriter,
                 "</shapes>\n" +
                         "</root>");
-    }
-
-    @Override
-    public boolean estHead(BufferedReader lines){
-        try {
-            String head = lines.readLine() + lines.readLine() + lines.readLine();
-            System.out.println(head);
-            return head.equals("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" +
-                    "<root>" +
-                    "<shapes>");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public boolean estFoot(BufferedReader lines) {
-        try {
-            String foot = lines.readLine() + lines.readLine();
-            System.out.println(foot);
-            return foot.equals("</root>null");
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

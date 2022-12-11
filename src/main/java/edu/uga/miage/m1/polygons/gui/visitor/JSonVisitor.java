@@ -20,25 +20,20 @@ public class JSonVisitor implements Visitor {
 
     @Override
     public void visit(Circle circle) {
-    this.representation = String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "circle", circle.getX()+25, circle.getY()+25);
-
+        this.representation = String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "circle", circle.getX()+25, circle.getY()+25);
     }
-
     @Override
     public void visit(Square square) {
         this.representation = String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "square", square.getX()+25, square.getY()+25);
     }
-
     @Override
     public void visit(Triangle triangle) {
         this.representation = String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "triangle", triangle.getX(), triangle.getY());
     }
-
     @Override
     public void visit(Binome binome) {
         this.representation = String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "binome", binome.getX()+25, binome.getY()+25);
     }
-
     @Override
     public void visit(GroupeShape shapes) {
         JSonVisitor visitor = new JSonVisitor();
@@ -68,41 +63,19 @@ public class JSonVisitor implements Visitor {
      * }
      *         </pre>
      */
+
     public String getRepresentation() {
         return this.representation;
     }
+
 
     @Override
     public void head(FileWriter fileWriter) {
         write(fileWriter,"{\n\"shapes\":[\n");
     }
-
     @Override
     public void foot(FileWriter fileWriter) {
         write(fileWriter,"]\n}");
-    }
-
-    @Override
-    public boolean estHead(BufferedReader lines){
-        try {
-            String head = lines.readLine() + lines.readLine();
-            System.out.println(head);
-            return head.equals("{\"shapes\":[");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public boolean estFoot(BufferedReader lines) {
-        try {
-            String foot = lines.readLine() + lines.readLine();
-            System.out.println(foot);
-            return foot.equals("}null");
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }

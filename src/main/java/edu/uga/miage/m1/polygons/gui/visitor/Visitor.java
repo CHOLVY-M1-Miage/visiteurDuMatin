@@ -16,14 +16,9 @@ public interface Visitor {
 	public void visit(Triangle triangle);
     public void visit(GroupeShape shapes);
 	public void visit(Binome binome);
+	public String getRepresentation();
 
 	public void head(FileWriter fileWriter);
-
 	public void foot(FileWriter fileWriter);
 
-	public boolean estHead(BufferedReader lines);
-
-	public boolean estFoot(BufferedReader lines);
-
-	public String getRepresentation();
 }

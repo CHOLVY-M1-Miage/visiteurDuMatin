@@ -21,7 +21,6 @@ import static edu.uga.miage.m1.polygons.gui.factory.Factory.createShape;
 public class JsonFile {
 
     public static JsonObject jsonFromString(String jsonObjectStr) {
-
         JsonReader jsonReader = Json.createReader(new StringReader(jsonObjectStr));
         JsonObject object = jsonReader.readObject();
         jsonReader.close();
