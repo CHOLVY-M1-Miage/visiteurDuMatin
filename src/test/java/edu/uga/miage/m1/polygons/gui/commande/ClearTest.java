@@ -21,7 +21,7 @@ public class ClearTest {
         shapes.add(c);
         shapes.add(c2);
 
-        control.addCommand(new Clear(shapes));
+        //control.addCommand(new Clear(control));
         control.play();
 
         assertTrue(shapes.isEmpty());

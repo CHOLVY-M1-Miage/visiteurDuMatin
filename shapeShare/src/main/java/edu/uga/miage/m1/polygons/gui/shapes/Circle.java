@@ -50,6 +50,9 @@ public class Circle implements SimpleShape, Visitable {
         m_panel.add(this.label);
         Dimension size = label.getPreferredSize();
         label.setBounds(getX(), getY(), size.width, size.height);
+        if (estDansGroupe){
+            this.label.setBorder( BorderFactory.createLineBorder(Color.RED) );
+        }
         this.label.setLocation(getX(),getY());
     }
 

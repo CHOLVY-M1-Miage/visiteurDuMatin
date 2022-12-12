@@ -6,14 +6,15 @@ import java.awt.*;
 import java.util.List;
 
 public class Clear implements Command {
+    private RemoteControl remoteControl;
     private List<SimpleShape> listeShapes;
 
-    public Clear(List<SimpleShape> listeShapes) {
-        this.listeShapes = listeShapes;
+    public Clear(RemoteControl remoteControl,List<SimpleShape> listeShapes) {
+        this.remoteControl = remoteControl;
     }
 
     @Override
     public void execute() {
-        this.listeShapes.clear();
+        this.remoteControl.clear();
     }
 }

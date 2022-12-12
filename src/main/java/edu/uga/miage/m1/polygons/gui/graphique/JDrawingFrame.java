@@ -30,6 +30,7 @@ import java.util.List;
 
 import javax.swing.*;
 
+import edu.uga.miage.m1.polygons.gui.commands.Clear;
 import edu.uga.miage.m1.polygons.gui.commands.RemoteControl;
 import edu.uga.miage.m1.polygons.gui.commands.Draw;
 import edu.uga.miage.m1.polygons.gui.commands.Move;
@@ -108,7 +109,7 @@ public class JDrawingFrame extends JFrame
         undoButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/delete.png"))));
         undoButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/undo.png"))));
         forwardButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/forward.png"))));
-        undoButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/clearAll.png"))));
+        clearButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/clearAll.png"))));
         exportXLMButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/exportXML.png"))));
         exportJSONButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/exportJSON.png"))));
         importButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/import.png"))));
@@ -151,10 +152,17 @@ public class JDrawingFrame extends JFrame
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                remote = importFile(listeShapes,m_panel);
-                m_panel.removeAll();
-                remote.play();
-                repaint();
+                JOptionPane j=new JOptionPane();
+                int retour = JOptionPane.showConfirmDialog(j,
+                        "Attention cette action va supprimer le dessins",
+                        "Voullez vous continuer?",
+                        JOptionPane.YES_NO_CANCEL_OPTION);
+                if (retour == JOptionPane.OK_OPTION) {
+                    remote = importFile(listeShapes,m_panel);
+                    m_panel.removeAll();
+                    remote.play();
+                    repaint();
+                }
             }
         });
         m_toolbar.add(button);
@@ -225,6 +233,33 @@ public class JDrawingFrame extends JFrame
         m_toolbar.validate();
 
     }
+
+    private void clearButton(Icon icon) {
+        JButton button = new JButton(icon);
+        button.setBorderPainted(false);
+        button.setActionCommand("importJSon");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane j=new JOptionPane();
+                int retour = JOptionPane.showConfirmDialog(j,
+                                "Voulez-vous vraiment réinitialiser le dessin?\n" +
+                                        "Cette action est iréversible",
+                        "Tous supprimer?",
+                        JOptionPane.YES_NO_CANCEL_OPTION);
+                if (retour == JOptionPane.OK_OPTION) {
+                    remote.clear();
+                    m_panel.removeAll();
+                    repaint();
+                }
+
+            }
+        });
+        m_toolbar.add(button);
+        m_toolbar.validate();
+
+    }
+
 
     /*##################MOUSE LISTENER#######################*/
 

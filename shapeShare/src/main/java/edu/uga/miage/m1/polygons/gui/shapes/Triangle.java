@@ -58,6 +58,9 @@ public class Triangle implements SimpleShape, Visitable {
         this.label = new JLabel(icon);
         m_panel.add(this.label);
         Dimension size = label.getPreferredSize();
+        if (estDansGroupe){
+            this.label.setBorder( BorderFactory.createLineBorder(Color.RED) );
+        }
         label.setBounds(getX()-25, getY()-25, size.width, size.height);
     }
 

@@ -70,4 +70,9 @@ public class RemoteControl {
         }
     }
 
+    public void clear(){
+        index = 0;
+        commands.clear();
+    }
+
 }
