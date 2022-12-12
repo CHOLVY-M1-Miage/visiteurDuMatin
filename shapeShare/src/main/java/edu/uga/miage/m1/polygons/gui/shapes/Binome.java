@@ -10,7 +10,7 @@ public class Binome implements SimpleShape {
     int m_x;
     int m_y;
     JLabel label;
-    ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/luffyHat.png")));
+    ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/binome.png")));
 
     public Binome(int x, int y) {
         m_x = x - 25;
@@ -69,12 +69,12 @@ public class Binome implements SimpleShape {
 
     @Override
     public boolean isSelect(int coordX, int coordY) {
-        return (
-                (coordX >= this.getX()) &&
-                (coordX <= this.getX() + 50) &&
-                (coordY >= this.getY()) &&
-                (coordY <= this.getY() + 50)
-        );
+        int x = this.getX() + 25;
+        int y = this.getY() + 25;
+        double dist = Math.sqrt(Math.pow((coordX - x),2) + Math.pow((coordY - y),2));
+        //System.out.println("Cercle :"+ " " + x+ " " +y);
+        //System.out.println("distance Centre: " + dist);
+        return 25.00 > dist;
     }
 
     @Override

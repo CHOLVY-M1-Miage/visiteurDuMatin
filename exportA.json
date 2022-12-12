@@ -1,6 +1,8 @@
 {
 "shapes":[
-{"type": "binome", "x": 307,"y": 112},
-{"type": "binome", "x": 469,"y": 127}
+{"type": "square", "x": 643,"y": 122},
+{"type": "square", "x": 778,"y": 266},
+{"type": "square", "x": 970,"y": 346},
+{"type": "square", "x": 1173,"y": 355}
 ]
 }

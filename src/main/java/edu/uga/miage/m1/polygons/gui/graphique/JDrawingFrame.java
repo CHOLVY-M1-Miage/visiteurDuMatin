@@ -102,12 +102,17 @@ public class JDrawingFrame extends JFrame
         shapeButton(Shapes.SQUARE, new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/square.png"))));
         shapeButton(Shapes.TRIANGLE, new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/triangle.png"))));
         shapeButton(Shapes.CIRCLE, new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/circle.png"))));
-        shapeButton(Shapes.BINOME, new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/luffyHat.png"))));
-        exportXLMButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/xmlExport.png"))));
-        exportJSONButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/jsonExport.png"))));
-        importButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/import.png"))));
+        shapeButton(Shapes.BINOME, new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/binome.png"))));
+        undoButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/groupement.png"))));
+        undoButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/degroupement.png"))));
+        undoButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/delete.png"))));
         undoButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/undo.png"))));
         forwardButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/forward.png"))));
+        undoButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/clearAll.png"))));
+        exportXLMButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/exportXML.png"))));
+        exportJSONButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/exportJSON.png"))));
+        importButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/import.png"))));
+
 
         setPreferredSize(new Dimension(8000, 600));
 
