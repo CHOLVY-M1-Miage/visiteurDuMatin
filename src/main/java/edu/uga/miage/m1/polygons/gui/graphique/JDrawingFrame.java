@@ -328,15 +328,16 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mousePressed(MouseEvent evt) {
-        /*
-        System.out.println("Press " + evt.getX() + " " + evt.getY());
+        System.out.println("-----------------------------------------");
+        System.out.printf("EVENT [Press (%d,%d)]\n",evt.getX(),evt.getY());
         this.shapeDragged = whoWasClicked(this.listeShapes, evt.getX(), evt.getY());
         this.shapeDraggedInGroupe = this.shapeDragged.shapeSelect(evt.getX(),evt.getY());
         if (this.shapeDragged != null) {
             this.shapeDraggedXOrigine = this.shapeDragged.getX();
             this.shapeDraggedYOrigine = this.shapeDragged.getY();
-            System.out.println("Original " + this.shapeDraggedXOrigine + " " + this.shapeDraggedYOrigine);
-        }*/
+            System.out.println("\tOriginal " + this.shapeDraggedXOrigine + " " + this.shapeDraggedYOrigine);
+        }
+        System.out.println("-----------------------------------------");
     }
 
     /**
@@ -346,8 +347,8 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseReleased(MouseEvent evt) {
-        /*
-        System.out.println("Release " + evt.getX() + " " + evt.getY());
+        System.out.println("-----------------------------------------");
+        System.out.printf("EVENT [Release (%d,%d)]\n",evt.getX(),evt.getY());
         if (this.shapeDragged != null && this.shapeWasMove) {
             remote.addCommand(new Move(this.shapeDragged, evt.getX() - 25, evt.getY() - 25));
             this.shapeDragged = null;
@@ -355,7 +356,8 @@ public class JDrawingFrame extends JFrame
             remote.play();
             repaint();
             this.shapeWasMove = false;
-        }*/
+        }
+        System.out.println("-----------------------------------------");
     }
 
     /**
@@ -365,16 +367,18 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseDragged(MouseEvent evt) {
-        /*
+        System.out.println("-----------------------------------------");
+        System.out.printf("EVENT [DRAG (%d,%d)]\n",evt.getX(),evt.getY());
         if (this.shapeDragged != null){
             this.shapeWasMove = true;
             int deltaX = evt.getX() - this.shapeDraggedInGroupe.getX();
             int deltaY = evt.getY() - this.shapeDraggedInGroupe.getY();
-            System.out.println("Souris X: " + evt.getX() + " Y: " + evt.getY());
-            System.out.println("Fig X: " + this.shapeDragged.getX() + " Y: " + this.shapeDragged.getY());
-            System.out.println("Delta X: " + deltaX + " Y: " + deltaY);
+            System.out.println("\tSouris X: " + evt.getX() + " Y: " + evt.getY());
+            System.out.println("\tFig X: " + this.shapeDragged.getX() + " Y: " + this.shapeDragged.getY());
+            System.out.println("\tDelta X: " + deltaX + " Y: " + deltaY);
             this.shapeDragged.deplace(deltaX,deltaY);
-        }*/
+        }
+        System.out.println("-----------------------------------------");
     }
 
     /**
