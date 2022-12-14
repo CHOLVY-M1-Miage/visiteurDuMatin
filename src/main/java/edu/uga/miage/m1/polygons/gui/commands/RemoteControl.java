@@ -3,6 +3,7 @@ package edu.uga.miage.m1.polygons.gui.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.uga.miage.m1.polygons.gui.shapes.GroupeShape;
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 
 import javax.swing.*;
@@ -10,6 +11,7 @@ import javax.swing.*;
 public class RemoteControl {
 
     private List<SimpleShape> listeShapes;
+    private GroupeShape groupe;
     protected List<Command> commands;
     private JPanel m_panel;
     private int index = 0;
@@ -19,10 +21,19 @@ public class RemoteControl {
         this.m_panel = null;
         commands = new ArrayList<Command>();
     }
-    public RemoteControl(List<SimpleShape> listeShapes,JPanel m_panel) {
+    public RemoteControl(List<SimpleShape> listeShapes,GroupeShape groupe,JPanel m_panel) {
         this.listeShapes = listeShapes;
+        this.groupe = groupe;
         this.m_panel = m_panel;
         commands = new ArrayList<Command>();
+    }
+
+    public JPanel getM_panel() {
+        return this.m_panel;
+    }
+
+    public List<SimpleShape> getListeShapes(){
+        return this.listeShapes;
     }
 
     public void addCommand(Command command) {
@@ -40,6 +51,7 @@ public class RemoteControl {
 
     public void play(){
         this.listeShapes.clear();
+        this.groupe.getShapes().clear();
         for (int i = 0;i < index;i++){
             System.out.println("Commands: "+this.commands.get(i));
             this.commands.get(i).execute();
@@ -66,7 +78,7 @@ public class RemoteControl {
 
     public void load(List<SimpleShape> shapes){
         for (SimpleShape shape: shapes){
-            this.addCommand(new Draw(this.m_panel,shape,this.listeShapes));
+            this.addCommand(new Draw(shape,this));
         }
     }
 

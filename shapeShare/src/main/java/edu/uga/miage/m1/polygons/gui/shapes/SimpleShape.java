@@ -25,9 +25,14 @@ public interface SimpleShape
     int getY();
     void setY(int y);
 
+    JLabel getLabel();
     void accept(Visitor visitor);
 
+    void select();
+
     void move(int deltaX,int deltaY);
+
+    void deplace(int x,int y);
 
     boolean isSelect(int coordX,int coordY);
 

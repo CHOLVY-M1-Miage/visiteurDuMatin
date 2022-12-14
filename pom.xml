@@ -7,6 +7,7 @@
 	<modules>
 		<module>shapeShare</module>
 	</modules>
+
 	<properties>
 		<MOCKITO_VERSION>4.8.0</MOCKITO_VERSION>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>

@@ -23,7 +23,7 @@ public class AddTest {
         g1_control.add(c);
         shapes_control.add(g1);
 
-        control.addCommand(new Add(c,g1,shapes));
+        control.addCommand(new Add(c,g1,control));
         control.play();
 
         System.out.println("LS:" + shapes);
@@ -54,7 +54,7 @@ public class AddTest {
         shapes.add(g1);
         shapes_control.add(g1);
 
-        control.addCommand(new Add(c2,g1,shapes));
+        control.addCommand(new Add(c2,g1,control));
         control.play();
 
         System.out.println("LS:" + shapes);

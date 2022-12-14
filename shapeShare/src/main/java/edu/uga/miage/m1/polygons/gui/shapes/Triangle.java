@@ -130,11 +130,28 @@ public class Triangle implements SimpleShape, Visitable {
         return this.getC().get(1);
     }
 
+    public void select(){
+        this.label.setBorder( BorderFactory.createLineBorder(Color.RED,4));
+    }
+
     @Override
-    public void move(int x,int y){
+    public void move(int x,int y) {
         this.label.setLocation(x,y);
-        setX(x);
-        setY(y);
+        this.setX(x);
+        this.setY(y);
+    }
+
+    @Override
+    public void deplace(int deltaX, int deltaY){
+        int x = this.m_x + deltaX;
+        int y = this.m_y + deltaY;
+        this.label.setLocation(x,y);
+        this.setX(x);
+        this.setY(y);
+    }
+
+    public JLabel getLabel(){
+        return this.label;
     }
 
     @Override

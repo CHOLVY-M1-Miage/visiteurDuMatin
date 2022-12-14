@@ -30,10 +30,7 @@ import java.util.List;
 
 import javax.swing.*;
 
-import edu.uga.miage.m1.polygons.gui.commands.Clear;
-import edu.uga.miage.m1.polygons.gui.commands.RemoteControl;
-import edu.uga.miage.m1.polygons.gui.commands.Draw;
-import edu.uga.miage.m1.polygons.gui.commands.Move;
+import edu.uga.miage.m1.polygons.gui.commands.*;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 
 import static edu.uga.miage.m1.polygons.gui.factory.Factory.createShape;
@@ -53,11 +50,12 @@ public class JDrawingFrame extends JFrame
     public enum Shapes {SQUARE, TRIANGLE, CIRCLE, BINOME}
 
     private SimpleShape shapeDragged;
+    private SimpleShape shapeDraggedInGroupe;
     private int shapeDraggedXOrigine;
     private int shapeDraggedYOrigine;
     private boolean shapeWasMove = false;
     private SimpleShape shapeClicked;
-    private GroupeShape groupeShape;
+    private GroupeShape selectGroupe;
     private List<SimpleShape> listeShapes;
 
     private static RemoteControl remote;
@@ -118,7 +116,8 @@ public class JDrawingFrame extends JFrame
         setPreferredSize(new Dimension(8000, 600));
 
         this.listeShapes = new ArrayList<>();
-        remote = new RemoteControl(this.listeShapes, this.m_panel);
+        this.selectGroupe = new GroupeShape();
+        remote = new RemoteControl(this.listeShapes,this.selectGroupe, this.m_panel);
 
     }
 
@@ -158,7 +157,7 @@ public class JDrawingFrame extends JFrame
                         "Voullez vous continuer?",
                         JOptionPane.YES_NO_CANCEL_OPTION);
                 if (retour == JOptionPane.OK_OPTION) {
-                    remote = importFile(listeShapes,m_panel);
+                    remote = importFile(listeShapes,selectGroupe,m_panel);
                     m_panel.removeAll();
                     remote.play();
                     repaint();
@@ -271,21 +270,37 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseClicked(MouseEvent evt) {
-        System.out.println("Click " + evt.getX() + " " + evt.getY());
+        System.out.println("-----------------------------------------");
+        System.out.printf("EVENT [Click (%d,%d)]\n",evt.getX(),evt.getY());
         this.shapeClicked = whoWasClicked(this.listeShapes, evt.getX(), evt.getY());
-        System.out.println("ShapeClicked " + this.shapeClicked);
+        System.out.printf("\tShapeClicked: %s\n",this.shapeClicked);
         if (shapeClicked == null) {
             //Zone vide --> Nouvelle figure
-            System.out.println("New figure");
             SimpleShape newShape = createShape(m_selected, evt.getX(), evt.getY());
-            remote.addCommand(new Draw(this.m_panel, newShape, listeShapes));
+            System.out.printf("\t NEW FIGURE %s\n",newShape);
+            remote.addCommand(new Draw(newShape,remote));
         } else {
             //Figure/Groupe présent --> Selectionne la figure / le groupe
+            System.out.printf("\t label: %s\n",shapeClicked.getLabel());
+            if (this.selectGroupe.equals(shapeClicked)){
+                System.out.printf("\t REMOVE\n");
+                remote.addCommand(new Remove(shapeClicked.shapeSelect(evt.getX(),evt.getY()),this.selectGroupe,remote));
+            }
+            else {
+                System.out.printf("\t ADD\n");
+                remote.addCommand(new Add(shapeClicked,this.selectGroupe,remote));
+            }
 
         }
+
         m_panel.removeAll();
         remote.play();
-        System.out.println("Shapes " + this.listeShapes.size());
+
+        System.out.println("----Shapes :"+ this.listeShapes.size()+"----");
+        System.out.println("Remove L: " + this.listeShapes);
+        System.out.println("Remove G: " + this.selectGroupe);
+        System.out.println("\t" + this.selectGroupe.getShapes());
+        System.out.println("-----------------------------------------");
     }
 
     /**
@@ -313,13 +328,15 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mousePressed(MouseEvent evt) {
+        /*
         System.out.println("Press " + evt.getX() + " " + evt.getY());
         this.shapeDragged = whoWasClicked(this.listeShapes, evt.getX(), evt.getY());
+        this.shapeDraggedInGroupe = this.shapeDragged.shapeSelect(evt.getX(),evt.getY());
         if (this.shapeDragged != null) {
             this.shapeDraggedXOrigine = this.shapeDragged.getX();
             this.shapeDraggedYOrigine = this.shapeDragged.getY();
             System.out.println("Original " + this.shapeDraggedXOrigine + " " + this.shapeDraggedYOrigine);
-        }
+        }*/
     }
 
     /**
@@ -329,17 +346,16 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseReleased(MouseEvent evt) {
+        /*
         System.out.println("Release " + evt.getX() + " " + evt.getY());
         if (this.shapeDragged != null && this.shapeWasMove) {
-            this.shapeDragged.setX(this.shapeDraggedXOrigine);
-            this.shapeDragged.setY(this.shapeDraggedYOrigine);
             remote.addCommand(new Move(this.shapeDragged, evt.getX() - 25, evt.getY() - 25));
             this.shapeDragged = null;
             this.m_panel.removeAll();
             remote.play();
             repaint();
             this.shapeWasMove = false;
-        }
+        }*/
     }
 
     /**
@@ -349,10 +365,16 @@ public class JDrawingFrame extends JFrame
      * @param evt The associated mouse event.
      **/
     public void mouseDragged(MouseEvent evt) {
-        if (this.shapeDragged != null) {
+        /*
+        if (this.shapeDragged != null){
             this.shapeWasMove = true;
-            this.shapeDragged.move(evt.getX() - 25, evt.getY() - 25);
-        }
+            int deltaX = evt.getX() - this.shapeDraggedInGroupe.getX();
+            int deltaY = evt.getY() - this.shapeDraggedInGroupe.getY();
+            System.out.println("Souris X: " + evt.getX() + " Y: " + evt.getY());
+            System.out.println("Fig X: " + this.shapeDragged.getX() + " Y: " + this.shapeDragged.getY());
+            System.out.println("Delta X: " + deltaX + " Y: " + deltaY);
+            this.shapeDragged.deplace(deltaX,deltaY);
+        }*/
     }
 
     /**

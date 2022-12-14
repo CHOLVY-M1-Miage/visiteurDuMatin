@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <root>
 <shapes>
+<shape><type>square</type><x>83</x><y>173</y></shape>
+<shape><type>triangle</type><x>275</x><y>248</y></shape>
+<shape><type>circle</type><x>438</x><y>160</y></shape>
+<shape><type>binome</type><x>908</x><y>216</y></shape>
 </shapes>
 </root>

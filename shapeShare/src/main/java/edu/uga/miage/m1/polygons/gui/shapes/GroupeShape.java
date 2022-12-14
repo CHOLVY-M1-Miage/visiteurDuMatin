@@ -20,9 +20,16 @@ public class GroupeShape implements SimpleShape{
     }
 
     @Override
-    public void move(int deltaX,int deltaY){
+    public void move(int x,int y){
         for (SimpleShape s: this.getShapes()){
-            s.move(deltaX,deltaY);
+            s.deplace(0,0);
+        }
+    }
+
+    @Override
+    public void deplace(int deltaX, int deltaY){
+        for (SimpleShape s: this.getShapes()){
+            s.deplace(deltaX,deltaY);
         }
     }
 
@@ -31,7 +38,8 @@ public class GroupeShape implements SimpleShape{
     }
     public void draw(JPanel m_panel, boolean estDansGroupe) {
         for (SimpleShape shape:this.shapes){
-            shape.draw(m_panel,true);
+            shape.select();
+            //shape.draw(m_panel,true);
         }
     }
 
@@ -47,8 +55,18 @@ public class GroupeShape implements SimpleShape{
 
     }
 
+    @Override
+    public JLabel getLabel(){
+        return null;
+    }
+
     public void accept(Visitor visitor) {
         visitor.visit(this);
+    }
+
+    @Override
+    public void select() {
+
     }
 
     public boolean isSelect(int coordX, int coordY) {

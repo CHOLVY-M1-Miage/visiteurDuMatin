@@ -33,9 +33,13 @@ public class Binome implements SimpleShape {
         Dimension size = label.getPreferredSize();
         this.label.setBounds(getX(), getY(), size.width, size.height);
         if (estDansGroupe){
-            this.label.setBorder( BorderFactory.createLineBorder(Color.RED) );
+            this.label.setBorder( BorderFactory.createLineBorder(Color.RED));
         }
         this.label.setLocation(getX(), getY());
+    }
+
+    public void select(){
+        this.label.setBorder( BorderFactory.createLineBorder(Color.RED,4));
     }
 
     @Override
@@ -63,11 +67,24 @@ public class Binome implements SimpleShape {
         this.m_y = Y;
     }
 
+    public JLabel getLabel(){
+        return this.label;
+    }
+
     @Override
-    public void move(int x, int y) {
-        this.label.setLocation(x, y);
-        setX(x);
-        setY(y);
+    public void move(int x,int y) {
+        this.label.setLocation(x,y);
+        this.setX(x);
+        this.setY(y);
+    }
+
+    @Override
+    public void deplace(int deltaX, int deltaY){
+        int x = this.m_x - 25 + deltaX;
+        int y = this.m_y - 25 + deltaY;
+        this.label.setLocation(x,y);
+        this.setX(x);
+        this.setY(y);
     }
 
     @Override

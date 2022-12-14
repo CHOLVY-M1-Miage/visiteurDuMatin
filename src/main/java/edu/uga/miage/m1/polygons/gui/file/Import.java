@@ -1,6 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.file;
 
 import edu.uga.miage.m1.polygons.gui.commands.RemoteControl;
+import edu.uga.miage.m1.polygons.gui.shapes.GroupeShape;
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 import org.json.simple.parser.ParseException;
 import org.w3c.dom.Document;
@@ -18,11 +19,11 @@ import static edu.uga.miage.m1.polygons.gui.file.XmlFile.importXml;
 import static edu.uga.miage.m1.polygons.gui.file.XmlFile.openXmlFile;
 
 public class Import {
-    public static RemoteControl importFile(List<SimpleShape> shapes,JPanel m_panel) {
+    public static RemoteControl importFile(List<SimpleShape> shapes, GroupeShape groupe,JPanel m_panel) {
         //Selection du fichier
         String path = chooseFile(false, true, true);
         shapes.clear();
-        RemoteControl remote = new RemoteControl(shapes, m_panel);
+        RemoteControl remote = new RemoteControl(shapes,groupe, m_panel);
 
         //Json
         if (getFileExtention(path).equals("json")) {
