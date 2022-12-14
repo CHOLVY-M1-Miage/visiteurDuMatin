@@ -21,8 +21,11 @@ public class GroupeShape implements SimpleShape{
 
     @Override
     public void move(int x,int y){
+        int deltaX = x - this.shapes.get(0).getX();
+        int deltaY = y - this.shapes.get(0).getY();
+        System.out.printf("delta(%s,%s)",deltaX,deltaY);
         for (SimpleShape s: this.getShapes()){
-            s.deplace(0,0);
+            s.deplace(deltaX+25,deltaY+25);
         }
     }
 
