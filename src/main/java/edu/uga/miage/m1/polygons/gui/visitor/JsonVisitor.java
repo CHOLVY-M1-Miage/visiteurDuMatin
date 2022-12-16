@@ -9,11 +9,11 @@ import static edu.uga.miage.m1.polygons.gui.file.FileUtils.*;
 /**
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-public class JSonVisitor implements Visitor {
+public class JsonVisitor implements Visitor {
 
     private String representation = "";
 
-    public JSonVisitor() {
+    public JsonVisitor() {
     }
 
     @Override
@@ -34,7 +34,7 @@ public class JSonVisitor implements Visitor {
     }
     @Override
     public void visit(GroupeShape shapes) {
-        JSonVisitor visitor = new JSonVisitor();
+        JsonVisitor visitor = new JsonVisitor();
         this.representation = "{\"groupe\": [\n";
         for (SimpleShape s: shapes.getShapes()){
             s.accept(visitor);

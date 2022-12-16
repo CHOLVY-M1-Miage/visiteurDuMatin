@@ -102,9 +102,6 @@ public class JDrawingFrame extends JFrame
         shapeButton(Shapes.TRIANGLE, new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/triangle.png"))));
         shapeButton(Shapes.CIRCLE, new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/circle.png"))));
         shapeButton(Shapes.BINOME, new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/binome.png"))));
-        undoButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/groupement.png"))));
-        undoButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/degroupement.png"))));
-        undoButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/delete.png"))));
         undoButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/undo.png"))));
         forwardButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/forward.png"))));
         clearButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/clearAll.png"))));
@@ -256,9 +253,23 @@ public class JDrawingFrame extends JFrame
         });
         m_toolbar.add(button);
         m_toolbar.validate();
-
     }
 
+    private void newGroupe(Icon icon) {
+        JButton button = new JButton(icon);
+        button.setBorderPainted(false);
+        button.setActionCommand("importJSon");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectGroupe = new GroupeShape();
+                m_panel.removeAll();
+                remote.play();
+            }
+        });
+        m_toolbar.add(button);
+        m_toolbar.validate();
+    }
 
     /*##################MOUSE LISTENER#######################*/
 
@@ -330,12 +341,14 @@ public class JDrawingFrame extends JFrame
     public void mousePressed(MouseEvent evt) {
         System.out.println("-----------------------------------------");
         System.out.printf("EVENT [Press (%d,%d)]\n",evt.getX(),evt.getY());
-        this.shapeDragged = whoWasClicked(this.listeShapes, evt.getX(), evt.getY());
-        this.shapeDraggedInGroupe = this.shapeDragged.shapeSelect(evt.getX(),evt.getY());
-        if (this.shapeDragged != null) {
-            this.shapeDraggedXOrigine = this.shapeDragged.getX();
-            this.shapeDraggedYOrigine = this.shapeDragged.getY();
-            System.out.println("\tOriginal " + this.shapeDraggedXOrigine + " " + this.shapeDraggedYOrigine);
+        if (true){
+            this.shapeDragged = whoWasClicked(this.listeShapes, evt.getX(), evt.getY());
+            this.shapeDraggedInGroupe = this.shapeDragged.shapeSelect(evt.getX(),evt.getY());
+            if (this.shapeDragged != null) {
+                this.shapeDraggedXOrigine = this.shapeDragged.getX();
+                this.shapeDraggedYOrigine = this.shapeDragged.getY();
+                System.out.println("\tOriginal " + this.shapeDraggedXOrigine + " " + this.shapeDraggedYOrigine);
+            }
         }
         System.out.println("-----------------------------------------");
     }

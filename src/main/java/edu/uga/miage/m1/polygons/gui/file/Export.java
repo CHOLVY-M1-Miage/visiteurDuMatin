@@ -1,8 +1,8 @@
 package edu.uga.miage.m1.polygons.gui.file;
 
-import edu.uga.miage.m1.polygons.gui.visitor.JSonVisitor;
+import edu.uga.miage.m1.polygons.gui.visitor.JsonVisitor;
 import edu.uga.miage.m1.polygons.gui.visitor.Visitor;
-import edu.uga.miage.m1.polygons.gui.visitor.XMLVisitor;
+import edu.uga.miage.m1.polygons.gui.visitor.XmlVisitor;
 import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 
 import java.io.FileWriter;
@@ -39,14 +39,14 @@ public class Export {
 
     public static void exportXml(List<SimpleShape> shapes) {
         String path = chooseFile(true, true, false);
-        Visitor visitorXml = new XMLVisitor();
+        Visitor visitorXml = new XmlVisitor();
         export(visitorXml, "xml", path, shapes);
         System.out.println("Xml export make in file: " + path);
     }
 
     public static void exportJson(List<SimpleShape> shapes) {
         String path = chooseFile(true, false, true);
-        Visitor visitorJson = new JSonVisitor();
+        Visitor visitorJson = new JsonVisitor();
         export(visitorJson, "json", path, shapes);
         System.out.println("json export make in file: " + path);
     }

@@ -3,6 +3,7 @@ package edu.uga.miage.m1.polygons.gui.shapes;
 import edu.uga.miage.m1.polygons.gui.visitor.Visitor;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * This interface defines the <tt>SimpleShape</tt> extension. This extension
@@ -28,7 +29,7 @@ public interface SimpleShape
     JLabel getLabel();
     void accept(Visitor visitor);
 
-    void select();
+    void select(Color couleur);
 
     void move(int deltaX,int deltaY);
 

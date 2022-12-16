@@ -38,8 +38,9 @@ public class Binome implements SimpleShape {
         this.label.setLocation(getX(), getY());
     }
 
-    public void select(){
-        this.label.setBorder( BorderFactory.createLineBorder(Color.RED,4));
+    @Override
+    public void select(Color couleur){
+        this.label.setBorder( BorderFactory.createLineBorder(couleur,4));
     }
 
     @Override

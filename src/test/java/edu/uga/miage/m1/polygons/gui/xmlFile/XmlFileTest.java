@@ -1,7 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.xmlFile;
 
 import edu.uga.miage.m1.polygons.gui.visitor.Visitor;
-import edu.uga.miage.m1.polygons.gui.visitor.XMLVisitor;
+import edu.uga.miage.m1.polygons.gui.visitor.XmlVisitor;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
@@ -34,7 +34,7 @@ public class XmlFileTest {
 
 
         String path = "src/test/java/edu/uga/miage/m1/polygons/gui/xmlFile/file/exportTest.xml";
-        Visitor visitorXml = new XMLVisitor();
+        Visitor visitorXml = new XmlVisitor();
         export(visitorXml,"xml",path,shapes);
 
         Document document = openXmlFile(path);
@@ -58,7 +58,7 @@ public class XmlFileTest {
 
 
         String path = "src/test/java/edu/uga/miage/m1/polygons/gui/xmlFile/file/exportGroupeTest.xml";
-        Visitor visitorXml = new XMLVisitor();
+        Visitor visitorXml = new XmlVisitor();
         export(visitorXml,"xml",path,shapes);
 
         Document document = openXmlFile(path);

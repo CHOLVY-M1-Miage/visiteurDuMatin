@@ -1,8 +1,8 @@
 {
 "shapes":[
-{"type": "square", "x": 643,"y": 122},
-{"type": "square", "x": 778,"y": 266},
-{"type": "square", "x": 970,"y": 346},
-{"type": "square", "x": 1173,"y": 355}
+{"groupe": [
+{"type": "square", "x": 479,"y": 100},
+{"type": "square", "x": 558,"y": 89}
+]}
 ]
 }

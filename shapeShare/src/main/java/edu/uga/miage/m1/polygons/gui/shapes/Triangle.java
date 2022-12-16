@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import edu.uga.miage.m1.polygons.gui.visitor.Visitable;
 import edu.uga.miage.m1.polygons.gui.visitor.Visitor;
 
 import javax.swing.*;
@@ -34,7 +33,7 @@ import javax.swing.*;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-public class Triangle implements SimpleShape, Visitable {
+public class Triangle implements SimpleShape {
 
     int m_x;
     int m_y;
@@ -130,8 +129,8 @@ public class Triangle implements SimpleShape, Visitable {
         return this.getC().get(1);
     }
 
-    public void select(){
-        this.label.setBorder( BorderFactory.createLineBorder(Color.RED,4));
+    public void select(Color couleur){
+        this.label.setBorder( BorderFactory.createLineBorder(couleur,4));
     }
 
     @Override

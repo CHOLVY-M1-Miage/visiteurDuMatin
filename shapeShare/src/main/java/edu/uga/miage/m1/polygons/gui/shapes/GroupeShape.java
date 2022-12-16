@@ -3,12 +3,13 @@ package edu.uga.miage.m1.polygons.gui.shapes;
 import edu.uga.miage.m1.polygons.gui.visitor.Visitor;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GroupeShape implements SimpleShape{
+    private Color couleur = Color.RED;
     private List<SimpleShape> shapes;
-
     public List<SimpleShape> getShapes(){
         return this.shapes;
     }
@@ -41,7 +42,7 @@ public class GroupeShape implements SimpleShape{
     }
     public void draw(JPanel m_panel, boolean estDansGroupe) {
         for (SimpleShape shape:this.shapes){
-            shape.select();
+            shape.select(this.couleur);
             //shape.draw(m_panel,true);
         }
     }
@@ -58,6 +59,10 @@ public class GroupeShape implements SimpleShape{
 
     }
 
+    public void setCouleur(Color couleur){
+        this.couleur = couleur;
+    }
+
     @Override
     public JLabel getLabel(){
         return null;
@@ -68,7 +73,7 @@ public class GroupeShape implements SimpleShape{
     }
 
     @Override
-    public void select() {
+    public void select(Color couleur) {
 
     }
 

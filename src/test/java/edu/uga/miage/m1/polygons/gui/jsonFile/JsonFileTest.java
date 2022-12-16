@@ -1,6 +1,6 @@
 package edu.uga.miage.m1.polygons.gui.jsonFile;
 
-import edu.uga.miage.m1.polygons.gui.visitor.JSonVisitor;
+import edu.uga.miage.m1.polygons.gui.visitor.JsonVisitor;
 import edu.uga.miage.m1.polygons.gui.visitor.Visitor;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 import org.json.simple.parser.JSONParser;
@@ -33,7 +33,7 @@ public class JsonFileTest {
 
         String path = "src/test/java/edu/uga/miage/m1/polygons/gui/jsonFile/file/exportTest.json";
         //exportJSON(path,shapes);
-        Visitor visitorJson = new JSonVisitor();
+        Visitor visitorJson = new JsonVisitor();
         export(visitorJson,"json",path,shapes);
         Object ob = new JSONParser().parse(new FileReader(path));
 
@@ -58,7 +58,7 @@ public class JsonFileTest {
 
         String path = "src/test/java/edu/uga/miage/m1/polygons/gui/jsonFile/file/exportGroupeTest.json";
         //exportJSON(path,shapes);
-        Visitor visitorJson = new JSonVisitor();
+        Visitor visitorJson = new JsonVisitor();
         export(visitorJson,"json",path,shapes);
         Object ob = new JSONParser().parse(new FileReader(path));
 

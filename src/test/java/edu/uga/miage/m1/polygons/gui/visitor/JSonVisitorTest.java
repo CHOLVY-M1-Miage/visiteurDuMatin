@@ -22,7 +22,7 @@ class JSonVisitorTest {
 				String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "circle", c.getX(), c.getY());
 		String expectedRepresentation = jsonFromString(representation).toString();
 		
-		JSonVisitor visitor = new JSonVisitor();
+		JsonVisitor visitor = new JsonVisitor();
 		c.accept(visitor);
 		representation = visitor.getRepresentation();
 		if (representation == null) {
@@ -39,7 +39,7 @@ class JSonVisitorTest {
 				String.format("{\"type\": \"%s\",\"x\": %d,\"y\": %d}", "triangle", t.getX(), t.getY());
 		String expectedRepresentation = jsonFromString(representation).toString();
 		
-		JSonVisitor visitor = new JSonVisitor();
+		JsonVisitor visitor = new JsonVisitor();
 		t.accept(visitor);
 		representation = visitor.getRepresentation();
 		if (representation == null) {
@@ -56,7 +56,7 @@ class JSonVisitorTest {
 				String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "square", s.getX(), s.getY());
 		String expectedRepresentation = jsonFromString(representation).toString();
 		
-		JSonVisitor visitor = new JSonVisitor();
+		JsonVisitor visitor = new JsonVisitor();
 		s.accept(visitor);
 		representation = visitor.getRepresentation();
 		if (representation == null) {
@@ -73,7 +73,7 @@ class JSonVisitorTest {
 				String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "binome", b.getX(), b.getY());
 		String expectedRepresentation = jsonFromString(representation).toString();
 
-		JSonVisitor visitor = new JSonVisitor();
+		JsonVisitor visitor = new JsonVisitor();
 		b.accept(visitor);
 		representation = visitor.getRepresentation();
 		if (representation == null) {
@@ -90,7 +90,7 @@ class JSonVisitorTest {
 				String.format("{\"groupe\": []}");
 		String expectedRepresentation = jsonFromString(representation).toString();
 
-		JSonVisitor visitor = new JSonVisitor();
+		JsonVisitor visitor = new JsonVisitor();
 		groupeShapes.accept(visitor);
 		representation = visitor.getRepresentation();
 		if (representation == null) {
@@ -108,7 +108,7 @@ class JSonVisitorTest {
 				String.format("{\"groupe\": [{\"type\": \"%s\", \"x\": 0,\"y\": 0}]}", "circle");
 		String expectedRepresentation = jsonFromString(representation).toString();
 
-		JSonVisitor visitor = new JSonVisitor();
+		JsonVisitor visitor = new JsonVisitor();
 		groupeShapes.accept(visitor);
 		representation = visitor.getRepresentation();
 		if (representation == null) {
@@ -128,7 +128,7 @@ class JSonVisitorTest {
 				String.format("{\"groupe\": [{\"type\": \"circle\", \"x\": 0,\"y\": 0},{\"type\": \"triangle\", \"x\": 10,\"y\": 10},{\"type\": \"square\", \"x\": 20,\"y\": 20}]}");
 		String expectedRepresentation = jsonFromString(representation).toString();
 
-		JSonVisitor visitor = new JSonVisitor();
+		JsonVisitor visitor = new JsonVisitor();
 		groupeShapes.accept(visitor);
 		representation = visitor.getRepresentation();
 		if (representation == null) {

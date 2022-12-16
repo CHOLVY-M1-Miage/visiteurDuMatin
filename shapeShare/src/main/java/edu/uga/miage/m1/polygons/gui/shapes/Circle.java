@@ -21,12 +21,11 @@ package edu.uga.miage.m1.polygons.gui.shapes;
 import java.awt.*;
 import java.util.Objects;
 
-import edu.uga.miage.m1.polygons.gui.visitor.Visitable;
 import edu.uga.miage.m1.polygons.gui.visitor.Visitor;
 
 import javax.swing.*;
 
-public class Circle implements SimpleShape, Visitable {
+public class Circle implements SimpleShape {
     int m_x;
     int m_y;
     JLabel label;
@@ -82,8 +81,8 @@ public class Circle implements SimpleShape, Visitable {
         return this.label;
     }
 
-    public void select(){
-        this.label.setBorder( BorderFactory.createLineBorder(Color.RED,4));
+    public void select(Color couleur){
+        this.label.setBorder( BorderFactory.createLineBorder(couleur,4));
     }
 
     @Override

@@ -25,7 +25,7 @@ class XMLVisitorTest {
 		String representation = 
 				String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "circle", c.getX(), c.getY());
 		String expectedRepresentation = convertXmlToString(convertStringToXml(representation));
-		XMLVisitor visitor = new XMLVisitor();
+		XmlVisitor visitor = new XmlVisitor();
 		c.accept(visitor);
 		representation = visitor.getRepresentation();
 		if (representation == null) {
@@ -41,7 +41,7 @@ class XMLVisitorTest {
 		String representation = 
 				String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "triangle", t.getX(), t.getY());
 		String expectedRepresentation = convertXmlToString(convertStringToXml(representation));
-		XMLVisitor visitor = new XMLVisitor();
+		XmlVisitor visitor = new XmlVisitor();
 		t.accept(visitor);
 		representation = visitor.getRepresentation();
 		if (representation == null) {
@@ -57,7 +57,7 @@ class XMLVisitorTest {
 		String representation = 
 				String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "square", s.getX(), s.getY());
 		String expectedRepresentation = convertXmlToString(convertStringToXml(representation));
-		XMLVisitor visitor = new XMLVisitor();
+		XmlVisitor visitor = new XmlVisitor();
 		s.accept(visitor);
 		representation = visitor.getRepresentation();
 		if (representation == null) {
@@ -73,7 +73,7 @@ class XMLVisitorTest {
 		String representation =
 				String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "binome", b.getX(), b.getY());
 		String expectedRepresentation = convertXmlToString(convertStringToXml(representation));
-		XMLVisitor visitor = new XMLVisitor();
+		XmlVisitor visitor = new XmlVisitor();
 		b.accept(visitor);
 		representation = visitor.getRepresentation();
 		if (representation == null) {
