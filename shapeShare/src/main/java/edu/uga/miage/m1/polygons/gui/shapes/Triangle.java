@@ -60,7 +60,7 @@ public class Triangle implements SimpleShape {
         if (estDansGroupe){
             this.label.setBorder( BorderFactory.createLineBorder(Color.RED) );
         }
-        label.setBounds(getX()-25, getY()-25, size.width, size.height);
+        label.setBounds(getX(), getY(), size.width, size.height);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class Triangle implements SimpleShape {
     @Override
     public int getX() {
         //System.out.println("->X "+ (m_x+25));
-        return m_x + 25;
+        return m_x;
     }
     @Override
     public void setX(int x){
@@ -80,7 +80,7 @@ public class Triangle implements SimpleShape {
     @Override
     public int getY() {
         //System.out.println("->Y "+ (m_y+25));
-        return m_y + 25;
+        return m_y;
     }
     @Override
     public void setY(int Y){
@@ -88,44 +88,44 @@ public class Triangle implements SimpleShape {
     }
 
     //Retourne le sommet haut
-    public List<Integer> getA (){
+    private List<Integer> getA (){
         List<Integer> coord = new ArrayList<Integer>();
-        coord.add(this.getX());
-        coord.add(this.getY() - 25);
+        coord.add(this.getX() + 25);
+        coord.add(this.getY());
         return coord;
     }
-    public int getAx(){
+    private int getAx(){
         return this.getA().get(0);
     }
-    public int getAy(){
+    private int getAy(){
         return this.getA().get(1);
     }
 
     //Retourne le sommet gauche
-    public List<Integer> getB (){
+    private List<Integer> getB (){
         List<Integer> coord = new ArrayList<Integer>();
-        coord.add(this.getX() - 25);
-        coord.add(this.getY() + 25);
+        coord.add(this.getX());
+        coord.add(this.getY() + 50);
         return coord;
     }
-    public int getBx(){
+    private int getBx(){
         return this.getB().get(0);
     }
-    public int getBy(){
+    private int getBy(){
         return this.getB().get(1);
     }
 
     //Retourne le sommet droite
-    public List<Integer> getC (){
+    private List<Integer> getC (){
         List<Integer> coord = new ArrayList<Integer>();
-        coord.add(this.getX() + 25);
-        coord.add(this.getY() + 25);
+        coord.add(this.getX() + 50);
+        coord.add(this.getY() + 50);
         return coord;
     }
-    public int getCx(){
+    private int getCx(){
         return this.getC().get(0);
     }
-    public int getCy(){
+    private int getCy(){
         return this.getC().get(1);
     }
 
@@ -145,8 +145,8 @@ public class Triangle implements SimpleShape {
 
     @Override
     public void deplace(int deltaX, int deltaY){
-        int x = this.m_x + deltaX;
-        int y = this.m_y + deltaY;
+        int x = this.m_x - 25 + deltaX;
+        int y = this.m_y - 25 + deltaY;
         this.label.setLocation(x,y);
         this.setX(x);
         this.setY(y);
@@ -159,6 +159,7 @@ public class Triangle implements SimpleShape {
     @Override
     public boolean isSelect(int coordX, int coordY){
         /*
+        System.out.printf("Triangle A(%d,%d) B(%d,%d) C(%d,%d) Centre(%d,%d)\n",getAx(),getAy(),getBx(),getBy(),getCx(),getCy(),getX(),getY());
         System.out.println("---");
         System.out.println("->(1)"+ ( ( (getAx()) - (coordX) ) * ( (getBy()) - (coordY)) - ( (getAy()) - (coordY)) * ( (getBx()) - (coordX))));
         System.out.println("->(2)"+ ( ( (getBx()) - (coordX) ) * ( (getCy()) - (coordY)) - ( (getBy()) - (coordY)) * ( (getCx()) - (coordX))));
