@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <root>
 <shapes>
-<shape><type>triangle</type><x>609</x><y>277</y></shape>
-<shape><type>square</type><x>634</x><y>233</y></shape>
+<shape><type>square</type><x>612</x><y>164</y></shape>
+<shape><type>square</type><x>636</x><y>286</y></shape>
 <groupe>
-<shape><type>square</type><x>848</x><y>348</y></shape>
+<shape><type>circle</type><x>357</x><y>176</y></shape>
 </groupe>
 </shapes>
 </root>
