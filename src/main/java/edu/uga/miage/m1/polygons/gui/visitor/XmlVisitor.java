@@ -26,7 +26,7 @@ public class XmlVisitor implements Visitor {
     }
     @Override
     public void visit(Triangle triangle) {
-        this.representation = String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "triangle", triangle.getX(), triangle.getY());
+        this.representation = String.format("<shape><type>%s</type><x>%d</x><y>%d</y></shape>", "triangle", triangle.getX()+25, triangle.getY()+25);
     }
     @Override
     public void visit(Binome binome){

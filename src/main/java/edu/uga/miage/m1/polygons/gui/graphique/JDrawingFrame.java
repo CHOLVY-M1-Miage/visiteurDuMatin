@@ -47,8 +47,9 @@ import static edu.uga.miage.m1.polygons.gui.graphique.shapeInteraction.whoWasCli
  */
 public class JDrawingFrame extends JFrame
         implements MouseListener, MouseMotionListener {
+    private static final List<Color> COULEURS = Arrays.asList(Color.RED,Color.YELLOW,Color.GREEN,Color.BLUE,Color.MAGENTA,Color.ORANGE,Color.cyan,Color.GRAY,Color.PINK,Color.BLACK);
+    private int fixGroupe;
     public enum Shapes {SQUARE, TRIANGLE, CIRCLE, BINOME}
-
     private SimpleShape shapeDragged;
     private SimpleShape shapeDraggedInGroupe;
     private int shapeDraggedXOrigine;
@@ -114,6 +115,7 @@ public class JDrawingFrame extends JFrame
 
         setPreferredSize(new Dimension(8000, 600));
 
+        fixGroupe = 0;
         this.listeShapes = new ArrayList<>();
         this.selectGroupe = new GroupeShape();
         remote = new RemoteControl(this.listeShapes,this.selectGroupe, this.m_panel);

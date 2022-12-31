@@ -31,7 +31,7 @@ public class Remove implements Command {
             this.listeShapes.remove(this.groupeShape);
         }
         listeShapes.add(this.figure);
-        this.figure.getLabel().setBorder( BorderFactory.createLineBorder(Color.black,0));
+        if (this.figure.getLabel() != null) this.figure.getLabel().setBorder( BorderFactory.createLineBorder(Color.black,0));
     }
 
 }

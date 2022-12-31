@@ -26,7 +26,7 @@ public class JsonVisitor implements Visitor {
     }
     @Override
     public void visit(Triangle triangle) {
-        this.representation = String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "triangle", triangle.getX(), triangle.getY());
+        this.representation = String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "triangle", triangle.getX()+25, triangle.getY()+25);
     }
     @Override
     public void visit(Binome binome) {

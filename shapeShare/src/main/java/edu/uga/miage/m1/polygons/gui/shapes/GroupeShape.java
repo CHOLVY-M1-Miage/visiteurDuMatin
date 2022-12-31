@@ -8,16 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroupeShape implements SimpleShape{
-    private Color couleur = Color.RED;
+    private Color couleur;
     private List<SimpleShape> shapes;
+    public GroupeShape(){
+        this.couleur = Color.RED;
+        this.shapes = new ArrayList<SimpleShape>();
+    }
+
     public List<SimpleShape> getShapes(){
         return this.shapes;
     }
     public SimpleShape getLastShapes(){
         return this.shapes.get(this.shapes.size() - 1);
-    }
-    public GroupeShape(){
-        this.shapes = new ArrayList<SimpleShape>();
     }
 
     @Override
@@ -45,8 +47,10 @@ public class GroupeShape implements SimpleShape{
     }
     public void draw(JPanel m_panel, boolean estDansGroupe) {
         for (SimpleShape shape:this.shapes){
+            if (shape.getLabel() == null){
+                shape.draw(m_panel);
+            }
             shape.select(this.couleur);
-            //shape.draw(m_panel,true);
         }
     }
 

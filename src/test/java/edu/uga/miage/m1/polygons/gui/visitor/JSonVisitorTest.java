@@ -19,7 +19,7 @@ class JSonVisitorTest {
 	void test_circle_visitor() {
 		var c = new Circle(0, 0);
 		String representation = 
-				String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "circle", c.getX(), c.getY());
+				String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "circle",0, 0);
 		String expectedRepresentation = jsonFromString(representation).toString();
 		
 		JsonVisitor visitor = new JsonVisitor();
@@ -36,7 +36,7 @@ class JSonVisitorTest {
 	void test_triangle_visitor() {
 		var t = new Triangle(0, 0);
 		String representation = 
-				String.format("{\"type\": \"%s\",\"x\": %d,\"y\": %d}", "triangle", t.getX(), t.getY());
+				String.format("{\"type\": \"%s\",\"x\": %d,\"y\": %d}", "triangle", 0, 0);
 		String expectedRepresentation = jsonFromString(representation).toString();
 		
 		JsonVisitor visitor = new JsonVisitor();
@@ -53,7 +53,7 @@ class JSonVisitorTest {
 	void test_square_visitor() {
 		var s = new Square(0, 0);
 		String representation = 
-				String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "square", s.getX(), s.getY());
+				String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "square", 0, 0);
 		String expectedRepresentation = jsonFromString(representation).toString();
 		
 		JsonVisitor visitor = new JsonVisitor();
@@ -70,7 +70,7 @@ class JSonVisitorTest {
 	void test_binome_visitor() {
 		var b = new Binome(0, 0);
 		String representation =
-				String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "binome", b.getX(), b.getY());
+				String.format("{\"type\": \"%s\", \"x\": %d,\"y\": %d}", "binome", 0, 0);
 		String expectedRepresentation = jsonFromString(representation).toString();
 
 		JsonVisitor visitor = new JsonVisitor();

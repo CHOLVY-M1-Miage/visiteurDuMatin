@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <root>
 <shapes>
-<shape><type>square</type><x>343</x><y>136</y></shape>
-<shape><type>square</type><x>373</x><y>263</y></shape>
-<shape><type>circle</type><x>518</x><y>134</y></shape>
+<groupe>
+<shape><type>square</type><x>-1005</x><y>701</y></shape>
+<shape><type>square</type><x>-879</x><y>699</y></shape>
+</groupe>
+<shape><type>square</type><x>517</x><y>187</y></shape>
+<shape><type>square</type><x>654</x><y>235</y></shape>
+<shape><type>square</type><x>810</x><y>290</y></shape>
 </shapes>
 </root>

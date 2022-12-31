@@ -1,8 +1,5 @@
 {
 "shapes":[
-{"groupe": [
-{"type": "square", "x": 479,"y": 100},
-{"type": "square", "x": 558,"y": 89}
-]}
+{"type": "triangle", "x": 591,"y": 189}
 ]
 }

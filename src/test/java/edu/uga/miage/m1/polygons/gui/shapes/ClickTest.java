@@ -47,8 +47,8 @@ public class ClickTest {
     void test_click_triangle(){
         init();
         //System.out.println("->" + this.shapes);
-        SimpleShape clickedShape = whoWasClicked(this.shapes,148,-8);
-        assertTrue(clickedShape.getX() == 150 && clickedShape.getY() == 0);
+        SimpleShape clickedShape = whoWasClicked(this.shapes,148,2);
+        assertTrue(clickedShape.getX() == 125 && clickedShape.getY() == -25);
     }
 
     @Test
