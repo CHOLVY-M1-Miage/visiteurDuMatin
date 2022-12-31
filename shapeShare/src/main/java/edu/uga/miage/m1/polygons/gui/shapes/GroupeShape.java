@@ -12,7 +12,7 @@ public class GroupeShape implements SimpleShape{
     private List<SimpleShape> shapes;
     public GroupeShape(){
         this.couleur = Color.RED;
-        this.shapes = new ArrayList<SimpleShape>();
+        this.shapes = new ArrayList<>();
     }
 
     public List<SimpleShape> getShapes(){
@@ -24,12 +24,6 @@ public class GroupeShape implements SimpleShape{
 
     @Override
     public void move(int x,int y){
-        //int deltaX = x - this.shapes.get(0).getX();
-        //int deltaY = y - this.shapes.get(0).getY();
-        //System.out.printf("delta(%s,%s)",deltaX,deltaY);
-        //for (SimpleShape s: this.getShapes()){
-        //    s.deplace(deltaX+25,deltaY+25);
-        //}
         for (SimpleShape s: this.getShapes()){
             s.move(x,y);
         }
@@ -42,13 +36,13 @@ public class GroupeShape implements SimpleShape{
         }
     }
 
-    public void draw(JPanel m_panel) {
-        this.draw(m_panel,true);
+    public void draw(JPanel mPanel) {
+        this.draw(mPanel,true);
     }
-    public void draw(JPanel m_panel, boolean estDansGroupe) {
+    public void draw(JPanel mPanel, boolean estDansGroupe) {
         for (SimpleShape shape:this.shapes){
             if (shape.getLabel() == null){
-                shape.draw(m_panel);
+                shape.draw(mPanel);
             }
             shape.select(this.couleur);
         }

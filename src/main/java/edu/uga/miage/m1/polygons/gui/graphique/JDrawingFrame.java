@@ -65,9 +65,9 @@ public class JDrawingFrame extends JFrame
 
     private static final long serialVersionUID = 1L;
     private JToolBar m_toolbar;
-    private Shapes m_selected;
-    private JPanel m_panel;
-    private JLabel m_label;
+    private Shapes mSelected;
+    private JPanel mPanel;
+    private JLabel mLabel;
     private Graphics2D g2;
     private ActionListener m_reusableActionListener = new ShapeActionListener();
 
@@ -86,19 +86,19 @@ public class JDrawingFrame extends JFrame
         super(frameName);
         // Instantiates components
         m_toolbar = new JToolBar("Toolbar");
-        m_panel = new JPanel();
-        m_panel.setBackground(Color.WHITE);
-        m_panel.setLayout(null);
-        m_panel.setMinimumSize(new Dimension(400, 400));
-        m_panel.addMouseListener(this);
-        m_panel.addMouseMotionListener(this);
-        m_label = new JLabel(" ", JLabel.LEFT);
+        mPanel = new JPanel();
+        mPanel.setBackground(Color.WHITE);
+        mPanel.setLayout(null);
+        mPanel.setMinimumSize(new Dimension(400, 400));
+        mPanel.addMouseListener(this);
+        mPanel.addMouseMotionListener(this);
+        mLabel = new JLabel(" ", JLabel.LEFT);
 
         // Fills the panel
         setLayout(new BorderLayout());
         add(m_toolbar, BorderLayout.NORTH);
-        add(m_panel, BorderLayout.CENTER);
-        add(m_label, BorderLayout.SOUTH);
+        add(mPanel, BorderLayout.CENTER);
+        add(mLabel, BorderLayout.SOUTH);
 
         // Icône du menu
         shapeButton(Shapes.SQUARE, new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/square.png"))));
@@ -118,7 +118,7 @@ public class JDrawingFrame extends JFrame
         fixGroupe = 0;
         this.listeShapes = new ArrayList<>();
         this.selectGroupe = new GroupeShape();
-        remote = new RemoteControl(this.listeShapes,this.selectGroupe, this.m_panel);
+        remote = new RemoteControl(this.listeShapes,this.selectGroupe, this.mPanel);
 
     }
 
@@ -136,7 +136,7 @@ public class JDrawingFrame extends JFrame
         button.setActionCommand(shape.toString());
         button.addActionListener(m_reusableActionListener);
 
-        if (m_selected == null) {
+        if (mSelected == null) {
             button.doClick();
         }
 
@@ -158,8 +158,8 @@ public class JDrawingFrame extends JFrame
                         "Voullez vous continuer?",
                         JOptionPane.YES_NO_CANCEL_OPTION);
                 if (retour == JOptionPane.OK_OPTION) {
-                    remote = importFile(listeShapes,selectGroupe,m_panel);
-                    m_panel.removeAll();
+                    remote = importFile(listeShapes,selectGroupe, mPanel);
+                    mPanel.removeAll();
                     remote.play();
                     repaint();
                 }
@@ -207,7 +207,7 @@ public class JDrawingFrame extends JFrame
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                m_panel.removeAll();
+                mPanel.removeAll();
                 remote.undo();
                 repaint();
             }
@@ -224,7 +224,7 @@ public class JDrawingFrame extends JFrame
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                m_panel.removeAll();
+                mPanel.removeAll();
                 remote.forward();
                 repaint();
             }
@@ -249,7 +249,7 @@ public class JDrawingFrame extends JFrame
                         JOptionPane.YES_NO_CANCEL_OPTION);
                 if (retour == JOptionPane.OK_OPTION) {
                     remote.clear();
-                    m_panel.removeAll();
+                    mPanel.removeAll();
                     repaint();
                 }
 
@@ -267,7 +267,7 @@ public class JDrawingFrame extends JFrame
             @Override
             public void actionPerformed(ActionEvent e) {
                 selectGroupe = new GroupeShape();
-                m_panel.removeAll();
+                mPanel.removeAll();
                 remote.play();
             }
         });
@@ -291,7 +291,7 @@ public class JDrawingFrame extends JFrame
         System.out.printf("\tShapeClicked: %s\n",this.shapeClicked);
         if (shapeClicked == null) {
             //Zone vide --> Nouvelle figure
-            SimpleShape newShape = createShape(m_selected, evt.getX(), evt.getY());
+            SimpleShape newShape = createShape(mSelected, evt.getX(), evt.getY());
             System.out.printf("\t NEW FIGURE %s\n",newShape);
             remote.addCommand(new Draw(newShape,remote));
         } else {
@@ -308,7 +308,7 @@ public class JDrawingFrame extends JFrame
 
         }
 
-        m_panel.removeAll();
+        mPanel.removeAll();
         remote.play();
 
         System.out.println("----Shapes :"+ this.listeShapes.size()+"----");
@@ -373,7 +373,7 @@ public class JDrawingFrame extends JFrame
             System.out.printf("COMMANDE MOVE Delta(%d,%d)\n",shapeMoveDeltaX,shapeMoveDeltaY);
             remote.addCommand(new Move(this.shapeDragged,shapeMoveDeltaX,shapeMoveDeltaY));
             this.shapeDragged = null;
-            this.m_panel.removeAll();
+            this.mPanel.removeAll();
             remote.play();
             repaint();
             this.shapeWasMove = false;
@@ -416,7 +416,7 @@ public class JDrawingFrame extends JFrame
     }
 
     private void modifyLabel(MouseEvent evt) {
-        m_label.setText("(" + evt.getX() + "," + evt.getY() + ")");
+        mLabel.setText("(" + evt.getX() + "," + evt.getY() + ")");
     }
 
     /**
@@ -435,7 +435,7 @@ public class JDrawingFrame extends JFrame
                 cmp++;
                 if (evt.getActionCommand().equals(shape.toString())) {
                     btn.setBorderPainted(true);
-                    m_selected = shape;
+                    mSelected = shape;
                 }
                 btn.repaint();
             }

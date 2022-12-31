@@ -13,7 +13,7 @@ import java.util.List;
 
 import static junit.framework.Assert.*;
 
-public class ClearTest {
+class ClearTest {
     @Test
     void test_clear_command(){
         JPanel m_panel = new JPanel();

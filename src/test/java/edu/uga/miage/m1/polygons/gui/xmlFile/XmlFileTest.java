@@ -19,7 +19,7 @@ import static edu.uga.miage.m1.polygons.gui.file.Export.export;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class XmlFileTest {
+class XmlFileTest {
     @Test
     void test_export_shapes_groupLess() throws IOException, ParseException, ParserConfigurationException, SAXException {
         List<SimpleShape> shapes = new ArrayList<>();
@@ -83,7 +83,7 @@ public class XmlFileTest {
         shapes = importXml(document);
 
         int taille = shapes_Controle.size();
-        assertTrue(shapes.size() == taille);
+        Assert.assertEquals(shapes.size(),taille);
         for (int i = 0; i < taille;i++ ){
             Assert.assertEquals(shapes_Controle.get(i).getX(),shapes.get(i).getX());
             Assert.assertEquals(shapes_Controle.get(i).getY(),shapes.get(i).getY());
@@ -108,7 +108,7 @@ public class XmlFileTest {
         Document document = openXmlFile(path);
         shapes = importXml(document);
 
-        assertTrue(shapes.size() == taille);
+        Assert.assertEquals(shapes.size(),taille);
         for (int i = 0; i < taille;i++){
             if (shapes.get(i).getClass().getName().equals("edu.uga.miage.m1.polygons.gui.shapes.GroupeShape")){
                 GroupeShape groupeShape = (GroupeShape) shapes.get(i);

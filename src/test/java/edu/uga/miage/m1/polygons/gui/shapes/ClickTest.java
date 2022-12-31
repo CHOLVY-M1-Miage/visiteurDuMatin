@@ -6,9 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static edu.uga.miage.m1.polygons.gui.graphique.shapeInteraction.whoWasClicked;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-public class ClickTest {
+class ClickTest {
     private List<SimpleShape> shapes;
 
     void init(){
@@ -65,6 +66,6 @@ public class ClickTest {
         //System.out.println("->" + this.shapes);
         SimpleShape clickedShape = whoWasClicked(this.shapes,180,80);
         //System.out.println("->:" + clickedShape);
-        assertTrue(clickedShape == null);
+        assertNull(clickedShape);
     }
 }

@@ -31,83 +31,13 @@ import javax.swing.*;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-public class Square implements SimpleShape {
-    int m_x;
-    int m_y;
-    JLabel label;
-    ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/square.png")));
-
+public class Square extends Shape implements SimpleShape {
     public Square(int x, int y) {
-        m_x = x - 25;
-        m_y = y - 25;
+        super(x,y,"../images/icones/square.png");
     }
-
-    /**
-     * Implements the <tt>SimpleShape.draw()</tt> method for painting
-     * the shape.
-     * @param g2 The graphics object used for painting.
-     */
-    public void draw(JPanel m_panel){
-        this.draw(m_panel,false);
-    }
-    public void draw(JPanel m_panel,boolean estDansGroupe) {
-        this.label = new JLabel(icon);
-        m_panel.add(this.label);
-        Dimension size = label.getPreferredSize();
-        label.setBounds(getX(), getY(), size.width, size.height);
-        if (estDansGroupe){
-            this.label.setBorder( BorderFactory.createLineBorder(Color.RED) );
-        }
-        this.label.setLocation(getX(),getY());
-    }
-
-    public JLabel getLabel(){
-        return this.label;
-    }
-
     @Override
     public void accept(Visitor visitor) {
     	visitor.visit(this);
-    }
-
-    @Override
-    public int getX() {
-        return m_x;
-    }
-    @Override
-    public void setX(int x){
-        this.m_x = x;
-    }
-    @Override
-    public int getY() {
-        return m_y;
-    }
-    @Override
-    public void setY(int Y){
-        this.m_y = Y;
-    }
-
-    public void select(Color couleur){
-        this.label.setBorder( BorderFactory.createLineBorder(couleur,4));
-    }
-
-    @Override
-    public void move(int x,int y) {
-        int newX = this.getX() + x;
-        int newY = this.getY() + y;
-        //System.out.printf("MOVE: Delta[%d,%d] Cord[%d,%d] NewCord[%d,%d]\n",x,y,this.getX(),this.getY(),newX,newY);
-        this.label.setLocation(newX,newY);
-        this.setX(newX);
-        this.setY(newY);
-    }
-
-    @Override
-    public void deplace(int deltaX, int deltaY){
-        int x = this.m_x - 25 + deltaX;
-        int y = this.m_y - 25 + deltaY;
-        this.label.setLocation(x,y);
-        this.setX(x);
-        this.setY(y);
     }
 
     @Override

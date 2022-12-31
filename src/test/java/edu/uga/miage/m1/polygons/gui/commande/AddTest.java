@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class AddTest {
+class AddTest {
     @Test
     void test_add_newGroupe() {
         JPanel m_panel = new JPanel();

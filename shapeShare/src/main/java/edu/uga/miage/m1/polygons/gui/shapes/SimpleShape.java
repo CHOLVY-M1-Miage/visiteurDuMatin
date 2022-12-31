@@ -18,8 +18,8 @@ public interface SimpleShape
      * Method to draw the shape of the extension.
      * @param g2 The graphics object used for painting.
      **/
-    void draw(JPanel m_panel);
-    void draw(JPanel m_panel,boolean estDansGroupe);
+    void draw(JPanel mPanel);
+    void draw(JPanel mPanel,boolean estDansGroupe);
 
     int getX();
     void setX(int x);

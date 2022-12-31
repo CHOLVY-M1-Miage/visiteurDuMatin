@@ -33,34 +33,10 @@ import javax.swing.*;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-public class Triangle implements SimpleShape {
-
-    int m_x;
-    int m_y;
-    JLabel label;
-    ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/triangle.png")));
+public class Triangle extends Shape implements SimpleShape {
 
     public Triangle(int x, int y) {
-        m_x = x - 25;
-        m_y = y - 25;
-    }
-
-    /**
-     * Implements the <tt>SimpleShape.draw()</tt> method for painting
-     * the shape.
-     * @param g2 The graphics object used for painting.
-     */
-    public void draw(JPanel m_panel){
-        this.draw(m_panel,false);
-    }
-    public void draw(JPanel m_panel,boolean estDansGroupe) {
-        this.label = new JLabel(icon);
-        m_panel.add(this.label);
-        Dimension size = label.getPreferredSize();
-        if (estDansGroupe){
-            this.label.setBorder( BorderFactory.createLineBorder(Color.RED) );
-        }
-        label.setBounds(getX(), getY(), size.width, size.height);
+        super(x,y,"../images/icones/triangle.png");
     }
 
     @Override
@@ -68,28 +44,9 @@ public class Triangle implements SimpleShape {
         visitor.visit(this);
     }
 
-    @Override
-    public int getX() {
-        //System.out.println("->X "+ (m_x+25));
-        return m_x;
-    }
-    @Override
-    public void setX(int x){
-        this.m_x = x;
-    }
-    @Override
-    public int getY() {
-        //System.out.println("->Y "+ (m_y+25));
-        return m_y;
-    }
-    @Override
-    public void setY(int Y){
-        this.m_y = Y;
-    }
-
     //Retourne le sommet haut
     private List<Integer> getA (){
-        List<Integer> coord = new ArrayList<Integer>();
+        List<Integer> coord = new ArrayList<>();
         coord.add(this.getX() + 25);
         coord.add(this.getY());
         return coord;
@@ -103,7 +60,7 @@ public class Triangle implements SimpleShape {
 
     //Retourne le sommet gauche
     private List<Integer> getB (){
-        List<Integer> coord = new ArrayList<Integer>();
+        List<Integer> coord = new ArrayList<>();
         coord.add(this.getX());
         coord.add(this.getY() + 50);
         return coord;
@@ -117,7 +74,7 @@ public class Triangle implements SimpleShape {
 
     //Retourne le sommet droite
     private List<Integer> getC (){
-        List<Integer> coord = new ArrayList<Integer>();
+        List<Integer> coord = new ArrayList<>();
         coord.add(this.getX() + 50);
         coord.add(this.getY() + 50);
         return coord;
@@ -129,43 +86,8 @@ public class Triangle implements SimpleShape {
         return this.getC().get(1);
     }
 
-    public void select(Color couleur){
-        this.label.setBorder( BorderFactory.createLineBorder(couleur,4));
-    }
-
-    @Override
-    public void move(int x,int y) {
-        int newX = this.getX() + x;
-        int newY = this.getY() + y;
-        //System.out.printf("MOVE: Delta[%d,%d] Cord[%d,%d] NewCord[%d,%d]\n",x,y,this.getX(),this.getY(),newX,newY);
-        this.label.setLocation(newX,newY);
-        this.setX(newX);
-        this.setY(newY);
-    }
-
-    @Override
-    public void deplace(int deltaX, int deltaY){
-        int x = this.m_x - 25 + deltaX;
-        int y = this.m_y - 25 + deltaY;
-        this.label.setLocation(x,y);
-        this.setX(x);
-        this.setY(y);
-    }
-
-    public JLabel getLabel(){
-        return this.label;
-    }
-
     @Override
     public boolean isSelect(int coordX, int coordY){
-        /*
-        System.out.printf("Triangle A(%d,%d) B(%d,%d) C(%d,%d) Centre(%d,%d)\n",getAx(),getAy(),getBx(),getBy(),getCx(),getCy(),getX(),getY());
-        System.out.println("---");
-        System.out.println("->(1)"+ ( ( (getAx()) - (coordX) ) * ( (getBy()) - (coordY)) - ( (getAy()) - (coordY)) * ( (getBx()) - (coordX))));
-        System.out.println("->(2)"+ ( ( (getBx()) - (coordX) ) * ( (getCy()) - (coordY)) - ( (getBy()) - (coordY)) * ( (getCx()) - (coordX))));
-        System.out.println("->(3)"+ ( ( (getCx()) - (coordX) ) * ( (getAy()) - (coordY)) - ( (getCy()) - (coordY)) * ( (getAx()) - (coordX))));
-        System.out.println("---");
-        */
 
         return (
                ( ( (getAx()) - (coordX) ) * ( (getBy()) - (coordY)) - ( (getAy()) - (coordY)) * ( (getBx()) - (coordX))) < 0 &&

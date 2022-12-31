@@ -12,14 +12,14 @@ public class Remove implements Command {
     private SimpleShape figure ;
     private GroupeShape groupeShape;
     private List<SimpleShape> listeShapes;
-    private JPanel m_panel;
+    private JPanel mPanel;
     private RemoteControl remote;
 
     public Remove(SimpleShape figure , GroupeShape groupeShape,RemoteControl remote) {
         this.figure = figure;
         this.groupeShape = groupeShape;
         this.listeShapes = remote.getListeShapes();
-        this.m_panel = remote.getM_panel();
+        this.mPanel = remote.getmPanel();
         this.remote = remote;
     }
 

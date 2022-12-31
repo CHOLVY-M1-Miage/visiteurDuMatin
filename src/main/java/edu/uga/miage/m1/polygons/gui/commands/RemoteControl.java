@@ -13,23 +13,23 @@ public class RemoteControl {
     private List<SimpleShape> listeShapes;
     private GroupeShape groupe;
     protected List<Command> commands;
-    private JPanel m_panel;
+    private JPanel mPanel;
     private int index = 0;
 
     public RemoteControl(List<SimpleShape> listeShapes){
         this.listeShapes = listeShapes;
-        this.m_panel = null;
+        this.mPanel = null;
         commands = new ArrayList<Command>();
     }
     public RemoteControl(List<SimpleShape> listeShapes,GroupeShape groupe,JPanel m_panel) {
         this.listeShapes = listeShapes;
         this.groupe = groupe;
-        this.m_panel = m_panel;
+        this.mPanel = m_panel;
         commands = new ArrayList<Command>();
     }
 
-    public JPanel getM_panel() {
-        return this.m_panel;
+    public JPanel getmPanel() {
+        return this.mPanel;
     }
 
     public List<SimpleShape> getListeShapes(){

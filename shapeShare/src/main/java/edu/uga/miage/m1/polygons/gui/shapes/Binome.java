@@ -6,41 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
-public class Binome implements SimpleShape {
-    int m_x;
-    int m_y;
-    JLabel label;
-    ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("../images/icones/binome.png")));
-
+public class Binome extends Shape implements SimpleShape {
     public Binome(int x, int y) {
-        m_x = x - 25;
-        m_y = y - 25;
-    }
-
-    /**
-     * Implements the <tt>SimpleShape.draw()</tt> method for painting
-     * the shape.
-     *
-     * @param g2 The graphics object used for painting.
-     */
-    public void draw(JPanel m_panel) {
-        this.draw(m_panel, false);
-    }
-
-    public void draw(JPanel m_panel, boolean estDansGroupe) {
-        this.label = new JLabel(icon);
-        m_panel.add(this.label);
-        Dimension size = label.getPreferredSize();
-        this.label.setBounds(getX(), getY(), size.width, size.height);
-        if (estDansGroupe){
-            this.label.setBorder( BorderFactory.createLineBorder(Color.RED));
-        }
-        this.label.setLocation(getX(), getY());
-    }
-
-    @Override
-    public void select(Color couleur){
-        this.label.setBorder( BorderFactory.createLineBorder(couleur,4));
+        super(x,y,"../images/icones/binome.png");
     }
 
     @Override
@@ -49,55 +17,10 @@ public class Binome implements SimpleShape {
     }
 
     @Override
-    public int getX() {
-        return m_x;
-    }
-
-    @Override
-    public void setX(int x) {
-        this.m_x = x;
-    }
-
-    @Override
-    public int getY() {
-        return m_y;
-    }
-
-    @Override
-    public void setY(int Y) {
-        this.m_y = Y;
-    }
-
-    public JLabel getLabel(){
-        return this.label;
-    }
-
-    @Override
-    public void move(int x,int y) {
-        int newX = this.getX() + x;
-        int newY = this.getY() + y;
-        //System.out.printf("MOVE: Delta[%d,%d] Cord[%d,%d] NewCord[%d,%d]\n",x,y,this.getX(),this.getY(),newX,newY);
-        this.label.setLocation(newX,newY);
-        this.setX(newX);
-        this.setY(newY);
-    }
-
-    @Override
-    public void deplace(int deltaX, int deltaY){
-        int x = this.m_x - 25 + deltaX;
-        int y = this.m_y - 25 + deltaY;
-        this.label.setLocation(x,y);
-        this.setX(x);
-        this.setY(y);
-    }
-
-    @Override
     public boolean isSelect(int coordX, int coordY) {
         int x = this.getX() + 25;
         int y = this.getY() + 25;
         double dist = Math.sqrt(Math.pow((coordX - x),2) + Math.pow((coordY - y),2));
-        //System.out.println("Cercle :"+ " " + x+ " " +y);
-        //System.out.println("distance Centre: " + dist);
         return 25.00 > dist;
     }
 

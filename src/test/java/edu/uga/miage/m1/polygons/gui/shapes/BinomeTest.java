@@ -6,7 +6,7 @@ import org.mockito.Mock;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BinomeTest {
+class BinomeTest {
     @Mock
     Visitor v;
 

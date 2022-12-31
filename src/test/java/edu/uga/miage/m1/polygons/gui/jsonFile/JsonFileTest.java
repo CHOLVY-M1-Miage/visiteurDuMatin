@@ -18,7 +18,7 @@ import static edu.uga.miage.m1.polygons.gui.file.Export.export;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class JsonFileTest {
+class JsonFileTest {
     @Test
     void test_export_shapes_groupLess() throws IOException, ParseException {
         List<SimpleShape> shapes = new ArrayList<>();
@@ -82,7 +82,7 @@ public class JsonFileTest {
 
         shapes = importJson(path);
 
-        assertTrue(shapes.size() == taille);
+        assertEquals(shapes.size(),taille);
         for (int i = 0; i < taille;i++ ){
             assertEquals(shapes_Controle.get(i).getX(),shapes.get(i).getX());
             assertEquals(shapes_Controle.get(i).getY(),shapes.get(i).getY());
@@ -106,7 +106,7 @@ public class JsonFileTest {
 
         shapes = importJson(path);
 
-        assertTrue(shapes.size() == taille);
+        assertEquals(shapes.size(),taille);
         for (int i = 0; i < taille;i++){
             if (shapes.get(i).getClass().getName().equals("edu.uga.miage.m1.polygons.gui.shapes.GroupeShape")){
                 GroupeShape groupeShape = (GroupeShape) shapes.get(i);

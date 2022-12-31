@@ -14,7 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class RemoveTest {
+class RemoveTest {
     @Test
     void test_remove_emptyGroupe() {
         JPanel m_panel = new JPanel();

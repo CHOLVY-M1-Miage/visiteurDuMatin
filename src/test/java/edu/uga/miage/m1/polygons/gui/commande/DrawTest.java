@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DrawTest {
+class DrawTest {
     @Test
     void test_draw_circle(){
         JPanel m_panel = new JPanel();
