@@ -87,9 +87,12 @@ public class Circle implements SimpleShape {
 
     @Override
     public void move(int x,int y) {
-        this.label.setLocation(x,y);
-        this.setX(x);
-        this.setY(y);
+        int newX = this.getX() + x;
+        int newY = this.getY() + y;
+        //System.out.printf("MOVE: Delta[%d,%d] Cord[%d,%d] NewCord[%d,%d]\n",x,y,this.getX(),this.getY(),newX,newY);
+        this.label.setLocation(newX,newY);
+        this.setX(newX);
+        this.setY(newY);
     }
 
     @Override

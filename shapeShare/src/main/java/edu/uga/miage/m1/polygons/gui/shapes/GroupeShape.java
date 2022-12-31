@@ -22,11 +22,14 @@ public class GroupeShape implements SimpleShape{
 
     @Override
     public void move(int x,int y){
-        int deltaX = x - this.shapes.get(0).getX();
-        int deltaY = y - this.shapes.get(0).getY();
-        System.out.printf("delta(%s,%s)",deltaX,deltaY);
+        //int deltaX = x - this.shapes.get(0).getX();
+        //int deltaY = y - this.shapes.get(0).getY();
+        //System.out.printf("delta(%s,%s)",deltaX,deltaY);
+        //for (SimpleShape s: this.getShapes()){
+        //    s.deplace(deltaX+25,deltaY+25);
+        //}
         for (SimpleShape s: this.getShapes()){
-            s.deplace(deltaX+25,deltaY+25);
+            s.move(x,y);
         }
     }
 
@@ -47,16 +50,24 @@ public class GroupeShape implements SimpleShape{
         }
     }
 
+    @Override
     public int getX() {
         return 0;
     }
+
+    @Override
     public void setX(int x) {
+        /*Inutile pour groupe sphape*/
     }
+
+    @Override
     public int getY() {
         return 0;
     }
-    public void setY(int y) {
 
+    @Override
+    public void setY(int y) {
+        /*Inutile pour groupe sphape*/
     }
 
     public void setCouleur(Color couleur){
@@ -74,7 +85,7 @@ public class GroupeShape implements SimpleShape{
 
     @Override
     public void select(Color couleur) {
-
+        /*Inutile pour groupe sphape*/
     }
 
     public boolean isSelect(int coordX, int coordY) {

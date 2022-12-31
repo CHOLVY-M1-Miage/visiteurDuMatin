@@ -53,6 +53,8 @@ public class JDrawingFrame extends JFrame
     private SimpleShape shapeDraggedInGroupe;
     private int shapeDraggedXOrigine;
     private int shapeDraggedYOrigine;
+    private int shapeMoveDeltaX;
+    private int shapeMoveDeltaY;
     private boolean shapeWasMove = false;
     private SimpleShape shapeClicked;
     private GroupeShape selectGroupe;
@@ -345,8 +347,10 @@ public class JDrawingFrame extends JFrame
             this.shapeDragged = whoWasClicked(this.listeShapes, evt.getX(), evt.getY());
             this.shapeDraggedInGroupe = this.shapeDragged.shapeSelect(evt.getX(),evt.getY());
             if (this.shapeDragged != null) {
-                this.shapeDraggedXOrigine = this.shapeDragged.getX();
-                this.shapeDraggedYOrigine = this.shapeDragged.getY();
+                shapeMoveDeltaX = 0;
+                shapeMoveDeltaY = 0;
+                this.shapeDraggedXOrigine = this.shapeDraggedInGroupe.getX();
+                this.shapeDraggedYOrigine = this.shapeDraggedInGroupe.getY();
                 System.out.println("\tOriginal " + this.shapeDraggedXOrigine + " " + this.shapeDraggedYOrigine);
             }
         }
@@ -363,7 +367,9 @@ public class JDrawingFrame extends JFrame
         System.out.println("-----------------------------------------");
         System.out.printf("EVENT [Release (%d,%d)]\n",evt.getX(),evt.getY());
         if (this.shapeDragged != null && this.shapeWasMove) {
-            remote.addCommand(new Move(this.shapeDragged, evt.getX() - 25, evt.getY() - 25));
+            //remote.addCommand(new Move(this.shapeDragged, evt.getX() - 25, evt.getY() - 25));
+            System.out.printf("COMMANDE MOVE Delta(%d,%d)\n",shapeMoveDeltaX,shapeMoveDeltaY);
+            remote.addCommand(new Move(this.shapeDragged,shapeMoveDeltaX,shapeMoveDeltaY));
             this.shapeDragged = null;
             this.m_panel.removeAll();
             remote.play();
@@ -386,9 +392,12 @@ public class JDrawingFrame extends JFrame
             this.shapeWasMove = true;
             int deltaX = evt.getX() - this.shapeDraggedInGroupe.getX();
             int deltaY = evt.getY() - this.shapeDraggedInGroupe.getY();
+            System.out.printf("COMMANDE MOVE Delta(%d,%d)\n",shapeMoveDeltaX,shapeMoveDeltaY);
             System.out.println("\tSouris X: " + evt.getX() + " Y: " + evt.getY());
             System.out.println("\tFig X: " + this.shapeDragged.getX() + " Y: " + this.shapeDragged.getY());
             System.out.println("\tDelta X: " + deltaX + " Y: " + deltaY);
+            shapeMoveDeltaX = this.shapeDraggedInGroupe.getX() - this.shapeDraggedXOrigine;
+            shapeMoveDeltaY = this.shapeDraggedInGroupe.getY() - this.shapeDraggedYOrigine;
             this.shapeDragged.deplace(deltaX,deltaY);
         }
         System.out.println("-----------------------------------------");
