@@ -343,8 +343,8 @@ public class JDrawingFrame extends JFrame
     public void mousePressed(MouseEvent evt) {
         System.out.println("-----------------------------------------");
         System.out.printf("EVENT [Press (%d,%d)]\n",evt.getX(),evt.getY());
-        if (true){
-            this.shapeDragged = whoWasClicked(this.listeShapes, evt.getX(), evt.getY());
+        this.shapeDragged = whoWasClicked(this.listeShapes, evt.getX(), evt.getY());
+        if (this.shapeDragged != null){
             this.shapeDraggedInGroupe = this.shapeDragged.shapeSelect(evt.getX(),evt.getY());
             if (this.shapeDragged != null) {
                 shapeMoveDeltaX = 0;
