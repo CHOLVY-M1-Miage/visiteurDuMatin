@@ -80,4 +80,11 @@ public class Shape {
         int y = this.mY - 25 + deltaY;
         updateCoord(x,y);
     }
+
+    public boolean isSelect(int coordX, int coordY) {
+        int x = this.getX() + 25;
+        int y = this.getY() + 25;
+        double dist = Math.sqrt(Math.pow((coordX - x),2) + Math.pow((coordY - y),2));
+        return 25.00 > dist;
+    }
 }

@@ -18,12 +18,7 @@
  */
 package edu.uga.miage.m1.polygons.gui.shapes;
 
-import java.awt.*;
-import java.util.Objects;
-
 import edu.uga.miage.m1.polygons.gui.visitor.Visitor;
-
-import javax.swing.*;
 
 /**
  * This class implements the square <tt>SimpleShape</tt> extension.

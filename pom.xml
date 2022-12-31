@@ -6,6 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<modules>
 		<module>shapeShare</module>
+		<module>main</module>
 	</modules>
 
 	<properties>
@@ -116,6 +117,7 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
